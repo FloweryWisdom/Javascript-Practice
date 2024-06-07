@@ -57,3 +57,5 @@ function countChars(string) {
 }
 
 console.log(countChars(myString))
+
+/* 5. 
