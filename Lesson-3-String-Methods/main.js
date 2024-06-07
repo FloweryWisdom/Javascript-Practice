@@ -58,4 +58,9 @@ function countChars(string) {
 
 console.log(countChars(myString))
 
-/* 5. 
+/* 5. CREATE A FUNCTION TO REPLACE SUBSTRINGS IN A STRING: */
+function replaceSubString(string, target, replacement) {
+    return string.replace(new RegExp(target, "g"), replacement)
+}
+
+console.log(replaceSubString(myString, "The", "A"))
