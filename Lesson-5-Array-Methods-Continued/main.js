@@ -479,4 +479,30 @@ function getUniqueNationalities(array) {
     return [...new Set(nationalities)]
 }
 
-console,log(getUniqueNationalities(peopleArray))
+console.log(getUniqueNationalities(peopleArray))
+
+// 6, OBTAIN THE AVERAGE AGE OF ALL THE PEOPLE IN THE LIST 
+
+function getAverageAge(array) {
+  let totalAge = 0
+  array.forEach(person => {
+    totalAge += person.dob.age
+  })
+  return totalAge / array.length
+}
+
+console.log(getAverageAge(peopleArray))
+
+// 7, GET A LIST OF ALL THE FULL NAMES WHOSE COMBINED CHARACTER LENGTH IS LESS THAN 15
+
+function getShortNames(array) {
+  let shortNames = []
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].name.first.length + array[i].name.last.length < 15) {
+      shortNames.push(array[i].name.first + " " + array[i].name.last)
+    }
+  }
+  return shortNames
+}
+
+console.log(getShortNames(peopleArray))
