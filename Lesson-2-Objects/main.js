@@ -187,7 +187,7 @@ countCharacters("Milaneso", "Perez")
 /* 7. OBTAIN THE FIRST NAME OF THE ARRAY: */
 
 function getFirstName(array) {
-    return nameList[0]
+    return array[0]
 }
 
 const nameList = ["Milaneso", "Ferrari", "Perez", "Gonzales"]

@@ -806,7 +806,7 @@ const filterHumans = data.filter((creature) => creature.species === "Human")
 // EXTRA: 
 const filterAndMapHumans = filterHumans.map((creature) => {
   return {
-    name: creature.name ,
+    name: creature.name,
     status: creature.status,
     species: creature.species,
     gender: creature.gender
@@ -814,3 +814,51 @@ const filterAndMapHumans = filterHumans.map((creature) => {
 })
 
 console.log(filterAndMapHumans)
+
+//  3. USING THE 'FIND' METHOD TO OBTAIN A CHARACTER BY ITS ID: 
+
+function findById(array, id) {
+  let character = array.find((creature) => creature.id === id) 
+  return character ? character : "Character not found"
+}
+
+console.log(findById(data, 17))
+
+
+// 4. CHECK IF A NAME CONTAINS A SPECIFIED SUBSTRING: 
+function findSubstringInName(array, substring) {
+  let character = array.find((creature) => creature.name.includes(substring))
+  return character ? `${substring} found in ${character.name}` : `${substring} not found in ${character.name}`
+}
+
+console.log(findSubstringInName(data, "ick"))
+
+
+// 5. IDENTIFY THE NUMBER OF CHARACTERS THAT ARE MALE: 
+
+function countMaleCreatures(data) {
+  return data.filter((creature) => creature.gender === "Male").length
+}
+
+console.log(countMaleCreatures(data))
+
+// 6. NEED A LIST OF ALL CHARACTERS LISTING ONLY THE FOLLOWING KEYS: NAME, TYPE AND SPECIES:
+
+
+// THE BELOW SOLUTION IS SHORTER:
+function getCharacterInfo1(array) {
+  return array.map(({id, name, status, species}) => ({id, name, status, species}))
+}
+
+// THE BELOW SOLUTION IS LONGER: 
+function getCharacterInfo2(array) {
+  return array.map((creature) => {
+    return {
+      name: creature.name,
+      status: creature.status,
+      species: creature.species
+    }
+  })
+}
+
+console.log(getCharacterInfo2(data))
