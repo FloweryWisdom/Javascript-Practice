@@ -55,10 +55,10 @@ function calculateDateDifference(date1, date2) {
     months--;
     //get the last day of the previous month
     const lastMonth = new Date(date2.getFullYear(), date2.getMonth(), 0);
-    days =+ lastMonth.getDate();
+    days += lastMonth.getDate();
   }
   //adjust months 
-  if (months < 0) { years--; months=+ 12; }
+  if (months < 0) { years--; months+= 12; }
 
 
   // Adjust for leap year edge cases 
