@@ -332,23 +332,22 @@ function printProductsList(productsArray, listId) {
 
 printProductsList(list, "koders-list")
 
+// 2. Create a table in the UI that shows the 'name', 'category', and 'price' of all products. 
 
-function createProductInfoRow(content) {
-    let productInfoRow = document.createElement("tr");
+function printProductRows(productsArray, tableBodyId) {
+    const tableBody = document.getElementById(tableBodyId);
 
-    for (let i = 0; i < 3, i++;) {
-        const td = document.createElement("td");
-        tdText = document.createTextNode(content);
-        td.appendChild(tdText);
-        productInfoRow.appendChild(td);
-        return productInfoRow;
-    }
+    productsArray.forEach(product => {
+        const row = document.createElement("tr");
+
+        ["title", "category", "price"].forEach(key => {
+            const cell = document.createElement("td");
+            cell.textContent = product[key];
+            row.appendChild(cell);
+        })
+        tableBody.appendChild(row);
+    })
 }
 
+printProductRows(list, "table-test-74")
 
-
-
-
-
-
-// 2. Create a table in the UI that shows the 'name', 'category', and 'price' of all products. 

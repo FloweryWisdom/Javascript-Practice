@@ -18,28 +18,19 @@ const testSwitch = (number) => {
 let result = testSwitch(10);
 
 // Class assignment #1: Get the exact difference in days, months and years between the following two birthdates. (I added hours and seconds as well.)
-function isLeapYear(year) {
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-}
 
-function countLeapDays(date1, date2) {
-  let count = 0;
-  for (let year = date1.getFullYear(); year <= date2.getFullYear(); year++) {
-    if (isLeapYear(year)) {
-      let leapDay = new Date(year, 1, 29); // February 29
-      if (leapDay >= date1 && leapDay < date2) {
-        count++;
-      }
-    }
-  }
-  return count;
-}
+// Jorge was born on 1985-09-20 at 11:25:30 
+const jorgeBirthdate = new Date("1985-09-20T11:25:30");
+// Sergio was born on 1993-10-17 at 15:45:15
+const sergioBirthdate = new Date("1993-10-17T15:45:15");
 
 function calculateDateDifference(date1, date2) {
+  //Ensure date1 is the earlier date
   if (date1 > date2) {
     [date1, date2] = [date2, date1];
   }
 
+  //get their differences 
   let years = date2.getFullYear() - date1.getFullYear();
   let months = date2.getMonth() - date1.getMonth();
   let days = date2.getDate() - date1.getDate();
@@ -47,32 +38,43 @@ function calculateDateDifference(date1, date2) {
   let minutes = date2.getMinutes() - date1.getMinutes();
   let seconds = date2.getSeconds() - date1.getSeconds();
 
-  if (seconds < 0) { minutes--; seconds += 60; }
-  if (minutes < 0) { hours--; minutes += 60; }
-  if (hours < 0) { days--; hours += 24; }
+  //Adjust seconds, minutes, hours, days and months if they are negative
+
+  //adjust seconds 
+  if (seconds < 0) {
+    minutes--;
+    seconds += 60;
+  }
+
+  //adjust minutes
+  if (minutes < 0) {
+    hours--;
+    minutes += 60;
+  }
+
+  //adjust hours
+  if (hours < 0) {
+    days--;
+    hours =+ 24;
+  }
+
+  //adjust days 
   if (days < 0) {
     months--;
-    let previousMonth = new Date(date2.getFullYear(), date2.getMonth(), 0);
-    days += previousMonth.getDate();
+    //get the last day of the previous month
+    const lastMonth = new Date(date2.getFullYear(), date2.getMonth(), 0);
+    days =+ lastMonth.getDate();
   }
-  if (months < 0) { years--; months += 12; }
 
-  let leapDays = countLeapDays(date1, date2);
-  days += leapDays;
-
-  // Adjust for edge cases explicitly
-  if (date1.getMonth() === 1 && date1.getDate() === 29) { // If date1 is Feb 29
-    if (!isLeapYear(date2.getFullYear()) && date2.getMonth() > 1) { // and date2 is after Feb in a non-leap year
-      days--; // Adjust days since Feb 29 doesn't exist in a non-leap year
-    }
+  //adjust months 
+  if (months < 0) {
+    years--;
+    months=+ 12;
   }
 
   return { years, months, days, hours, minutes, seconds };
 }
 
-// Example usage
-const jorgeBirthdate = new Date("1955-08-26");
-const sergioBirthdate = new Date("1993-10-27");
 console.log(calculateDateDifference(jorgeBirthdate, sergioBirthdate));
 
 
@@ -83,4 +85,5 @@ function getDayOfWeek(birthdate) {
 }
 
 console.log(getDayOfWeek(jorgeBirthdate));
-console.log(4*8)
+
+
