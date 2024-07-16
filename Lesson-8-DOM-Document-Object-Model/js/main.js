@@ -308,3 +308,47 @@ let list = [
         }
     }
 ]
+
+// Assignments: 
+
+// 1. Create a list in the UI that shows the 'name' of available products. 
+
+function createProductItemInUI(content) {
+    let productItem = document.createElement("li");
+
+    let productItemText = document.createTextNode(content);
+    productItem.appendChild(productItemText);
+    return productItem;
+}
+
+function printProductsList(productsArray, listId) {
+    let productsList = document.getElementById(listId);
+    productsArray.forEach((product => {
+        let productInfo = createProductItemInUI(product.title);
+        productsList.appendChild(productInfo);
+    }))
+
+}
+
+printProductsList(list, "koders-list")
+
+
+function createProductInfoRow(content) {
+    let productInfoRow = document.createElement("tr");
+
+    for (let i = 0; i < 3, i++;) {
+        const td = document.createElement("td");
+        tdText = document.createTextNode(content);
+        td.appendChild(tdText);
+        productInfoRow.appendChild(td);
+        return productInfoRow;
+    }
+}
+
+
+
+
+
+
+
+// 2. Create a table in the UI that shows the 'name', 'category', and 'price' of all products. 
