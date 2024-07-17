@@ -1,0 +1,49 @@
+/* Universal Selector: */
+* {
+    font-family: arial;
+}
+
+/* Tagname Selector: */
+li {
+    padding: 1rem;
+}
+
+//Removing padding on the following item for testing purposes (I'm using an id selector):
+#test-list-item {
+    padding: 0rem !important;
+    list-style: none;
+}
+
+
+/* Class Selector: */
+.form-control {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white !important;
+}
+
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.01) !important;
+}
+.mentors-list {
+    padding: 0rem !important;
+}
+
+/* ID Selector: */
+#items-list {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    list-style: none;
+}
+
+/* Nesting Selector: */
+ul:nth-child(3) li {
+    background-color: rgba(144, 155, 155, 0.7) !important;
+    padding: 0rem !important;
+}
+
+/* Descendant Combinator Selector: */
+.mentors-list .list-group-item {
+    background-color: rgb(175, 66, 66) !important;
+}
+
+
+
