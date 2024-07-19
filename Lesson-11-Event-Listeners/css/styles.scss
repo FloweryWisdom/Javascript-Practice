@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.button-example {
+    margin-top: 40px;
+}
+
+#button-1 {
+    height: 50px;
+    background-color: rgb(155, 155, 155);
+    border: 1px solid black;
+    color: black;
+}
+
+.form-switch {
+    margin-left: 40px;
+    margin-top: 30px;
+}
+
+// Mixins for button states
+@mixin activeButtonState {
+    background-color: rgb(236, 76, 36);
+    border: 1px solid rgb(150, 48, 23);
+    color: white;
+}
+
+@mixin inactiveButtonState {
+    background-color: rgb(150, 48, 23);
+    border: 1px solid rgb(236, 76, 36);
+    color: black;
+}
+
+#buttons-container .activeButtonState {
+    @include activeButtonState;
+}
+
+#buttons-container .inactiveButtonState {
+    @include inactiveButtonState;
+}
+

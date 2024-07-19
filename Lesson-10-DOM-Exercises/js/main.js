@@ -790,14 +790,18 @@ function removeLastCharacter(array) {
 //Step 2: add an event listener to the delete button to call the "removeLastCharacter" function and print the updated array to the screen.
 
 function deleteLastCharacter(array) {
-    const deleteButton = document.getElementById("delete-button");
+    let updatedArray = removeLastCharacter(array);
     const cardsContainer = document.getElementById("cards-container");
     cardsContainer.innerHTML = "";
+    printCharacters(updatedArray);
 
-    deleteButton.addEventListener("click", () => {
+    /* deleteButton.addEventListener("click", () => {
         let updatedArray = removeLastCharacter(array);
         printCharacters(updatedArray);
-    })
+    }) */
 }
 
-deleteLastCharacter(charactersArray);
+// Step 3: setup the event listener separately, ensuring it's only donce once.
+const deleteButton = document.getElementById("delete-button");
+deleteButton.addEventListener("click", () => deleteLastCharacter(charactersArray));
+
