@@ -831,7 +831,7 @@ function findSubstringInName(array, substring) {
   return character ? `${substring} found in ${character.name}` : `${substring} not found in ${character.name}`
 }
 
-console.log(findSubstringInName(data, "chez"))
+console.log(findSubstringInName(data, "Sanchez"))
 
 
 // 5. IDENTIFY THE NUMBER OF CHARACTERS THAT ARE MALE: 
