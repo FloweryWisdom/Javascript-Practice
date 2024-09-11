@@ -75,3 +75,74 @@ checkbox.addEventListener('click', () => toggleButtons(buttons));
 // • The edit button should populate the create a comment section with the comment details
 // • The edit button should change the text of the submit button to 'update'
 // • The update button should update the comment details in the comments list
+
+
+// 1. CREATE A COMMENT SECTION
+
+// Step 1: Get the form element from the DOM and store it in a variable
+
+let comments = [
+    {
+        author: 'John Marston',
+        comment: "I love this game!"
+    }
+]
+
+function createCommentBox(commentData) {
+    let {author, comment} = commentData;
+
+    let card = document.createElement('div');
+    card.classList.add("card", "mb-3");
+
+    let cardBody = document.createElement('div');
+    cardBody.classList.add("card-body");
+
+    let cardText = document.createTextNode(`${author} : ${comment}`);
+
+    cardBody.append(cardText);
+    card.append(cardBody);
+
+    return card;
+
+}
+
+function printComments(commentsArray) {
+    let wrapper = document.getElementById('comment-wrapper');
+    wrapper.innerHTML = '';
+
+    commentsArray.forEach(comment => {
+        let commentBox = createCommentBox(comment);
+        wrapper.append(commentBox);
+    }) 
+
+}
+
+printComments(comments)
+
+//Possible error in the above code related to the storage and printing
+// of the comments when the "create comment" button is clicked. 
+
+let commentObject = {}
+
+document.querySelectorAll("#comment-form input, #comment-form textarea").forEach((input) => {input.addEventListener("keyup", (event) => {
+        let value = event.target.value; 
+        let property = event.target.name;
+        console.log(`${property} : ${value}`);
+        commentObject[property] = value; 
+        console.log(commentObject); 
+    })
+})
+
+
+
+document.getElementById('save-comment').addEventListener('click', (event) => {
+    comments.push(commentObject)
+    console.log(comments)
+    printComments(comments)
+})
+
+
+// N O T E S : 
+
+// 1. What is the difference between 'append.' and 'appendChild.'? 
+
