@@ -79,17 +79,12 @@ checkbox.addEventListener('click', () => toggleButtons(buttons));
 
 // 1. CREATE A COMMENT SECTION
 
-// Step 1: Get the form element from the DOM and store it in a variable
 
-let comments = [
-    {
-        author: 'John Marston',
-        comment: "I love this game!"
-    }
-]
-
+// using the below test array for testing purposes
+let comments = []
+//function used to create a comment box
 function createCommentBox(commentData) {
-    let {author, comment} = commentData;
+    let {author, comment, id} = commentData;
 
     let card = document.createElement('div');
     card.classList.add("card", "mb-3");
@@ -97,15 +92,26 @@ function createCommentBox(commentData) {
     let cardBody = document.createElement('div');
     cardBody.classList.add("card-body");
 
+    let deleteButton = document.createElement('button')
+    deleteButton.classList.add('btn', 'btn-danger');
+    deleteButton.innerText = 'Delete Button';
+
+    deleteButton.addEventListener('click', () => {
+        let result = comments.filter(comment => comment.id !== id)
+        comments = result;
+        printComments(comments)
+    })
+
     let cardText = document.createTextNode(`${author} : ${comment}`);
 
-    cardBody.append(cardText);
+    cardBody.append(cardText, deleteButton);
     card.append(cardBody);
 
     return card;
 
 }
 
+//function used to print the comment from the test array
 function printComments(commentsArray) {
     let wrapper = document.getElementById('comment-wrapper');
     wrapper.innerHTML = '';
@@ -117,29 +123,49 @@ function printComments(commentsArray) {
 
 }
 
-printComments(comments)
+
 
 //Possible error in the above code related to the storage and printing
 // of the comments when the "create comment" button is clicked. 
 
-let commentObject = {}
 
+//initialize the form data object for console logging purposes
+let formData = {
+    author: '',
+    comment: ''
+}
+
+//adding event listeners to the input fields 
 document.querySelectorAll("#comment-form input, #comment-form textarea").forEach((input) => {input.addEventListener("keyup", (event) => {
         let value = event.target.value; 
         let property = event.target.name;
         console.log(`${property} : ${value}`);
-        commentObject[property] = value; 
-        console.log(commentObject); 
+        formData[property] = value;
+        console.log(formData);
     })
 })
 
+//function used to reset the form fields 
+function resetForm(className) {
+    let fields = document.querySelectorAll(`${className}`);
+    fields.forEach((field) => { field.value = ''})
+}
 
-
+//adding an event listener to the 'save comment' button  to save the comment data
 document.getElementById('save-comment').addEventListener('click', (event) => {
-    comments.push(commentObject)
+    //create a new object for each comment
+    let newComment = {
+        author: document.querySelector('#comment-form input').value,
+        comment: document.querySelector('#comment-form textarea').value,
+        id: new Date().getTime()
+    }
+    comments.push(newComment)
     console.log(comments)
     printComments(comments)
+    resetForm('.form-control')
 })
+
+
 
 
 // N O T E S : 
