@@ -80,9 +80,10 @@ checkbox.addEventListener('click', () => toggleButtons(buttons));
 // 1. CREATE A COMMENT SECTION
 
 
-// using the below test array for testing purposes
+// Initialize the comments array
 let comments = []
-//function used to create a comment box
+
+// Create a function to create a comment box
 function createCommentBox(commentData) {
     let {author, comment, id} = commentData;
 
@@ -94,12 +95,11 @@ function createCommentBox(commentData) {
 
     let deleteButton = document.createElement('button')
     deleteButton.classList.add('btn', 'btn-danger');
-    deleteButton.innerText = 'Delete Button';
+    deleteButton.innerText = 'Delete';
 
-    deleteButton.addEventListener('click', () => {
-        let result = comments.filter(comment => comment.id !== id)
-        comments = result;
-        printComments(comments)
+    deleteButton.addEventListener('click', async () => {
+        await deleteComment(id); // Delete from Firebase
+        await printCommentsFromFirebase(); // Re-fetch and print the update comments
     })
 
     let cardText = document.createTextNode(`${author} : ${comment}`);
@@ -111,7 +111,7 @@ function createCommentBox(commentData) {
 
 }
 
-//function used to print the comment from the test array
+// Create a function to print the comments
 function printComments(commentsArray) {
     let wrapper = document.getElementById('comment-wrapper');
     wrapper.innerHTML = '';
@@ -120,22 +120,22 @@ function printComments(commentsArray) {
         let commentBox = createCommentBox(comment);
         wrapper.append(commentBox);
     }) 
+}
 
+// Fetch comments from Firebase and print them
+async function printCommentsFromFirebase() {
+    const comments = await fetchComments(); // Fetch comments from Firebase
+    printComments(comments); // Print the comments to the DOM 
 }
 
 
-
-//Possible error in the above code related to the storage and printing
-// of the comments when the "create comment" button is clicked. 
-
-
-//initialize the form data object for console logging purposes
+//initialize the form data object for console logging purposes (testing)
 let formData = {
     author: '',
     comment: ''
 }
 
-//adding event listeners to the input fields 
+//adding event listeners to the input fields (testing)
 document.querySelectorAll("#comment-form input, #comment-form textarea").forEach((input) => {input.addEventListener("keyup", (event) => {
         let value = event.target.value; 
         let property = event.target.name;
@@ -145,28 +145,82 @@ document.querySelectorAll("#comment-form input, #comment-form textarea").forEach
     })
 })
 
-//function used to reset the form fields 
+// Create a function to reset the form fields after submitting a comment
 function resetForm(className) {
     let fields = document.querySelectorAll(`${className}`);
     fields.forEach((field) => { field.value = ''})
 }
 
-//adding an event listener to the 'save comment' button  to save the comment data
-document.getElementById('save-comment').addEventListener('click', (event) => {
+
+// Create an event listener to button to save the comment
+document.getElementById('save-comment').addEventListener('click', async (event) => {
     //create a new object for each comment
     let newComment = {
         author: document.querySelector('#comment-form input').value,
         comment: document.querySelector('#comment-form textarea').value,
-        id: new Date().getTime()
     }
-    comments.push(newComment)
-    console.log(comments)
-    printComments(comments)
-    resetForm('.form-control')
+    
+    // Save the new comment to Firebase
+    await createComment(newComment);
+
+    // Re-fetch and print the updataed comments from Firebase
+    await printCommentsFromFirebase();
+
+    // Reset the form fields
+    resetForm('.form-control');
 })
 
 
 
+// 2. ADD HTTP METHODS TO THE ABOVE COMMENT SECTION 
+
+// Create a comment (POST): 
+
+async function createComment(newComment) {
+    let response = await fetch('https://javascript27g-a4df9-default-rtdb.firebaseio.com/comments/.json', {
+        method: 'POST',
+        body: JSON.stringify(newComment),
+    });
+    let data = await response.json();
+    return data;
+}
+
+
+// Read/Fetch all comments (GET): 
+
+async function fetchComments() {
+    let response = await fetch('https://javascript27g-a4df9-default-rtdb.firebaseio.com/comments/.json')
+    let data = await response.json();
+
+    let commentsArray = [];
+    for (let key in data) {
+        commentsArray.push({ id: key, ...data[key] }); // Use Firebase's key as "id"
+    }
+    return commentsArray;
+}
+
+
+//Delete a comment (DELETE): 
+async function deleteComment(id) {
+    try {
+        const response = await fetch(`https://javascript27g-a4df9-default-rtdb.firebaseio.com/comments/${id}.json`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            throw new Error('Failed to delete comment');
+        }
+        console.log('Comment deleted succesfully.');
+    } catch (error) {
+        console.error(error); 
+    }
+}
+
+
+
+// Fetch and display comments when the page loads
+window.onload = async () => {
+    await printCommentsFromFirebase();
+};
 
 // N O T E S : 
 
