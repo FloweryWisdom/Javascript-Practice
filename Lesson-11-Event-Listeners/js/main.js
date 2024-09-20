@@ -191,6 +191,32 @@ async function createComment(newComment) {
 async function fetchComments() {
     let response = await fetch('https://javascript27g-a4df9-default-rtdb.firebaseio.com/comments/.json')
     let data = await response.json();
+    console.log(response);
+    console.log(data);
+    console.log(Object.keys(data)); // used to get an array of keys
+    console.log(Object.values(data)); // used to get an array of values (objects)
+    console.log(Object.entries(data)); // used to get and array of arrays (key-value pairs)
+
+    // 
+    let keys = Object.keys(data);
+    /* let dataArray = keys.map(key => ({...data[key], key}))
+    console.log(dataArray);  */
+
+    // Organize the comments by author 
+    let organizedPosts = keys.reduce((accum, current)=>{
+        let authorName = data[current].author;
+        
+        if (accum[authorName]) {
+            accum[authorName]++;
+        } else {
+            accum[authorName] = 1;
+        }
+
+        return accum;
+
+    }, {});
+
+    console.log(organizedPosts);
 
     let commentsArray = [];
     for (let key in data) {
