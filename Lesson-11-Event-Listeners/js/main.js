@@ -160,7 +160,7 @@ document.getElementById('save-comment').addEventListener('click', async (event) 
         comment: document.querySelector('#comment-form textarea').value,
     }
     
-    // Save the new comment to Firebase
+    // Save the new comment to Firebase 
     await createComment(newComment);
 
     // Re-fetch and print the updataed comments from Firebase
@@ -247,6 +247,10 @@ async function deleteComment(id) {
 window.onload = async () => {
     await printCommentsFromFirebase();
 };
+
+
+
+
 
 // N O T E S : 
 
