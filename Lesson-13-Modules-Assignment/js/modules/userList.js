@@ -83,6 +83,8 @@ function createUserCard(userData, userKey) {
     card.addEventListener("click", (event) => {
         console.log(event.target);
         console.log(userKey);
+        window.location.href = `../views/userView.html?userKey=${userKey}`;
+        //window.open("../views/userView.html", "_self");
     })
 
 

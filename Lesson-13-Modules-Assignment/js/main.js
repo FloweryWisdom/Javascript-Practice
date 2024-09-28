@@ -53,6 +53,10 @@ async function createUser(userData) {
 function resetForm(formSelector) {
     const form = document.querySelector(formSelector);
     form.reset();
+
+    // Reset the profile picture preview to the default image
+    const profilePicturePreview = document.getElementById("profilePicturePreview");
+    profilePicturePreview.src = "https://play-lh.googleusercontent.com/z-ppwF62-FuXHMO7q20rrBMZeOnHfx1t9UPkUqtyouuGW7WbeUZECmyeNHAus2Jcxw=w526-h296-rw"
 }
 
 
@@ -70,4 +74,11 @@ document.getElementById("profilePicture").addEventListener("input", function () 
     let imageUrl = this.value; // Get the URL from the input field
     let profilePicturePreview = document.getElementById("profilePicturePreview");
     profilePicturePreview.src = imageUrl; // Set the src attribute of the image to the URL
+
+    // If the image URL is broken, fallback to a default image
+    profilePicturePreview.onerror = function () {
+        // Show an alert if the image URL is invalid
+        alert("Invalid URL. Please provide a valid image URL.");
+        this.src = `https://play-lh.googleusercontent.com/z-ppwF62-FuXHMO7q20rrBMZeOnHfx1t9UPkUqtyouuGW7WbeUZECmyeNHAus2Jcxw=w526-h296-rw`
+    }
 })
