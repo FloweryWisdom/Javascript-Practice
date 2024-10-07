@@ -1,6 +1,10 @@
 
 
-
+/* Adjust 'main' width*/
+#main-section {
+    max-height: 100%;
+    max-width: 100%;
+}
 
 /* Manually adjusting the hover background color of the social media buttons */
 #account-option-button:hover {
