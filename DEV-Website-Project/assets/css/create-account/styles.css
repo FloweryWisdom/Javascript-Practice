@@ -1,0 +1,69 @@
+
+
+/* Manually adjust max-width of the form 
+
+#createUserForm {
+    max-width: 35rem !important;
+}
+
+*/
+
+
+
+
+/* Increase the border width of input elements */
+form div input {
+    border-width: 2px !important; 
+}
+
+/* Add hover effect to the input elements */
+form div input:hover {
+    border-color: rgb(180, 180, 180);
+    border-width: 2px !important;
+}
+
+/* Change the focus color properties of the input elements */
+form div input[type="text"]:focus,
+form div input[type="email"]:focus,
+form div input[type="password"]:focus {
+    border-color: rgb(49, 108, 244) !important;
+    border-width: 3px !important;
+    box-shadow: none !important;
+}
+
+
+/* Change asterisk color to red for required fields */
+form label span {
+    color: red;
+}
+
+
+.trigger {
+    position: relative;
+}
+
+.popover {
+    display: none;
+    width: 110px;
+    height: 38px;
+    position: absolute;
+    top: -42px;
+    left: -5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 7px 0 7px 0;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+}
+  
+.trigger:hover .popover {
+    display: block;
+}
+
+
+/* Change background color and add box shadow to the 'captcha-box' */
+
+#captcha-box {
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0.5px 1px 4px rgba(0, 0, 0, 0.1);
+}
