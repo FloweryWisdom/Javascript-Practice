@@ -10,10 +10,27 @@
 </head>
 <body>
 
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0" style="box-sizing: border-box;">
+            <div class="container-fluid d-flex align-items-center" style="height: 56px !important; flex-wrap: nowrap;">
+                <a href="" class="navbar-brand p-0 d-flex align-items-center">
+                    <img src="../assets/images/create-account/dev-logo.png" alt="" width="50px" height="40px"  class="d-inline-block align-text-top">
+                </a>
+                <form id="search-container"  class="d-flex me-auto align-items-center" role="search" action="" style="position: relative; max-width: 700px; width: 100%;">
+                    <input id="search-box"  class="form-control" type="search" placeholder="Search..." aria-label="Search" style="padding-left: 50px;">
+                    <button id="search-icon"  class="container" type="submit" style="position: absolute; height: 36px; width:50px; margin-left: 2px; margin-right: 2px; border-radius: 4px; padding-bottom: 2px;"><img id="search-icon-file"  src="../assets/images/create-account/search-icon.svg" alt=""></button>
+                </form>
+                <button id="login-button"  class="btn me-2">Log in</button>
+                <button id="create-account-button"  class="btn" style="color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create account</button>
+            </div>
+        </nav> 
+    </header>
+
+
+
     <main class="d-flex flex-column align-items-center text-center" style="width: 100vw; background-color: rgb(245,245, 245);">
 
-        
-        <form id="createUserForm" class="container border rounded text-start my-5 bg-white" style="width: 38rem; padding: 30px;">
+        <form id="createUserForm" class="container border rounded text-start my-5 bg-white" style="max-width: 38rem !important; padding: 30px;">
             <h5 class="mt-2 fw-bold" style="margin-bottom: 30px;">Create your account</h5>
             <div class="mb-3">
                 <label for="profilePicture" class="form-label">Profile image <span class="trigger">*<div class="popover">* - required</div></span></label>
@@ -40,17 +57,18 @@
                 <label for="password-confirmation" class="form-label">Password Confirmation <span class="trigger">*<div class="popover">* - required</div></span></label>
                 <input type="password" class="form-control" id="password-confirmation" required>
             </div>
-            <div id="captcha-box" class="card px-3 d-flex flex-row align-items-center" style="height: 74px; width: 300px;">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" style="width: 30px; height: 30px;">
-                <label class="form-check-label ms-3" for="exampleCheck1">I'm not a robot.</label>
+            <div id="captcha-box" class="card px-3 d-flex flex-row align-items-center" style="height: 74px; max-width: 300px;">
+                <input type="checkbox" class="form-check-input" id="captcha-check" style="width: 30px; height: 30px;">
+                <label class="form-check-label ms-3" for="captcha-check">I'm not a robot.</label>
                 <img class="ms-auto"  src="../assets/images/create-account/human 2.png" alt="" style="height: 60px; width: 60px;">
             </div>
-            <button type="submit" class="btn btn-primary mt-4" style="width: 120px">Sign up</button>
+            <button type="submit" class="btn btn-primary mt-3" style="width: 120px">Sign up</button>
         </form>
     </main>
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../js/create-account/create-account.js"></script>
 </body>
 </html>

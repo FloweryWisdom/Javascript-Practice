@@ -1,18 +1,60 @@
 
+/* All navbar styles will go down here from now */
 
-/* Manually adjust max-width of the form 
+/* Add hover effect to search icon in navbar */
 
-#createUserForm {
-    max-width: 35rem !important;
+#search-icon {
+    border: none;
+    background-color: white;
+
 }
 
-*/
+#search-icon:hover {
+    background-color: rgb(235, 236, 251);
+}
+
+#search-icon:active {
+    border-color: transparent;
+}
+
+#search-box {
+    border-width: 2px;
+}
+
+#search-box:hover {
+    border-color: rgb(180, 180, 180);
+    border-width: 2px !important;
+}
+
+#search-box:focus {
+    border-color: rgb(49, 108, 244) !important;
+    border-width: 2px !important;
+    box-shadow: 0.2px 0.2px 0.2px 1px rgb(49, 108, 244);
+}
+
+/* Adjust the length of the search bar: */
+#search-container {
+    max-width: 700px !important;;
+}
+
+#login-button:hover {
+    background-color: rgb(235, 236, 251);
+    text-decoration: underline;
+    color: rgb(49, 108, 245);
+    border-color: transparent;
+}
+
+#create-account-button:hover {
+    color: white !important;
+    background-color: rgb(49, 108, 244);
+    text-decoration: underline;
+}
+
+
 
 body {
     background-color: rgb(245, 245, 245);
 }
-
-
 
 
 /* Increase the border width of input elements */
@@ -31,8 +73,8 @@ form div input[type="text"]:focus,
 form div input[type="email"]:focus,
 form div input[type="password"]:focus {
     border-color: rgb(49, 108, 244) !important;
-    border-width: 3px !important;
-    box-shadow: none !important;
+    border-width: 2px !important;
+    box-shadow: 0.2px 0.2px 0.2px 1px rgb(49, 108, 244);
 }
 
 
@@ -71,3 +113,4 @@ form label span {
     background-color: rgb(245, 245, 245);
     box-shadow: 0.5px 1px 4px rgba(0, 0, 0, 0.1);
 }
+
