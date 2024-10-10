@@ -1,0 +1,38 @@
+
+
+/* Adjust 'main' width*/
+#main-section {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+/* Manually adjusting the hover background color of the social media buttons */
+#account-option-button:hover {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Color adjust of social media buttons' border */
+#account-option-button {
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Increase the border width of the input elements and reduce height: */
+form div input {
+    border-width: 2px !important;
+    height: 2.5rem !important;
+}
+
+/* Add hover effects to the input elements: */
+form div input:hover {
+    border-color: rgb(180, 180, 180);
+    border-width: 2px !important;
+}
+
+/* Change the styling properties of the input elements when in focus: */
+
+form div input[type="email"]:focus,
+form div input[type="password"]:focus {
+    border-color: rgb(49, 108, 244) !important;
+    border-width: 2px !important;
+    box-shadow: 0.2px 0.2px 0.2px 1px rgb(49, 108, 244);
+}
