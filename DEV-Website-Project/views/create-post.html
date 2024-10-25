@@ -5,24 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/create-post/styles.css">
 
 </head>
 <body>
 
+
+    <header>
+        <div id="create-post-header"  class="navbar p-0" style="height: 56px;">
+                <img src="../assets/images/create-post/dev-logo.png" alt="" style="width: 50px; height: 40px;">
+                <p class="me-auto">Create Post</p>
+                <button id="button-1"  class="btn">Edit</button>
+                <button id="button-1"  class="btn">Preview</button>
+                <button id="button-1"  class=""><img src="../assets/images/create-post/x-icon.svg" alt=""></button>
+                
+        </div>
+    </header>
+
     <main>
-        <div class="row">
+
+        
+
+
+        <div class="row" style="height: auto;">
             <div class="col-8">
-                <div class="create-post-header">
-                    <img src="" alt="">
-                    <p></p>
-                    <button></button>
-                    <button></button>
-                    <button class=""><img src="" alt=""></button>
-                </div>
-                <div class="create-post-body"></div>
-                <div class="create-post-footer"></div>
+                <form action="" class="card bg-white ms-5" style="overflow-x: auto; white-space: nowrap;">
+                    <div id="create-post-body" class="d-flex flex-column">
+                        
+                        <input id="post-image-url" class="mb-4 ms-5 rounded text-center" type="text" placeholder="Paste image URL" style="width: 10rem; height: 2.5rem;">
+                        <input id="post-title" class="mb-4 ms-5"  type="text" placeholder="New post title here..." style="font-size: 50px; font-weight: bold; height: 4rem; border: none;">
+                        <input id="post-tags" class="mb-4 ms-5" type="text" placeholder="Add up to four tags..." style="height: 2rem; border: none; ">
+                        <div id="icons-container" class="container d-flex px-5" style="height: 3.5rem; width: auto; align-items: center; background-color: rgb(249, 249, 249);">
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/bold-icon.svg" data-hover="../assets/images/create-post/create-post-hover/bold-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/italic-icon.svg" data-hover="../assets/images/create-post/create-post-hover/italic-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/link-icon.svg" data-hover="../assets/images/create-post/create-post-hover/link-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/ordered-list-icon.svg" data-hover="../assets/images/create-post/create-post-hover/ordered-list-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/unordered-list-icon.svg" data-hover="../assets/images/create-post/create-post-hover/unordered-list-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/heading-icon.svg" data-hover="../assets/images/create-post/create-post-hover/heading-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/quote-icon.svg" data-hover="../assets/images/create-post/create-post-hover/quote-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/code-icon.svg" data-hover="../assets/images/create-post/create-post-hover/code-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="..//assets/images/create-post/code-block-icon.svg" data-hover="../assets/images/create-post/create-post-hover/code-block-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/embed-icon.svg" data-hover="../assets/images/create-post/create-post-hover/embed-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/upload-icon.svg" data-hover="../assets/images/create-post/create-post-hover/upload-icon-blue.svg" alt="" id="icon"></a>
+                            <a href="" id="icon-box" class="ms-auto"><img class="p-2 me-1 rounded" src="../assets/images/create-post/options-button-icon.svg" data-hover="../assets/images/create-post/create-post-hover/options-button-icon-blue.svg" alt="" id="icon"></a>
+                        </div>
+                        <textarea class="p-5" name="" id="post-text" rows="10" style="border: none;"></textarea>
+                    </div>
+                    <div id="create-post-footer">
+                        <button id="button-2"  >Publish</button>
+                        <button id="button-1"  >Save draft</button>
+                        <button id="button-1"  ><img src="../assets/images/create-post/hexagon-icon.svg" alt=""></button>
+                        <button id="button-1"  >Revert new changes</button>
+                    </div>
+                </form>
+
+
             </div>
-            <div class="col-4">dafd</div>
+            <div class="col-4 d-flex align-items-end" style="">
+                <ul>
+                    <h5>Publishing Tips</h5>
+                    <li>Ensure your post has a cover image set to make the most of the home feed and social media platforms.</li>
+                    <li>Share your post on social media platforms or with your co-workers or local communities.</li>
+                    <li>Ask people to leave questions for you in the comments. It's a great way to spark additional discussion describing personally why you wrote it or why people might find it helpful.</li>
+                </ul>
+            </div>
         </div>
     </main>
 
@@ -31,5 +77,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../js/create-post/create-post.js"></script>
 </body>
 </html>

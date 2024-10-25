@@ -1,0 +1,42 @@
+/* Change background color: */
+body {
+    background-color: rgb(245, 245, 245);
+    font-size: 16px;
+}
+
+
+/* Add padding to the top of 'form' container: */
+
+form {
+    padding-top: 2rem;
+}
+
+
+/* Add hover styling to buttons: */
+#button-1:hover {
+    background-color: rgb(235, 236, 251);
+    color: rgb(49, 108, 245);
+}
+
+/* Add border width and color to image URL field: */
+#post-image-url {
+    border: 2px solid rgb(180, 180, 180)
+}
+
+/* Change placeholder color of title input field: */
+
+#post-title::placeholder {
+    color: rgb(82, 82, 82) !important;
+}
+
+
+
+/* Change background color on hover of icons: */
+#icons-container img:hover {
+    background-color:  rgb(230, 231, 246);
+}
+
+/* Remove the default focus styling from inputs: */
+input:focus, textarea:focus {
+    outline: none !important;
+}
