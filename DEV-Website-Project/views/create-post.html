@@ -29,13 +29,13 @@
 
         <div class="row" style="height: auto;">
             <div class="col-8">
-                <form action="" class="card bg-white ms-5" style="overflow-x: auto; white-space: nowrap;">
+                <form action="" class="card bg-white" style="overflow-x: auto; white-space: nowrap;">
                     <div id="create-post-body" class="d-flex flex-column">
                         
                         <input id="post-image-url" class="mb-4 ms-5 rounded text-center" type="text" placeholder="Paste image URL" style="width: 10rem; height: 2.5rem;">
                         <input id="post-title" class="mb-4 ms-5"  type="text" placeholder="New post title here..." style="font-size: 50px; font-weight: bold; height: 4rem; border: none;">
                         <input id="post-tags" class="mb-4 ms-5" type="text" placeholder="Add up to four tags..." style="height: 2rem; border: none; ">
-                        <div id="icons-container" class="container d-flex px-5" style="height: 3.5rem; width: auto; align-items: center; background-color: rgb(249, 249, 249);">
+                        <div id="icons-container" class="container d-flex px-5" style="height: 3.5rem; width: 100%; align-items: center; background-color: rgb(249, 249, 249);">
                             <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/bold-icon.svg" data-hover="../assets/images/create-post/create-post-hover/bold-icon-blue.svg" alt="" id="icon"></a>
                             <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/italic-icon.svg" data-hover="../assets/images/create-post/create-post-hover/italic-icon-blue.svg" alt="" id="icon"></a>
                             <a href="" id="icon-box" ><img class="p-2 me-1 rounded" src="../assets/images/create-post/link-icon.svg" data-hover="../assets/images/create-post/create-post-hover/link-icon-blue.svg" alt="" id="icon"></a>
@@ -51,13 +51,14 @@
                         </div>
                         <textarea class="p-5" name="" id="post-text" rows="10" style="border: none;"></textarea>
                     </div>
-                    <div id="create-post-footer">
-                        <button id="button-2"  >Publish</button>
-                        <button id="button-1"  >Save draft</button>
-                        <button id="button-1"  ><img src="../assets/images/create-post/hexagon-icon.svg" alt=""></button>
-                        <button id="button-1"  >Revert new changes</button>
-                    </div>
                 </form>
+                <div id="create-post-footer" class="">
+                    <button id="button-2" class="btn btn-primary mt-3">Publish</button>
+                    <button id="button-1" class="btn mt-3 ms-2" >Save draft</button>
+                    <button id="button-1" class="btn mt-3 ms-2" ><img src="../assets/images/create-post/hexagon-icon.svg" alt=""></button>
+                    <button id="button-1" class="btn mt-3 ms-2" >Revert new changes</button>
+                </div>
+
 
 
             </div>

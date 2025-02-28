@@ -2,6 +2,7 @@
 body {
     background-color: rgb(245, 245, 245);
     font-size: 16px;
+    margin-left: 1rem;  
 }
 
 
@@ -31,7 +32,7 @@ form {
 
 
 
-/* Change background color on hover of icons: */
+/* Change background color on hover of icons: */x
 #icons-container img:hover {
     background-color:  rgb(230, 231, 246);
 }
