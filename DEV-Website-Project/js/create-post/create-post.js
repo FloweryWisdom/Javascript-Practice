@@ -20,3 +20,29 @@ icons.forEach(icon => {
     });
 
 })
+
+// Function to update text content of 4th child element from "create-post-footer" parent element
+function updateRevertButtonText() {
+
+    // Select parent element
+    const footer = document.getElementById('create-post-footer');
+
+    // Select the 4th child element 
+    const revertButton = footer.querySelectorAll('button')[3]; // Index 3 is the 4th element
+
+    if (window.innerWidth < 768 ) {
+        // Modify the text content
+        revertButton.textContent = 'Revert';
+    } else {
+        // Revert to the original text for larger screens 
+        revertButton.textContent = 'Revert new changes'
+    }
+}
+
+// Call the function on page load
+updateRevertButtonText();
+
+// Call the function on window resize 
+window.addEventListener('resize', updateRevertButtonText)
+
+

@@ -3,6 +3,14 @@ body {
     background-color: rgb(245, 245, 245);
     font-size: 16px;
     margin-left: 1rem;  
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 
@@ -19,10 +27,13 @@ form {
     color: rgb(49, 108, 245);
 }
 
+#button-2 
+
 /* Add border width and color to image URL field: */
 #post-image-url {
     border: 2px solid rgb(180, 180, 180)
 }
+
 
 /* Change placeholder color of title input field: */
 
@@ -41,3 +52,80 @@ form {
 input:focus, textarea:focus {
     outline: none !important;
 }
+
+
+@media (max-width: 768px) {
+
+    body {
+        margin-left: 0 !important;
+    }
+
+    html, body {
+        min-width: 320px; /* minimum width to prevent shrinking */
+    }
+
+    /* .row {
+        height:  !important; 
+    } */
+
+    #create-post-header #dev-logo, #create-post-text {
+        display: none;
+    }
+
+    #create-post-header button:nth-child(3) {
+        margin-left: auto !important;
+    }
+
+    #column-2 {
+        display: none !important;
+    }
+    #column-1 {
+        width:100% ;
+        margin: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    form {
+        padding-top: 1.5rem;
+        margin-left: 0 !important;
+    }
+
+    #post-image-url {
+        margin-bottom: 0rem !important;
+    }
+
+    #post-title {
+        margin-bottom: 0rem !important;
+    }
+
+    #post-image-url,  #post-title, #post-tags, #post-text {
+        margin-left: 1rem !important;
+    }
+
+    #post-title {
+        font-size: 30px !important;
+    }
+
+    #post-text {
+        height: 100%;
+        margin-top: 1rem !important;
+    }
+
+    #icons-container {
+        margin: 0;
+        max-width: 100%;
+    }
+    #icon-box-6, #icon-box-7, #icon-box-8, #icon-box-9, #icon-box-10 {
+        display: none;
+    }
+
+}
+
+@media (max-width: 600px) {
+    #post-image-url {
+        width: 90% !important;
+    }
+    #create-post-footer button:nth-child(n + 2):nth-child(-n + 4) {
+        margin-left: 0 !important;
+    }
+} 
