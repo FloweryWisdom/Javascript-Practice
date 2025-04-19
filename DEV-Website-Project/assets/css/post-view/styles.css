@@ -1,0 +1,157 @@
+/*Body CSS Rules start here: */
+body{
+    background-color: rgb(246, 246, 246);
+    box-sizing: border-box;
+}
+
+/*Body CSS Rules end here.*/
+
+/* Navbar CSS rules start here: */
+
+.about1{
+    width:24px;
+    height: 24px;
+}
+.navbar{
+    background-color: white !important;
+}
+ 
+/* #dev-to-logo {
+    width: 50px;
+    height: 40px;
+} */
+
+#search-bar{
+    width: 600px;
+    min-width: 200px;
+}
+
+.contenedorsearch{
+    width: 400px !important;
+    height: 50px !important;
+    margin-top: 8px;
+    margin-left: 10px;
+    display:none;
+}
+
+.container-nav{
+    max-width: 1200px !important;
+}
+
+.hover-effect {
+    transition: filter 0.3s ease;
+    
+    &:hover {
+      filter: contrast(150%);
+      filter: invert(60%) sepia(100%) saturate(2000%) hue-rotate(200deg); /* Aplica efecto de contraste en azul */
+    }
+  }
+  
+@media (min-width :768px) {
+    .contenedorsearch{
+        display: flex;
+    }
+}
+
+
+/* Navbar CSS rules end here.  */
+
+
+/* Post view CSS rules start  here: */
+.hashtags--list span {
+    color: rgb(44, 212, 44);
+}
+  
+.hashtags--list :nth-child(-n+2):hover:not(span) {
+    background-color: rgb(209, 255, 190);
+    border: 2px solid rgb(180, 248, 150);
+}
+  
+.hashtags--list :nth-child(n+3):hover:not(span) {
+    background-color: rgb(200, 200, 200);
+    border: 2px solid rgb(173, 173, 173);
+}
+/* Post view CSS rules end here: */
+
+
+/*Right Sidebar Styling starts here: */
+
+#card-1-sidebar, #card-2-sidebar {
+    margin-bottom: 16px;
+}
+#card-2-sidebar div {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#card-2-sidebar div:last-child {
+    border-bottom: none;
+}
+
+
+
+#card-2-list-item a p:hover {
+    color: rgb(48, 58, 171);
+}
+
+#card-2-list-item span {
+    color: rgb(114, 114, 114);
+    font-weight: 300;
+    font-size: 14px;
+}
+
+
+#card-3-hyperlink {
+    color: blue;
+    text-decoration: underline;
+    text-decoration-color: blue;
+}
+
+#card-3-hyperlink:hover {
+    color: rgb(48, 58, 171) !important;
+    text-decoration-color: rgb(48, 58, 171) !important;
+
+}
+
+#card-3-sidebar #card-3-button-2 {
+    border-radius: 10px;
+    border: 2px solid blue;
+    color: blue;
+}
+
+#card-3-sidebar #card-3-button-2:hover { 
+    border: 2px solid blue;
+    color: white;
+    background-color: blue;
+}
+
+/*Right Sidebar Styling ends here: */
+
+
+/* Footer Styling starts here:  */
+.footer {
+    background-color: rgb(229, 229, 229);
+}
+
+.footer__container {
+    background-color: rgb(229, 229, 229);
+}
+
+.footer__description {
+    text-align: center;
+    background-color: rgb(229, 229, 229);
+
+}
+
+.footer__credits {
+    text-align: center;
+    background-color: rgb(229, 229, 229);
+}
+
+.footer {
+    background-color: #a0a0a0;
+}
+  
+/* Footer Styling ends here.  */
+
