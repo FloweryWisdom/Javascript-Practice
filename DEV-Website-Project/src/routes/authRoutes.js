@@ -2,7 +2,7 @@
 const express = require(`express`);
 const bcrypt = require(`bcryptjs`);
 const jwt = require(`jsonwebtoken`);
-const User = require(`../models/User`)//may need to capitalize 'User' like so
+const User = require(`../models/user`); //may need to capitalize 'User' like so
 const createError = require(`http-errors`); // For error handling
 const router = express.Router();
 
