@@ -44,42 +44,35 @@
             <div class="mb-3">
                 <label for="username" class="form-label">Username <span class="trigger">*<div class="popover">* - required</div></span></label>
                 <input type="text" class="form-control" id="username" required>
+                <div id="username-error" class="invalid-feedback" style="display: none;"></div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email <span class="trigger">*<div class="popover">* - required</div></span></label>
                 <input type="email" class="form-control" id="email" required>
+                <div id="email-error" class="invalid-feedback" style="display: none;"></div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password <span class="trigger">*<div class="popover">* - required</div></span></label>
                 <input type="password" class="form-control" id="password" required>
+                <div id="password-error" class="invalid-feedback" style="display: none;"></div>
             </div>
             <div class="mb-3">
                 <label for="password-confirmation" class="form-label">Password Confirmation <span class="trigger">*<div class="popover">* - required</div></span></label>
                 <input type="password" class="form-control" id="password-confirmation" required>
+                <div id="password-confirm-error" class="invalid-feedback" style="display: none;"></div>
             </div>
             <div id="captcha-box" class="card px-3 d-flex flex-row align-items-center" style="height: 74px; max-width: 300px;">
                 <input type="checkbox" class="form-check-input" id="captcha-check" style="width: 30px; height: 30px;">
                 <label class="form-check-label ms-3" for="captcha-check">I'm not a robot.</label>
                 <img class="ms-auto"  src="./assets/images/create-account/human 2.png" alt="" style="height: 60px; width: 60px;">
             </div>
-            <button type="submit" class="btn btn-primary mt-3" style="width: 120px">Sign up</button>
+            <button id="submit-button" type="submit" class="btn btn-primary mt-3" style="width: 120px">Sign up</button>
         </form>
     </main>
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script type="module">
-        //Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"; // Use the latest version"";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        
-    </script>
-    <script src="./assets/js/create-account/create-account.js"></script>
+    <script type="module" src="./assets/js/create-account/create-account.js"></script>
 </body>
 </html>

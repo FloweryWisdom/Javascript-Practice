@@ -1,46 +1,23 @@
-//server.js
-require('dotenv').config() //load .env variables
-const express = require('express');
-const app = express()
+require('dotenv').config() //load .env variables FIRST
+
 const mongoose = require('mongoose');
-const authRoutes = require('./src/routes/authRoutes');
-app.use('api/auth', authRoutes); // Mount auth routes under api/auth prefix
+const app = require('./src/server'); // Require the configured Express app from src/server.js
+
+const PORT =  process.env.PORT || 3001; //Use environment variable or default
 
 
-
+// --- Database Connection --- 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('MongoDB connected succesfully!'))
-    .catch( err => console.error('MongoDB connection error:', err));
+    .then(() => {
+        console.log('MongoDB connected succesfully!');
+        // --- Start Server ONLY after DB connection is successful ---
+        app.listen(PORT, () => {
+            console.log(`Server listening on port ${PORT}`);
+        });
 
-
-
-// Add error handling middleware (basic example)
-const createError = require('http-errors');
-// 404 not found
-app.use((req, res, next) => {
-    next(createError(404, 'Resource not found.'));
-});
-// General error handler
-app.use((req, res, next) => {
-    console.error(err.stack); // Log error stack trace
-    res.status(err.statur || 500).json({
-        error: {
-            message: err.message || 'Internal Server Error',
-            status: err.status || 500
-        }
+    })
+    .catch( err => {
+        console.error('MongoDB connection error:', err);  
+        // Optional: Exit the process if the DB connection fails on startup 
+        process.exit;
     });
-});
-
-//Middleware to parse JSON request bodies 
-app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.send(`Backend server is running!`);
-});
-
-const PORT =  3000; //Use environment variable or default
-
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
-
