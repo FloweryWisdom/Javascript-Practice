@@ -44,7 +44,7 @@
             <div class="mb-3">
                 <label for="username" class="form-label">Username <span class="trigger">*<div class="popover">* - required</div></span></label>
                 <input type="text" class="form-control" id="username" required>
-                <div id="username-error" class="invalid-feedback" style="display: none;"></div>
+                <div id="username-error" class="invalid-feedback" style="display: none"></div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email <span class="trigger">*<div class="popover">* - required</div></span></label>
@@ -66,6 +66,7 @@
                 <label class="form-check-label ms-3" for="captcha-check">I'm not a robot.</label>
                 <img class="ms-auto"  src="./assets/images/create-account/human 2.png" alt="" style="height: 60px; width: 60px;">
             </div>
+            <div id="captcha-error" class="invalid-feedback" style="display: none; text-align: left;"></div>
             <button id="submit-button" type="submit" class="btn btn-primary mt-3" style="width: 120px">Sign up</button>
         </form>
     </main>

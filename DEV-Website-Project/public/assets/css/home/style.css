@@ -240,38 +240,49 @@
     height: auto;
   }
   
-  .header--nav li {
+  #header-options li {
     font-size: 18px;
     cursor: pointer;
   }
   
-  .header--nav > :hover {
+  #header-options > :hover {
     color: rgb(21, 121, 202);
     background-color: white;
     border-radius: 5px;
   }
   
-  .container__post {
+  #posts-container {
     background-color: rgb(240, 239, 239);
   }
   
-  .container__card--post-test {
+  .post-card {
     margin-bottom: 10px;
     background-color: #ffffff;
   }
   
-  .post-test--title {
+  .post-card-image {
+    width: 100%; /* Ensure the image spans the full width of the card.*/
+
+    /* Set the instrinsic aspect ratio of the element to 16:9 */
+    aspect-ratio: 16 / 9;
+
+    /* This is the magic part! It tells the image to cover the entire area of the box,
+    cropping vertically or horizontally as needed, instead of stretching or squishing to fit. */
+    object-fit: cover;
+  }
+
+  .post-title {
     margin-left: 37px;
   }
   
-  .hashtags--list {
+  .hashtags-list {
     margin-left: 31px;
     font-weight: 350;
     font-size: 15px;
     color: rgb(80, 80, 80);
   }
   
-  .hashtags--list li {
+  .hashtags-list li {
     font-size: 13px;
     font-weight: 300;
     height: 28px;
@@ -279,23 +290,23 @@
     padding-left: 6px;
   }
   
-  .hashtags--list span {
+  .hashtags-list span {
     color: rgb(44, 212, 44);
   }
   
-  .hashtags--list :nth-child(-n+2):hover:not(span) {
+  .hashtags-list :nth-child(-n+2):hover:not(span) {
     background-color: rgb(209, 255, 190);
     border: 1px solid rgb(180, 248, 150);
     border-radius: 6px;
   }
   
-  .hashtags--list :nth-child(n+3):hover:not(span) {
+  .hashtags-list :nth-child(n+3):hover:not(span) {
     background-color: rgb(200, 200, 200);
     border: 1px solid rgb(173, 173, 173);
     border-radius: 6px;
   }
   
-  .post-test--post-actions {
+  .post-reactions {
     margin-left: 29px;
     align-items: center;
     margin-bottom: 10px;
@@ -304,16 +315,16 @@
     color: rgb(80, 80, 80);
   }
   
-  .profile-icon--container-image {
+  .user-profile-picture{
     height: 32px;
     width: 32px;
   }
   
-  .user-info--username {
+  .user-info-username {
     margin: 0;
   }
   
-  .user-info--data {
+  .post-user-info {
     line-height: 100%;
   }
   
@@ -343,24 +354,24 @@
     margin-left: 10px;
   }
   
-  .dropdown-content--user-data {
+  .dropdown-user-data {
     position: relative;
     bottom: 20px;
     left: 18px;
   }
   
-  .user-data--button {
+  .user-data-button {
     margin-left: 18px;
     width: 300px;
     margin-right: 18px;
   }
   
-  .user-data--tagline-container {
+  .user-data-tagline-container {
     width: 300px;
     margin-left: 18px;
   }
   
-  .user-data--tagline {
+  .user-data-tagline-container p {
     margin-left: 0px;
     margin-top: 10px;
     color: grey;
@@ -370,28 +381,28 @@
     color: blue;
   }
   
-  .user-data--details {
+  .user-data-info {
     margin-left: 18px;
   }
   
-  .user-data--details b {
+  .user-data-info b {
     color: rgb(99, 99, 99);
     font-size: small;
   }
   
-  .link-post {
+  .post-link {
     text-decoration: none;
     color: black;
   }
   
-  .user-data--profile-icon img {
+  .user-data-profile-pic img {
     background-color: rgb(108, 108, 108);
     height: 55px;
     width: 55px;
     border-radius: 50%;
   }
   
-  .user-data--profile-name-container {
+  .user-data-profile-name-container {
     display: flex;
     align-items: flex-end;
   }
@@ -405,60 +416,52 @@
     display: block;
   }
   
-  .dropdown-content--top-color-design {
-    height: 36px;
-    width: auto;
-    background-color: navy;
-  }
   
-  #icon-number--1 {
+  .icon-number-1 {
     position: relative;
     z-index: 5;
   }
   
-  #icon-number--2 {
+  .icon-number-2 {
     position: relative;
     z-index: 4;
     right: 7px;
   }
   
-  #icon-number--3 {
+  .icon-number-3 {
     position: relative;
     z-index: 3;
     right: 14px;
   }
   
-  #icon-number--4 {
+  .icon-number-4 {
     position: relative;
     z-index: 2;
     right: 21px;
   }
   
-  #icon-number--5 {
+  .icon-number-5 {
     position: relative;
     z-index: 1;
     right: 28px;
   }
   
-  .post-actions--icon-row {
-    position: relative;
-    z-index: 3;
-  }
+   
   
-  .post-actions--icon-row img {
+  .reaction-emojis img {
     height: 24px;
     background-color: rgb(232, 232, 232);
     border-radius: 50%;
     border: 1px solid rgb(220, 220, 220);
   }
   
-  .post-actions--reactions-text {
+  .reactions-number {
     position: relative;
     right: 30px;
     transition: transform 0.3s;
   }
   
-  .post-actions--icon-row:hover {
+  .reaction-emojis:hover {
     cursor: pointer;
     border-radius: 3px;
   }
@@ -469,7 +472,7 @@
     right: 15px;
   }
   
-  .post-actions--comment-number {
+  .comment-number {
     position: relative;
     right: 0px;
     height: 35px;
@@ -477,55 +480,55 @@
     margin-right: 8px;
   }
   
-  .post-actions--comment-number img {
+  .comment-number img {
     margin-left: 8px;
   }
   
-  .post-actions--comment-number:hover {
+  .comment-number:hover {
     background-color: #e4e4e4;
     cursor: pointer;
     border-radius: 6px;
   }
   
-  .hover-reaction-test:hover {
+  .reactions-hover-container:hover {
     background-color: #e4e4e4;
   }
   
-  .hover-reaction-test {
+  .reactions-hover-container {
     border-radius: 6px;
     color: rgb(80, 80, 80);
     height: 35px;
     width: 220px;
   }
   
-  .post-actions--bookmark-container {
+  .post-bookmark-container {
     height: 40px;
     width: 40px;
     justify-content: center;
   }
   
-  .post-actions--bookmark-icon {
+  .post-bookmark-icon {
     height: 24px;
     margin-left: 0 !important;
   }
   
-  .post-actions--bookmark-container:hover {
+  .post-bookmark-container:hover {
     background-color: rgba(131, 178, 240, 0.3882352941);
     cursor: pointer;
     color: rgb(103, 103, 248);
     border-radius: 3px;
   }
   
-  .post-actions--read-duration {
+  .post-read-duration {
     margin-left: auto;
     margin-right: 5px;
   }
   
-  .iconw {
+  .emoji {
     transition: transform 0.3s;
   }
   
-  .iconw:hover {
+  .emoji:hover {
     transform: scale(1.2);
   }
   
@@ -618,23 +621,23 @@
   }
   
   @media only screen and (max-width: 576px) {
-    .post-actions--comment-number {
+    .comment-number {
       display: none;
     }
   }
   @media only screen and (max-width: 355px) {
-    .post-actions--read-duration {
+    .post-read-duration {
       display: none;
     }
-    .post-actions--bookmark-icon {
+    .post-bookmark-icon {
       margin-left: auto;
     }
   }
   @media only screen and (max-width: 380px) {
-    .post-actions--read-duration {
+    .post-read-duration {
       display: none;
     }
-    .post-actions--bookmark-container {
+    .post-bookmark-container {
       margin-left: auto;
     }
   }
@@ -656,30 +659,30 @@
     }
   }
   @media only screen and (max-width: 768px) {
-    .post-test--title {
+    .post-title {
       margin-left: 0px;
     }
-    .hashtags--list {
+    .hashtags-list {
       margin-left: 0px;
     }
-    .post-test--post-actions {
+    .post-reactions {
       margin-left: 0px;
     }
   }
   @media only screen and (min-width: 992px) {
-    .post-actions--read-duration {
+    .post-read-duration {
       display: none;
     }
-    .post-actions--bookmark-icon {
+    .post-bookmark-icon {
       margin-left: auto;
       margin-right: 10px;
     }
   }
   @media only screen and (min-width: 1124px) {
-    .post-actions--read-duration {
+    .post-read-duration {
       display: block;
     }
-    .post-actions--bookmark-icon {
+    .post-bookmark-icon {
       margin-left: auto;
       margin-right: 0;
     }

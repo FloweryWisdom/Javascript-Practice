@@ -3,28 +3,56 @@
 const loginForm = document.getElementById('login-form');
 const emailInput = document.getElementById('login-email');
 const passwordInput = document.getElementById('login-password');
+const emailErrorDiv = document.getElementById('login-email-error');
+const passwordErrorDiv = document.getElementById('login-password-error');
 const submitButton = loginForm.querySelector('button[type="submit"]');
 
-// Optional: Select an element to display error messages
-// const errorMessageDiv = document.getElementById('login-error-message');
+// --- Copy or Import Helper functions --- 
+// You can copy the displayError and clearError functions from create-account.js
+// Or, ideally, move them to a shared utility file and import them in both scripts
+// For now, let's copy them
+function displayError(inputElement, errorDiv, message) {
+    if (!errorDiv) return; // Add check if errorDiv exists
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    if (inputElement.type !== 'checkbox') {
+        inputElement.classList.add('is-invalid')
+    }
+}
+
+function clearError(inputElement, errorDiv) {
+    if (!errorDiv) return; // Add check
+    errorDiv.textContent = '';
+    errorDiv.style.display = 'none';
+    if (inputElement.type !== 'checkbox') {
+        inputElement.classList.remove('is-invalid');
+    }
+}
 
 // --- 2. Add Submit Event Listener ---
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent default page reload
 
-    // Clear previous error messages/styles if any
-    // if (errorMessageDiv) errorMessageDiv.textContent = '';
-    // Remove any 'is-invalid' classes from inputs
+    // --- Clear Previous Errors ---
+    clearError(emailInput, emailErrorDiv);
+    clearError(passwordInput, passwordErrorDiv);
 
     // --- 3. Get Input Values ---
     const email = emailInput.value.trim();
     const password = passwordInput.value; // Don't trim passwords
 
-    // --- 4. Basic Client-Side Validation ---
-    if (!email || !password) {
-        alert('Please enter both email and password.');
-        // Optionally display error in errorMessageDiv
-        return ; // Stop the function
+    // --- 4. Client-Side Validation ---
+    let validationFailed = false;
+    if (!email) {
+        displayError(emailInput, emailErrorDiv, 'Please enter your email.');
+        validationFailed = true;
+    }
+    if (!password) {
+        displayError(passwordInput, passwordErrorDiv, 'Please enter your password.');
+        validationFailed = true;
+    }
+    if (validationFailed) {
+        return; // Stop if client validation failed
     }
 
     // --- 5. Prepare Data Payload for API ---
@@ -60,9 +88,8 @@ loginForm.addEventListener('submit', async (event) => {
                 // Store the received token in the browser's localStorage
                 localStorage.setItem('authToken', data.token);
                 console.log('Token stored successfully!');
-
                 // Inform the user and redirect
-                alert('Login successfully!');
+                alert('Login successfully!'); // Keep alert for succes or replace with UI message
                 window.location.href = '/index.html'; // Redirect to homepage/dashboard
             } else {
                 alert('Login successful, but missing token.'); // Should not happen ideally
@@ -74,19 +101,21 @@ loginForm.addEventListener('submit', async (event) => {
                 errorData = await response.json();  
             } catch (parseError){
                 errorData = { error: { message: `Login failed with status ${response.status}` }};
-                // Optionally display error in errorMessageDiv
             }
             console.error('Login failed:', errorData); 
-            // Display the error message
-            alert(`Login failed: ${errorData.error?.message || 'Invalid credentials or server error.'}`);
-            // Optionally display error in errorMessageDiv
+            const message = errorData.error?.message || 'An unknown error occured.';
+
+            // Display the error - often "Invalid Credentials" for 401
+            // Show it below the password field as a general place for login failure
+            displayError(passwordInput, passwordErrorDiv, message);
+            displayError(emailInput, emailErrorDiv, ''); // Show border only
+        
 
         }
     } catch (error) {
         // E) Handle network errors
         console.error('Network error during login:', error);
-        alert('Could not connect to the server. Please check your network and try again.');
-        // Optionally display error in errorMessageDiv
+        displayError(passwordInput, passwordErrorDiv, 'Network error. Please try again.');
     } finally {
         // --- 8. Reset Button State ---
         submitButton.disabled = false;

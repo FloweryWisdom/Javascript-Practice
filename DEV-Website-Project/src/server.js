@@ -3,8 +3,10 @@ const express = require('express');
 const path = require('path'); // Needed for serving static files
 const createError = require('http-errors');
 // const cors = require('cors'); // Uncomment if you install & use CORS
-const authRoutes = require('./routes/authRoutes');
+
 //Add require statements for other route files as you create them
+const authRoutes = require('./routes/authRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 
@@ -16,9 +18,10 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // --- API Routes ---
-app.use('/api/auth', authRoutes); // API route mounting
 // Mount other routes here (e.g., app.use('/api/posts', postRoutes);)
-
+// API Route Mounting
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 // -- Basic Root Route (Optional - often handled by static index.hmtl) ---
 // This provides a simple API check, seperate from your static frontend
@@ -40,7 +43,9 @@ app.use((err, req, res, next) => {
     res.status(errorStatus).json({
         error: {
             message: errorMessage,
-            status: errorStatus
+            status: errorStatus,
+            // include field if it exists on the error object
+            ...(err.field && { field: err.field })
         }
     });
 });

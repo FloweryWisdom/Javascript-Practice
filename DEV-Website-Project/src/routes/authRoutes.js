@@ -40,7 +40,7 @@ router.post('/signup', async(req, res, next) => {
 
         // Add a password validation before creating the user
         if (password.length < 8) { // Example server side check
-            return next(createError(400, 'Password must be at least 8 characters long.', { field: 'password'}));
+            return next(createError(400, 'Password must be at least 8 characters loooooong.', { field: 'password'}));
         }
 
         // Add other password checks (regex for complexity) here...

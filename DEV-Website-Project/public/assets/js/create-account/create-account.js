@@ -29,19 +29,28 @@ const usernameErrorDiv = document.getElementById('username-error');
 const emailErrorDiv = document.getElementById('email-error');
 const passwordErrorDiv = document.getElementById('password-error');
 const passwordConfirmErrorDiv = document.getElementById('password-confirm-error');
+const captchaErrorDiv = document.getElementById('captcha-error');
 // Add others if needed
 
 // --- Create Function to Easily Show/Hide Errors (Helper Functions) ---
 function displayError(inputElement, errorDiv, message) {
     errorDiv.textContent = message;
     errorDiv.style.display = 'block'; // Show the error message div
-    inputElement.classList.add('is-invalid'); // Add red border to input ???
+    // Only add the .is-invalid class (for red border) if the element is not a checkbox 
+    if (inputElement.type !== 'checkbox') {
+        inputElement.classList.add('is-invalid');
+    }
 }
 
 function clearError(inputElement, errorDiv) {
+
     errorDiv.textContent = '';
     errorDiv.style.display = 'none'; // Hide the error message div
-    inputElement.classList.remove('is-invalid'); // Remove red border
+    
+    // Only remove the .is-invalid class if the element is NOT a checkbox
+    if (inputElement.type !== 'checkbox') {
+        inputElement.classList.remove('is-invalid');
+    }
 }
 
 
@@ -57,6 +66,7 @@ signupForm.addEventListener('submit', async (event) => {
     clearError(emailInput, emailErrorDiv);
     clearError(passwordInput, passwordErrorDiv);
     clearError(passwordConfirmInput, passwordConfirmErrorDiv);
+    clearError(captchaCheck, captchaErrorDiv);
 
     // --- 3. Get Input Values ---
     const profilePicUrl = profilePictureInput.value.trim();
@@ -76,12 +86,12 @@ signupForm.addEventListener('submit', async (event) => {
     // Add other client-side check here (e.g., simple password length)
     if (password.length < 8) { // Example basic length check
         displayError(passwordInput, passwordErrorDiv, 'Password must be at least 8 characters.');
-
+        return // Stop the function
     }
 
-    // Check is captcha is checked
+    // Check if captcha is checked
     if (!captchaCheck.checked) {
-        alert('Please verify you are not a robot.');
+        displayError(captchaCheck, captchaErrorDiv, 'Please verify you are not a robot.');
         return;
     }
     // Add checks for empty fields if needed (though HTML 'required' helps)
@@ -152,19 +162,23 @@ signupForm.addEventListener('submit', async (event) => {
             // Check the structure your backend actually sends 
             // Assuming backend sends { error: { message: '...', status: 400, field: '...' }}
             // based on createError(status, message, { field: '...' })
-            console.log('DEBUG: Full errorData object:'. JSON.stringify(errorData, null, 2)); // Log the whole structure
+            console.log('DEBUG: Full errorData object:', JSON.stringify(errorData, null, 2)); // Log the whole structure
             const field = errorData.error?.field // Get field property if it exists
             console.log('DEBUG: Extracted field variable:', field); // See what 'field' contains
             const message = errorData.error?.message || 'An unknown error occurred.'; // Get message
             console.log('DEBUG: Extracted message variable:', message); // See what 'message' contains
 
             if (field === 'email') {
+                console.log("DEBUG: Condition field === 'email' is TRUE")
                 displayError(emailInput, emailErrorDiv, message);
             } else if (field === 'username') {
+                console.log("DEBUG: Condition field === 'username' is TRUE")
                 displayError(usernameInput, usernameErrorDiv, message);
             } else if (field === 'password') { // Handle the potential errors too
+                console.log("DEBUG: Condition field === 'password if TRUE")
                 displayError(passwordInput, passwordErrorDiv, message);
             } else {
+                console.log("DEBUG: Fallback 'else' block executed.")
                 // Display general error if field isn't specified
                 alert(`Signup failed: ${message}`)
             }
@@ -172,7 +186,7 @@ signupForm.addEventListener('submit', async (event) => {
     } catch (error) {
         // E) Handle network errors (fetch failed to connect to the server)
         console.error('Netwok error during signup:', error);
-        alert('Could not connect to the server. Please check your network and try again.');
+        alert('Could not connect to the server. Please check your network and try again. Tralalelo tralala');
         // Optionally display error in errorMessageDiv
 
     } finally {
