@@ -18,57 +18,38 @@
     
 
  <header>
-    <nav id="navbar-top" class="navbar border-bottom p-0 fixed-top">
-        <div class="container-fluid d-flex justify-content-md-between container-nav">
-            <div class="d-flex">
-                <button class="navbar-toggler d-md-none border border-light" type="button"
-                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                    aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon d-flex align-items-center"></span>
-                </button>
-                <a href="#">
-                    <img class="" src="./assets/images/global/icons/dev_to_icon.png" alt="">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary p-0" style="box-sizing: border-box;">
+            <div class="container-fluid d-flex align-items-center" style="height: 56px !important; flex-wrap: nowrap;">
+                <a href="" class="navbar-brand p-0 d-flex align-items-center">
+                    <img src="./assets/images/create-account/dev-logo.png" alt="" width="50px" height="40px"  class="d-inline-block align-text-top">
                 </a>
-                
-                <div class="input-group align-items-center w-auto contenedorsearch ">
-                    <input id="search-bar" type="text" class="form-control d-none h-75 border-end-0  d-md-flex"
-                        placeholder="Search..." aria-label="Search" aria-describedby="basic-addon1">
-                    <span class="input-group-text d-none d-md-flex h-75" id="basic-addon1">
-                        <img class="d-none d-md-block"
-                            src="./assets/images/global/icons/icon-glass.svg"
-                            alt="">
-                    </span>
+                <form id="search-container"  class="d-flex me-auto align-items-center" role="search" action="" style="position: relative; max-width: 700px; width: 100%;">
+                    <input id="search-box"  class="form-control" type="search" placeholder="Search..." aria-label="Search" style="padding-left: 50px;">
+                    <button id="search-icon"  class="container" type="submit" style="position: absolute; height: 36px; width:50px; margin-left: 2px; margin-right: 2px; border-radius: 4px; padding-bottom: 2px;"><img id="search-icon-file"  src="./assets/images/create-account/search-icon.svg" alt=""></button>
+                </form>
+                <button id="login-button"  class="btn me-2">Log in</button>
+                <button id="create-account-button"  class="btn" style="color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create account</button>
+                <div class="dropdown">
+                    <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-2 btn dropdown-toggle p-0" style="border-radius: 50%; border: 1px solid black; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
+                        <img src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="profileDropdown" style="width: 220px;">
+                        <li class="px-3 pt-2">
+                            <strong>Gerardo Arce</strong><br>
+                            <small class="text-muted">@flowerywisdom</small>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-items" href="#">Dashboard</a></li>
+                        <li><a class="dropdown-items" href="#">Create Post</a></li>
+                        <li><a class="dropdown-items" href="#">Reading List</a></li>
+                        <li><a class="dropdown-items" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#">Sign Out</a></li>
+                    </ul>    
                 </div>
+                
             </div>
-            <div class="d-flex align-items-center">
-                <a href="#" class="text-decoration-none">
-                    <img class="p-1 d-md-none"src="" alt="">
-                    <button type="button" class="btn btn-outline-primary me-1 d-none d-md-block">LogIn</button>
-                </a>
-
-                <a href="#" class="text-decoration-none">
-                    <img class="p-1 d-md-none" src="./assets/images/global/icons/icon-glass.svg" alt="">
-                    <button type="button" class="btn btn-outline-primary  d-none d-md-block">Create Post</button>
-                </a>
-
-
-<!--                 
-                <a href="#"><img class="m-3" src="./assets/icons/icon-campaign.svg" alt=""></a>
-
-                <div class="dropdown dropstart">
-                    <a class="" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> <img class="img-fluid border border-dark rounded-circle " src="./assets/icons/profile-svgrepo-com.svg" alt=""></a>
-                    <ul class="dropdown-menu menu-position2" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Kodemia</a></li>
-                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="#">Create Post</a></li>
-                        <li><a class="dropdown-item" href="#">Reading list</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Sing Out</a></li>
-                    </ul>
-                </div> -->
-            </div>
-        </div>
-    </nav>
+    </nav> 
 </header>    
 
 <!-- MAIN BEGINS HERE -->

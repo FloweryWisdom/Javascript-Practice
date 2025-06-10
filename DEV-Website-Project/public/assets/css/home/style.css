@@ -1,5 +1,57 @@
+body {
+  padding-top: 0 !important;
+}
+
+/* N A V B A R   S T Y L E S   S T A R T   H E R E  */
 
 
+/* Add a white background behind the search icon: */
+#search-icon {
+  border: none;
+  background-color: white;
+}
+/* Add hover effect to the search icon in navbar: */
+#search-icon:hover {
+  background-color: rgb(235, 236, 251);
+}
+/* Removed border effect when clicking on button: */
+#search-icon:active {
+  border-color: transparent;
+}
+/* Increased border width of 'search-box': */
+#search-box {
+  border-width: 2px;
+}
+/* Added border styling changes to 'search-box' when hovering: */
+#search-box:hover {
+  border-color: rgb(180, 180, 180);
+  border-width: 2px !important;
+}
+/* Switch styling of 'search-box' when in focus mode: */
+#search-box:focus {
+  border-color: rgb(49, 108, 244) !important;
+  border-width: 2px !important;
+  box-shadow: 0.2px 0.2px 0.2px 1px rgb(49, 108, 244);
+}
+/* Adjust the length of the search bar: */
+#search-container {
+  max-width: 700px !important;;
+}
+
+/* Add hover styling effects on hover to 'login-button': */
+#login-button:hover {
+  background-color: rgb(235, 236, 251);
+  text-decoration: underline;
+  color: rgb(49, 108, 245);
+  border-color: transparent;
+}
+/* Add hover styling effects on hover to 'create-account-button': */
+#create-account-button:hover {
+  color: white !important;
+  background-color: rgb(49, 108, 244);
+  text-decoration: underline;
+}
+/*  N A V B A R   S E C T I O N   E N D S   H E R E  */
 
 .aside__left {
     background-color: rgb(240, 239, 239);
@@ -537,21 +589,9 @@
     height: 24px;
   }
   
-  .navbar {
-    background-color: white !important;
-    height: auto;
-  }
+
   
-  .contenedorsearch {
-    width: 400px !important;
-    height: 50px !important;
-    margin-top: 8px;
-    margin-left: 10px;
-  }
   
-  .container-nav {
-    max-width: 1200px !important;
-  }
   
   .hover-effect {
     transition: filter 0.3s ease;
@@ -561,11 +601,6 @@
     filter: invert(60%) sepia(100%) saturate(2000%) hue-rotate(200deg); /* Aplica efecto de contraste en azul */
   }
   
-  @media (min-width: 768px) {
-    .contenedorsearch {
-      display: flex;
-    }
-  }
   .footer {
     background-color: rgb(229, 229, 229);
   }
