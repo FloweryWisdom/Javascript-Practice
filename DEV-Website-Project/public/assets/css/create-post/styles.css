@@ -8,21 +8,21 @@ body {
 
 html, body {
     min-height: 100vh;
-    min-width: 100vw;
+    min-width: 99vw;
     margin: 0;
     box-sizing: border-box;
 }
 
 
-/* Add padding to the top of 'form' container: */
+/* Add padding to the top of 'create-post-body' container: */
 
-form {
+#create-post-body {
     padding-top: 2rem;
 }
 
 
 /* Add hover styling to buttons: */
-#button-1:hover {
+.button-1:hover {
     background-color: rgb(235, 236, 251);
     color: rgb(49, 108, 245);
 }
@@ -85,7 +85,7 @@ input:focus, textarea:focus {
         padding-right: 0 !important;
     }
     
-    form {
+    #create-post-body {
         padding-top: 1.5rem;
         margin-left: 0 !important;
     }
@@ -98,7 +98,7 @@ input:focus, textarea:focus {
         margin-bottom: 0rem !important;
     }
 
-    #post-image-url,  #post-title, #post-tags, #post-text {
+    #post-image-url,  #post-title, #post-tags, #post-content {
         margin-left: 1rem !important;
     }
 
@@ -106,7 +106,7 @@ input:focus, textarea:focus {
         font-size: 30px !important;
     }
 
-    #post-text {
+    #post-content {
         height: 100%;
         margin-top: 1rem !important;
     }

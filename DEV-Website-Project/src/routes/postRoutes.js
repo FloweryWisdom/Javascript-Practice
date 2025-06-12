@@ -133,7 +133,7 @@ router.patch('/:postId', authMiddleware, async (req, res, next) => {
         });
     } catch (error) {
         if (error.name === 'ValidationError') {
-            return next(createError(400, error.messsage));
+            return next(createError(400, error.message));
         }
         next(error)
     }

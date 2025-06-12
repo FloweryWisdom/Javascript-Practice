@@ -51,6 +51,16 @@ body {
   background-color: rgb(49, 108, 244);
   text-decoration: underline;
 }
+
+#create-post-button:hover {
+  color: white !important;
+  background-color: rgb(49, 108, 244);
+  text-decoration: underline;
+}
+
+#profileDropdown:hover {
+  box-shadow: 0px 0px 6px grey;
+}
 /*  N A V B A R   S E C T I O N   E N D S   H E R E  */
 
 .aside__left {
