@@ -7,91 +7,104 @@
     <link rel="stylesheet" href="./assets/css/post-view/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
-<body style="padding-top: 65px;">
-    <header> 
-        <nav id="navbar-top" class="navbar border-bottom p-0 fixed-top">
-            <div class="container-fluid d-flex justify-content-md-between container-nav">
-                <div class="d-flex">
-                    <button class="navbar-toggler d-md-none border border-light" type="button"
-                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                        aria-controls="offcanvasNavbar">
-                        <span class="navbar-toggler-icon d-flex align-items-center"></span>
+<body style="background-color: rgb(246, 246, 246);">
+    <header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;"> 
+        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0" style="box-sizing: border-box;">
+            <div class="container-fluid d-flex align-items-center" style="height: 66px !important; flex-wrap: nowrap; background-color: white;">
+                <a href="" class="navbar-brand p-0 d-flex align-items-center">
+                    <img src="./assets/images/create-account/dev-logo.png" alt="" width="50px" height="40px"  class="d-inline-block align-text-top">
+                </a>
+                <form id="search-container"  class="d-flex me-auto align-items-center" role="search" action="" style="position: relative; max-width: 700px; width: 100%;">
+                    <input id="search-box"  class="form-control" type="search" placeholder="Search..." aria-label="Search" style="padding-left: 50px;">
+                    <button id="search-icon"  class="container" type="submit" style="position: absolute; height: 36px; width:50px; margin-left: 2px; margin-right: 2px; border-radius: 4px; padding-bottom: 2px;"><img id="search-icon-file"  src="./assets/images/create-account/search-icon.svg" alt=""></button>
+                </form>
+                <a id="login-button" href="./login.html" class="btn me-2">Log in</a>
+                <a id="create-account-button" href="./create-account.html" class="btn" style="color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create account</a>
+                <a id="create-post-button" href="./create-post.html" class="btn" style="display: none; color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create post</a>
+                <div id="profile-dropdown-container" class="dropdown" style="display: none;">
+                    <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-2 btn dropdown-toggle p-0 me-3" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
+                        <img src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                     </button>
-                    <a href="">
-                        <img id="dev-to-logo" class="" src="./assets/images/global/icons/dev_to_icon.png" alt="DEV Community" style="aspect-ratio: 10/8">
-                    </a>
-                    
-                    <div class="input-group align-items-center w-auto contenedorsearch">
-                        <input id="search-bar" type="text" class="form-control d-none h-75 border-end-0  d-md-flex"
-                            placeholder="Find related posts..." aria-label="Search" aria-describedby="basic-addon1">
-                        <span class="input-group-text d-none d-md-flex h-75" id="basic-addon1">
-                            <img class="d-none d-md-block"
-                                src="./assets/images/global/icons/icon-glass.svg"
-                                alt="">
-                        </span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <a href="#" class="text-decoration-none">
-                        <img class="p-1 d-md-none"src="" alt="">
-                        <button type="button" class="btn btn-outline-primary me-1 d-none d-md-block">LogIn</button>
-                    </a>
-    
-                    <a href="#" class="text-decoration-none">
-                        <img class="p-1 d-md-none" src="./assets/images/global/icons/icon-glass.svg" alt="">
-                        <button type="button" class="btn btn-outline-primary  d-none d-md-block">Create Post</button>
-                    </a>
-    
-    
-                
-                    <a href="#"><img class="m-3" src="./assets/images/global/icons/icon-campaign.svg" alt=""></a>
-    
-                    <div class="dropdown dropstart">
-                        <a class="" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> <img class="img-fluid border border-dark rounded-circle " src="./assets/images/global/icons/profile-svgrepo-com.svg" alt=""></a>
-                        <ul class="dropdown-menu menu-position2" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Kodemia</a></li>
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#">Create Post</a></li>
-                            <li><a class="dropdown-item" href="#">Reading list</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Sing Out</a></li>
-                        </ul>
-                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="profileDropdown" style="width: 220px;">
+                        <li class="px-3 pt-2">
+                            <strong>Gerardo Arce</strong><br>
+                            <small class="text-muted">@flowerywisdom</small>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <li><a id="create-post-link" class="dropdown-item" href="./create-post.html">Create Post</a></li>
+                        <li><a class="dropdown-item" href="#">Reading List</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a id="logout-link" class="dropdown-item text-danger" href="#">Sign Out</a></li>
+                    </ul>    
                 </div>
             </div>
-        </nav>
+        </nav> 
     </header>
 
-    <main class="row">
-        <div id="left-sidebar" class="col-1 d-flex" style="background-color: rgb(246, 246, 246); flex-direction: column; align-items: center; padding: 0px;">
-            <div class="d-flex flex-column align-items-center justify-content-center" style="height: 64px; width: 64px; margin-left: 8px; margin-top: 80px;">
-                <a href=""><img src="./assets/images/view-post/left-navbar/heart-icon.svg" alt=""></a>
-                <p style="margin: 0;">18</p>
+    <main class="row d-flex" style="margin-top: 1rem; margin-right: 0; margin-left: 0;">
+        <div id="add-reactions-container-dropdown">
+            <button class="reaction-button">
+                <img class="icon-reaction-option" src="./assets/images/global/icons/icon-heart.svg" alt="">
+                <p class="icon-reaction-count">7</p>
+            </button>
+            <button class="reaction-button">
+                <img class="icon-reaction-option" src="./assets/images/global/icons/reaction-unicorn.svg" alt="">
+                <p class="icon-reaction-count">4</p>
+            </button>
+            <button class="reaction-button">
+                <img class="icon-reaction-option" src="./assets/images/global/icons/icon--surprise.svg" alt="">
+                <p class="icon-reaction-count">7</p>
+            </button>
+            <button class="reaction-button">
+                <img class="icon-reaction-option" src="./assets/images/global/icons/reaction-fire.svg" alt="">
+                <p class="icon-reaction-count">3</p>
+            </button>
+            <button class="reaction-button">
+                <img class="icon-reaction-option" src="./assets/images/global/icons/icon--eyes-staring-emoji.svg" alt="">
+                <p class="icon-reaction-count">1</p>
+            </button>
+        </div>
+
+        <div id="left-sidebar" class="col-1 d-flex" style="background-color: rgb(246, 246, 246); flex-direction: column; padding: 0px;">
+            <div id="post-options-icons-container" style="position: fixed; top: 40px; width: inherit;">
+                <div style="height: 50px;"></div>
+                <button id="hover-trigger" class="post-options mb-3 mt-5 d-flex flex-column align-items-center justify-content-center" style="height: 64px; width: 64px; border: none; background-color: inherit;">
+                    <a href=""><img src="./assets/images/view-post/left-navbar/heart-icon.svg" data-hover="./assets/images/view-post/left-navbar-hover/heart-icon-red.svg" alt=""></a>
+                    <p style="margin: 0;">18</p>
+                    <div class="post-options-text">Add reaction</div>
+                </button>
+            
+                <button class="post-options mb-3 d-flex flex-column align-items-center justify-content-center">
+                    <a href=""><img src="./assets/images/view-post/left-navbar/text-cloud-icon.svg" data-hover="./assets/images/view-post/left-navbar-hover/text-cloud-icon-orange.svg" alt=""></a>
+                    <p style="margin: 0;">7</p>
+                    <div class="post-options-text">Jump to comments</div>
+                </button>
+                <button class="post-options mb-3 d-flex flex-column align-items-center justify-content-center">
+                    <a href=""><img src="./assets/images/view-post/left-navbar/bookmark-icon.svg" alt=""></a>
+                    <p style="margin: 0;">1</p>
+                    <div class="post-options-text">Save</div>
+                </button>
+                <button class="post-options mb-3 d-flex flex-column align-items-center justify-content-center">
+                    <a href=""><img src="./assets/images/view-post/left-navbar/boost-icon.svg" alt=""></a>
+                    <p style="margin: 0;"></p>
+                    <div class="post-options-text">Boost</div>
+                </button>
+                <button class="post-options d-flex flex-column align-items-center justify-content-center">
+                    <a href=""><img src="./assets/images/view-post/left-navbar/settings-icon.svg" alt=""></a>
+                    <p style="margin: 0;"></p>
+                </button>
             </div>
-            <div class="d-flex flex-column align-items-center justify-content-center" style="height: 64px; width: 64px; margin-left: 8px;">
-                <a href=""><img src="./assets/images/view-post/left-navbar/text-cloud-icon.svg" alt=""></a>
-                <p style="margin: 0;">7</p>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center" style="height: 64px; width: 64px; margin-left: 8px;">
-                <a href=""><img src="./assets/images/view-post/left-navbar/bookmark-icon.svg" alt=""></a>
-                <p style="margin: 0;">1</p>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center" style="height: 64px; width: 64px; margin-left: 8px;">
-                <a href=""><img src="./assets/images/view-post/left-navbar/boost-icon.svg" alt=""></a>
-                <p style="margin: 0;"></p>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center" style="height: 64px; width: 64px; margin-left: 8px;">
-                <a href=""><img src="./assets/images/view-post/left-navbar/settings-icon.svg" alt=""></a>
-                <p style="margin: 0;"></p>
-            </div>
+            
         </div>
 
 
-        <div id="post-content-section" class="col-8" style=" background-color: rgb(246, 246, 246);">
+        <div id="post-content-section" class="col-8 mb-5" style=" background-color: rgb(246, 246, 246);">
             <div  class="container__card--post-test shadow-sm rounded bg-light">
                 <img src="./assets/images/home/main/post-header-image.webp" alt="" class="post-test--image rounded-top ratio ratio-16*9">
                 <div style="background-color: rgb(255, 255, 255); padding-left: 4rem; padding-right: 4rem;" class="post-test--body py-4">
-                    <div id="post-author-info" class="d-flex mb-4">
+                    <div id="post-author-info" class="d-flex mb-5">
                         <img id="author-profile-picture" src="./assets/images/view-post/post-view/bap-profile-picture.webp" alt="" style="border-radius: 100%; height: 48px; width: 48px;">
                         <div id="authorName-&-date-container" class="ms-2">
                             <b id="author-username" class="d-flex"><a href="" style="text-decoration: none; color: black;">Bap</a></b>
@@ -99,26 +112,30 @@
                         </div>
                             
                     </div>
-                    <div id="post-reactions" class="d-flex mb-3">
-                        <div id="icon-container" class="d-flex">
-                            <img id="icon-reaction" src="./assets/images/global/icons/icon-heart.svg" alt="">
-                            <p id="icon-reaction-count">7</p>
+                    <div id="post-reactions" class="d-flex mb-2" style="justify-content: space-around">
+                        <div class="icon-container d-flex">
+                            <img class="icon-reaction" src="./assets/images/global/icons/icon-heart.svg" alt="">
+                            <p class="icon-reaction-count">7</p>
                         </div>
-                        <div id="icon-container" class="d-flex">
-                            <img id="icon-reaction" src="./assets/images/global/icons/reaction-unicorn.svg" alt="">
-                            <p id="icon-reaction-count">4</p>
+                        <div class="icon-container d-flex">
+                            <img class="icon-reaction" src="./assets/images/global/icons/reaction-unicorn.svg" alt="">
+                            <p class="icon-reaction-count">4</p>
                         </div>
-                        <div id="icon-container" class="d-flex">
-                            <img id="icon-reaction" src="./assets/images/global/icons/reaction-fire.svg" alt="">
-                            <p id="icon-reaction-count">3</p>
+                        <div class="icon-container d-flex">
+                            <img class="icon-reaction" src="./assets/images/global/icons/icon--surprise.svg" alt="">
+                            <p class="icon-reaction-count">7</p>
                         </div>
-                        <div id="icon-container" class="d-flex">
-                            <img id="icon-reaction" src="./assets/images/global/icons/icon--eyes-staring-emoji.svg" alt="">
-                            <p id="icon-reaction-count">1</p>
+                        <div class="icon-container d-flex">
+                            <img class="icon-reaction" src="./assets/images/global/icons/reaction-fire.svg" alt="">
+                            <p class="icon-reaction-count">3</p>
+                        </div>
+                        <div class="icon-container d-flex">
+                            <img class="icon-reaction" src="./assets/images/global/icons/icon--eyes-staring-emoji.svg" alt="">
+                            <p class="icon-reaction-count">1</p>
                         </div>
                     </div>
                     <div id="post-reactions"></div>
-                    <div class="post-test--title text-wrap mb-3"> <h1 class="mb-0" style="font-size: 50px;"> <strong> <a class="link-post" href="./post.html">5 Surprising Benefits of Contributing to Open Source [Beginner Edition] &#128640;</a> </strong></h1></div>
+                    <div class="post-test--title text-wrap mb-3"> <h1 class="mb-0" style="font-size: 50px;"> <strong> <a class="link-post" style="text-decoration: none; color: black;" href="./post.html">5 Surprising Benefits of Contributing to Open Source [Beginner Edition] &#128640;</a> </strong></h1></div>
                     <div class="post-test--hashtags">
                         <ul class="hashtags--list d-flex flex-wrap list-unstyled gap-1">
                             <li class="hashtag-background d-flex align-items-center"><span>#</span>beginners</li>
@@ -151,22 +168,26 @@
             </div>
         </div>
 
-        <div id="right-sidebar" class="col-3" style=" background-color: rgb(246, 246, 246)">
-            <div id="card-1-sidebar" class="card px-3 pb-3">
-                <div class="mb-3 mt-4" style="display: flex;">
+        <div id="right-sidebar" class="col-3 mb-3" style="background-color: rgb(246, 246, 246);">
+            
+            <div id="card-1-sidebar" class="card" style="overflow: hidden;">
+                <div class="dropdown-banner" style="height: 36px; width: 100%; background-color: black; z-index: 1; position: absolute; top: 0; left: 0;"></div>
+                <div class="mb-3 mt-3 px-3" style="display: flex; position: relative; z-index: 2;">
                     <img src="./assets/images/view-post/right-navbar/bap-profile-pic.png" alt="" style="border-radius: 100%; height: 48px; width: 48px; background-color: grey;">
                     <p style="margin-top: auto; margin-bottom: 0; font-weight: bold;">Bap</p>
                 </div>
-                <button class="btn btn-primary mb-3">Follow</button>
-                <small class="mb-3">Helping build the AI Native Development Community</small>
-                <b style="font-size: 12px;">LOCATION</b>
-                <p class="mb-2" style="font-weight: 300;">London, United Kingdom</p>
-                <b style="font-size: 12px;">EDUCATION</b>
-                <p class="mb-2" >Imperial College London</p>
-                <b style="font-size: 12px;" >WORK</b>
-                <p class="mb-2" >DevRel @Tessl.io</p>
-                <b style="font-size: 12px;" >JOINED</b>
-                <p class="mb-0" >May 3, 2023</p>
+                <div class="px-3 pb-3">
+                    <button class="btn btn-primary mb-3" style="width: 100%;">Follow</button>
+                    <small class="mb-3" style="display: inline-block">Helping build the AI Native Development Community</small>
+                    <b style="font-size: 12px;">LOCATION</b>
+                    <p class="mb-2" style="font-weight: 300;">London, United Kingdom</p>
+                    <b style="font-size: 12px;">EDUCATION</b>
+                    <p class="mb-2" >Imperial College London</p>
+                    <b style="font-size: 12px;" >WORK</b>
+                    <p class="mb-2" >DevRel @Tessl.io</p>
+                    <b style="font-size: 12px;" >JOINED</b>
+                    <p class="mb-0" >May 3, 2023</p>
+                </div>
             </div>
 
             <div id="card-2-sidebar" class="card">
@@ -186,16 +207,11 @@
                     <a href="" class="" style="color: inherit; text-decoration: none;"><p class="mb-1 px-3">&#x1F331; 8 seed stage OS projects you should pay attention to &#128064;</p></a>
                     <p class="px-3"><span>#opensource&nbsp;&nbsp;</span><span>#programming&nbsp;&nbsp;</span><span>#productivity&nbsp;&nbsp;</span><span>#discuss</span></p>
                 </div>
-
-                
-
-               
-
-                
-
-                
-            </div>
-            <div id="card-3-sidebar" class="card p-3">
+            </div>    
+            
+            
+            
+            <div id="card-3-sidebar" class="card p-3" style="position: sticky; top: 0px;">
                 <div id="card-3-promoted-company-info" class="d-flex">
                     <a href=""><img src="./assets/images/view-post/right-navbar/dev-badge.svg" alt="" style="height: 24px; width: 24px;"></a>
                     <p class="ms-3 mb-0" style="color: rgb(78, 78, 78)">The Dev Team</p> 
@@ -208,15 +224,16 @@
                 <p style="color: rgb(64, 64, 64);">Running through April 13, the Alibaba Cloud Web Game Challenge invites you experience the power of Alibaba Cloud services and push the boundaries of browser-based gaming.</p>
                 <p style="color: rgb(64, 64, 64);">There is one prompt for this challenge but three opportunities to win from our $3,000 prize pool!</p>
                 <button id="card-3-button-2" class="btn">Start building</button>
-            </div>
+            </div>    
+            
         </div>
 
     </main>
     
     <footer>
         <div class="footer">
-            <div class="footer__container fw-medium px-2"  id="footer__container">
-                <p class="footer__description">
+            <div class="footer-container fw-medium px-2"  id="footer__container">
+                <p class="footer__description text-muted">
                     <a href="https://dev.to/" class="company__link text-center text-decoration-none"><b>DEV Community</b></a>
                     --- A constructive and inclusive social network for software developers. With you every step of your journey.
                 </p>
@@ -285,7 +302,7 @@
                     </li>
                 </ul>
                 <div class="footer__credits">
-                    <p class="m-0">
+                    <p class="m-0 text-muted">
                         Built on
                         <a href="https://www.forem.com/" class="text-decoration-none">Forem</a>
                         - the 
@@ -294,7 +311,7 @@
                         <a href="https://dev.to/" class="text-decoration-none">DEV</a>
                         and other inclusive communities.
                     </p>
-                    <p>
+                    <p class="mb-0 text-muted">
                         Made with love and 
                         <a href="https://dev.to/t/rails" class="text-decoration-none">Ruby on rails</a>
                         . DEV Community
