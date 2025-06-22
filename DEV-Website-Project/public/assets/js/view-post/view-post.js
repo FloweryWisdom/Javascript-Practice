@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elements for the responsive company name and logic
     const promotedInfoCard = document.getElementById('card-3-promoted-company-info');
 
+    // Elements to change classname based on screen size
+    const postContainer = document.getElementById('post-content-section');
+    const websiteLogoIcon = document.getElementById('website-logo');
+    const profileDropdownButton = document.getElementById('profileDropdown');
+    const searchContainer = document.getElementById('search-container');
+    const createPostButton = document.getElementById('create-post-button');
 
     // --- 2. FUNCTION DEFINITIONS ---
     // Define all your helper functions in this section.
@@ -29,11 +35,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // This check ensures we don't get an error if the <p> tag is ever removed.
         if (promotedCompanyName) {
-            if (window.innerWidth < 1300) {
+            if (window.innerWidth < 1400) {
                 promotedCompanyName.textContent = 'Dev';
             } else {
                 promotedCompanyName.textContent = 'The Dev Team';
             }
+        }
+    }
+
+    // Function to resize width of elements based on screen size
+    function updateClassBasedOnWidth() {
+        if (!postContainer) return; // Defensive check
+        if (!websiteLogoIcon) return;
+        if (!profileDropdownButton) return;
+        if (!searchContainer) return;
+
+        if(window.innerWidth < 768) {
+            postContainer.classList.add('col-12');
+            postContainer.classList.remove('col-11');
+            searchContainer.classList.add('d-none');
+            searchContainer.classList.remove('d-flex');
+            createPostButton.classList.add('ms-auto');
+        } else {
+            postContainer.classList.add('col-11');
+            postContainer.classList.remove('col-12');
+            searchContainer.classList.add('d-flex');
+            searchContainer.classList.remove('d-none');
+            createPostButton.classList.remove('ms-auto');
+        }
+        
+        if (window.innerWidth < 1023) {
+            postContainer.classList.add('col-11');
+            postContainer.classList.remove('col-8');
+            websiteLogoIcon.classList.add('ms-2');
+            websiteLogoIcon.classList.remove('ms-5');
+            profileDropdownButton.classList.add('me-2');
+            profileDropdownButton.classList.remove('me-5');
+        } else {
+            postContainer.classList.add('col-8');
+            postContainer.classList.remove('col-11')
+            websiteLogoIcon.classList.add('ms-5');
+            websiteLogoIcon.classList.remove('ms-2');
+            profileDropdownButton.classList.add('me-5');
+            profileDropdownButton.classList.remove('me-2');
         }
     }
 
@@ -118,6 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // D) --- Responsive Element Resizing ---
+    // This listener calls your functions every time the browser window is resized.
+    window.addEventListener('resize', updateClassBasedOnWidth);
+
 
 
     // --- 4. INITIAL CALLS ON PAGE LOAD ---
@@ -125,6 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call this function once to set the correct initial text for the company name.
     updatePromotedCompanyName();
+
+    // Call this function once to set the correct element sized based on screen size.
+    updateClassBasedOnWidth();
 
     // The logic to fetch the specific post data will also be called here.
     // e.g., fetchAndDisplaySinglePost();
