@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileDropdownButton = document.getElementById('profileDropdown');
     const searchContainer = document.getElementById('search-container');
     const createPostButton = document.getElementById('create-post-button');
+    const postAuthorContainer = document.getElementById('post-author-info');
 
     // --- 2. FUNCTION DEFINITIONS ---
     // Define all your helper functions in this section.
@@ -45,40 +46,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to resize width of elements based on screen size
     function updateClassBasedOnWidth() {
-        if (!postContainer) return; // Defensive check
-        if (!websiteLogoIcon) return;
-        if (!profileDropdownButton) return;
-        if (!searchContainer) return;
+        // Defensive check
+        if (!postContainer || !websiteLogoIcon || !profileDropdownButton || !searchContainer || !createPostButton || !postAuthorContainer ) return;
 
-        if(window.innerWidth < 768) {
+        const width = window.innerWidth;
+        
+        // Reset column classes
+        postContainer.classList.remove('col-12', 'col-11', 'col-8');
+
+        if(width < 768) {
             postContainer.classList.add('col-12');
-            postContainer.classList.remove('col-11');
             searchContainer.classList.add('d-none');
             searchContainer.classList.remove('d-flex');
             createPostButton.classList.add('ms-auto');
-        } else {
+            postAuthorContainer.classList.add('mb-4');
+            postAuthorContainer.classList.remove('mb-5');
+        } else if (width < 1023) {
             postContainer.classList.add('col-11');
-            postContainer.classList.remove('col-12');
             searchContainer.classList.add('d-flex');
             searchContainer.classList.remove('d-none');
             createPostButton.classList.remove('ms-auto');
-        }
-        
-        if (window.innerWidth < 1023) {
-            postContainer.classList.add('col-11');
-            postContainer.classList.remove('col-8');
+            postAuthorContainer.classList.add('mb-5');
+            postAuthorContainer.classLlist.remove('mb-4');
             websiteLogoIcon.classList.add('ms-2');
             websiteLogoIcon.classList.remove('ms-5');
             profileDropdownButton.classList.add('me-2');
             profileDropdownButton.classList.remove('me-5');
         } else {
             postContainer.classList.add('col-8');
-            postContainer.classList.remove('col-11')
+            searchContainer.classList.add('d-flex');
+            searchContainer.classList.remove('d-none');
+            createPostButton.classList.remove('ms-auto');
+            postAuthorContainer.classList.add('mb-5');
+            postAuthorContainer.classList.remove('mb-4');
             websiteLogoIcon.classList.add('ms-5');
             websiteLogoIcon.classList.remove('ms-2');
             profileDropdownButton.classList.add('me-5');
             profileDropdownButton.classList.remove('me-2');
         }
+        
     }
 
     // --- 3. EVENT LISTENER ATTACHMENTS ---

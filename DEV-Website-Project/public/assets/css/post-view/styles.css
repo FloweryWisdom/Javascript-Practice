@@ -276,13 +276,10 @@ body{
 /* Footer Styling ends here.  */
 
 /*CSS Breakpoints Start Here: */
-@media only screen and (max-width: 768px) {
-    #left-sidebar {
-        display: none !important;
-    }
-    .footer-container {
-        padding-left: 1rem;
-        padding-right:1rem;
+
+@media only screen and (max-width: 1100px) {
+    #card-3-promoted-company-info p {
+        margin-left: auto !important;
     }
 }
 
@@ -303,11 +300,47 @@ body{
     #post-text-content {
         font-size: 18px !important;
     }
+    .post-test--body {
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+    }
 }
 
-@media only screen and (max-width: 1100px) {
-    #card-3-promoted-company-info p {
-        margin-left: auto !important;
+
+@media only screen and (max-width: 768px) {
+    #left-sidebar {
+        display: none !important;
     }
+
+    .post-test--title h1 {
+        font-size: 30px !important;
+    }
+
+    #post-text-content {
+        font-size: 16px !important;
+    }
+
+    .post-test--body {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    #post-date {
+        font-size: 12px !important;
+    }
+
+    #post-reactions {
+        width: 300px;
+    }
+
+    .icon-container .icon-reaction {
+        height: 25px;
+        width: 25px;
+    }
+    .footer-container {
+        padding-left: 1rem;
+        padding-right:1rem;
+    }
+
 }
 /*CSS Breakpoints End Here: */
