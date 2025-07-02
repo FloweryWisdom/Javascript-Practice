@@ -1,6 +1,20 @@
 // This event listener ensures our script runs only after the HTML is ready
 // All of our page-specific logic will go inside here.
 document.addEventListener('DOMContentLoaded', () => {
+
+    // --- GET POST ID FROM URL ---
+    // This is the first thing we do. We need the ID to fetch the correct post.
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+
+    // If there's no ID in the URL, we can't do anything. We'll show an error and stop.
+    if (!postId) {
+        document.body.innerHTML = '<div class="alert alert-danger text-center m-5">Error. Post ID is missing from the URL.</div>';
+        console.error('No post ID found.');
+        return // Stop the rest of the script from executing
+    }
+    // --------------------------------
+
     // --- 1. DOM ELEMENT SELECTIONS ---
     // Group all element selections here for clarity and easy reference.
 
@@ -21,6 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchContainer = document.getElementById('search-container');
     const createPostButton = document.getElementById('create-post-button');
     const postAuthorContainer = document.getElementById('post-author-info');
+
+    // --- Selectors for Dynamic Post Content ---
+    const postImage = document.querySelector('.post-test--image');
+    const authorProfilePicture = document.getElementById('author-profile-picture');
+    const authorUsername = document.getElementById('author-username');
+    const postDate = document.getElementById('post-date');
+    const postTitle = document.querySelector('.post-test--title h1');
+    const postLink = document.querySelector('.post-test--title a.link-post');
+    const hashtagContainer = document.querySelector('.hashtags--list');
+    const postContent = document.getElementById('post-text-content');
+    // Note: you have two elements with id="post-reactions". IDs should be unique.
+    // We'll select the first one found for now.
+    const postReactions = document.querySelector('#post-reactions');
+    // -------------------------------------------
 
     // --- 2. FUNCTION DEFINITIONS ---
     // Define all your helper functions in this section.
@@ -85,6 +113,105 @@ document.addEventListener('DOMContentLoaded', () => {
             profileDropdownButton.classList.remove('me-2');
         }
         
+    }
+
+    // --- Function to Populate the Page with Post Data ---
+    // This function takes the fetched post object and updates all the relevant HTML elements.
+    function populatePostData(post) {
+        // Set the browsers tab's title to the post's title
+        document.title = post.title; 
+
+        // Set the main post image source and alt text
+        if (postImage && post.imageUrl) {
+            postImage.src = post.imageUrl;
+            postImage.alt = post.title;
+        }
+
+        // Set author details using optional chaining (?.) for safety
+        if (authorProfilePicture && post.author?.profilePictureUrl) {
+            authorProfilePicture.src = post.author.profilePictureUrl;
+            authorProfilePicture.alt = `${post.author.username}'s profile picture`;
+        }
+        if (authorUsername) {
+            authorUsername.textContent = post.author?.username || 'Unknown Author';
+        }
+
+        // Format and set the post's creation date
+        if (postDate) {
+            const formattedDate = new Date(post.createdAt).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+            });
+            postDate.textContent = `Posted on ${formattedDate}`;
+        }
+
+        // Set the main post title
+        if (postTitle) {
+            postTitle.textContent = post.title;
+        }
+
+        // Dynamically create and add hashtag list items 
+        if (hashtagContainer && post.hashtags?.length > 0) {
+            hashtagContainer.innerHTML = ''; // Clear any static/placeholder hashtags
+            post.hashtags.forEach(tag => {
+                const li = document.createElement('li');
+                li.className = 'hashtag-background d-flex align-items-center';
+                li.textContent = `#${tag}`;
+                hashtagContainer.appendChild(li);
+            });
+        }
+
+        // Set the Full Post Content.
+        if (postContent) {
+            // Using .innerHTML allows rendering if the content has HTML tags (like <p>, <b>)
+            // If content is always plain text, .textContent is safer.
+            postContent.innerHTML = post.content.replace(/\n/g, '<br>'); // Replace newlines with <br> tags
+        }
+
+        // --- Update the Right Sidebar ---
+        const sidebarAuthorPic = document.querySelector('#card-1-sidebar img');
+        const sidebarAuthorName = document.querySelector('#card-1-sidebar p'); // This is a bit generic, an ID would be better
+        const sidebarMoreFrom = document.querySelector('#card-2-sidebar h4 a');
+
+        if (sidebarAuthorPic && post.author?.profilePictureUrl) {
+            sidebarAuthorPic.src = post.author.profilePictureUrl;
+        }
+        if (sidebarAuthorName && post.author?.username) {
+            sidebarAuthorName.textContent = post.author.username;
+        }
+        if (sidebarMoreFrom && post.author?.username) {
+            sidebarMoreFrom.textContent = post.author.username;
+        }
+
+        // NOTE: The "More from..." list would require another API call to get that user's other posts.
+        // This is a great next feature to add!
+    }
+
+    // --- Main Function to Fetch and Render ---
+    async function fetchAndRenderPost() {
+        try {
+            // Make the GET request to our specific post endpoint, using the ID from the URL
+            const response = await fetch(`/api/posts/${postId}`);
+
+            // If the server responds with an error status (like 404 Post Not Found)
+            if (!response.ok) {
+                const errorInfo = await response.json();
+                throw new Error(errorInfo.error?.message || 'Post not found.');
+            }
+
+            // If the response is OK, parse the JSON to get the post object
+            const post = await response.json();
+
+            // Call our function to populate the page with the data
+            populatePostData(post);
+
+        } catch (error) {
+            // Handle any errors from the fetch or from a non-ok response
+            console.error('Falied to load post:', error);
+            const contentSection = document.getElementById('post-content-section');
+            if (contentSection) {
+                contentSection.innerHTML = `<div class="alert alert-danger"><strong>Error:</strong> ${error.message}</div>`;
+            }
+        }
     }
 
     // --- 3. EVENT LISTENER ATTACHMENTS ---
@@ -183,8 +310,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call this function once to set the correct element sized based on screen size.
     updateClassBasedOnWidth();
 
-    // The logic to fetch the specific post data will also be called here.
-    // e.g., fetchAndDisplaySinglePost();
+    // Call our main fetch function to make the page dynamic
+    fetchAndRenderPost();
 });
 
 
