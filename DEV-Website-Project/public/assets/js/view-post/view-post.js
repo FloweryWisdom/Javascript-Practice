@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // UI Interactivity Elements
     const iconButtons = document.querySelectorAll('.post-options');
+    const reactionsDropdown = document.getElementById('add-reactions-container-dropdown');
+    // Add any other selectors for displaying counts
 
     // Elements for the responsive company name and logic
     const promotedInfoCard = document.getElementById('card-3-promoted-company-info');
@@ -115,6 +117,132 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }
 
+    // This function attaches event listeners to our reaction buttons.
+    function setupReactionListeners() {
+        if (!reactionsDropdown) return;
+
+        // Use event delegation on the dropdown container for efficiency
+        reactionsDropdown.addEventListener('click', async (event) => {
+            // Find the button that was clicked, even if the user clicked the image inside it
+            const reactionButton = event.target.closest('.reaction-button');
+            if (!reactionButton) return;
+
+            // Get the reaction type from the data-reaction attribute we added
+            const reactionType = reactionButton.dataset.reaction;
+            const token = localStorage.getItem('authToken');
+
+            // Can't react if not logged in
+            if (!token) {
+                alert('You must be logged in to react.');
+                window.location.href = '/login.html';
+                return;
+            }
+
+            try {
+                // Call our new backend endpoint. 'postId' should be available from the outer scope.
+                const response = await fetch(`/api/posts/${postId}/react`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ reactionType: reactionType })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || 'Failed to submit reaction.');
+                }
+
+                // If successful, the backend sends back the updated post object
+                const { post: updatedPost } = await response.json();
+
+                // --- Dynamically update the UI with the new counts ---
+                updateReactionUI(updatedPost);
+
+            } catch (error) {
+                console.error('Error submitting reaction:', error);
+                alert(`Error: ${error.message}`);
+            }
+        });
+    }
+
+    // This function takes the entire post object from the API and updates ALL reaction on UI
+    function updateReactionUI(post) {
+        if (!post || !post.reactions ) return; // Safety check
+
+        const { reactions } = post;
+        const token = localStorage.getItem('authToken');
+        let currentUserId = null;
+
+        // Decode token to find current user's ID (for highlighting their own reaction)
+        if (token) {
+            try {
+                // The payload is in the second part of the JWT
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                currentUserId = payload.userId;
+            } catch (e) {
+                console.error('Failed to decode token:', e);
+            }
+        }
+
+        // --- Update the total reaction counter ---
+        const totalReactionsElement = document.querySelector('#hover-trigger p');
+        if (totalReactionsElement) {
+            // Calculate the sum of all reaction array lengths
+            const totalCount = Object.values(reactions).reduce((sum, arr) => sum + arr.length, 0);
+            totalReactionsElement.textContent = totalCount;
+        }
+
+        // --- Display only reactions with a count > 0 in post body ---
+        const postReactionsContainer = document.getElementById('post-reactions');
+        if (postReactionsContainer) {
+            postReactionsContainer.innerHTML = ''; // Clear existing static reactions
+
+            // Define the exact order you want the icons to appear in
+            const reactionOrder = ['heart', 'unicorn', 'exploding', 'fire', 'eyes'];
+
+            // Loop through the defined order
+            reactionOrder.forEach(type => {
+                // Check if this reaction type exists in the data and has a count > 0
+                if (reactions[type] && reactions[type].length > 0 ) {
+                    const count = reactions[type].length;
+
+                    const reactionDisplay = document.createElement('div');
+                    reactionDisplay.className = 'icon-container d-flex align-items-center me-3';
+                    // This assumes your reaction images are named 'reaction-heart.svg', 'reaction-unicorn.svg', etc.
+                    reactionDisplay.innerHTML = `
+                        <img class="icon-reaction" src="/assets/images/view-post/post-view/reaction-${type}.svg" alt="${type}">
+                        <p class="icon-reaction-count ms-1 mb-0">${count}</p> 
+                    `;
+                    postReactionsContainer.appendChild(reactionDisplay);
+                }
+            })
+
+        }
+
+        // --- Update the dropdown counters and highlight selected reaction ---
+        const reactionButtons = document.querySelectorAll('#add-reactions-container-dropdown .reaction-button');
+        reactionButtons.forEach(button => {
+            const reactionType = button.dataset.reaction;
+            const countElement = button.querySelector('.icon-reaction-count');
+            const userHasReacted = reactions[reactionType]?.includes(currentUserId);
+
+            // Update the counter inside the dropdown to the real count
+            if (countElement) {
+                countElement.textContent = reactions[reactionType]?.length || 0;
+            }
+
+            // Highlight the button if it's the current user's selected reaction
+            if (userHasReacted) {
+                button.classList.add('selected-reaction');
+            } else {
+                button.classList.remove('selected-reaction');
+            }
+        });
+        
+    }
+
     // --- Function to Populate the Page with Post Data ---
     // This function takes the fetched post object and updates all the relevant HTML elements.
     function populatePostData(post) {
@@ -167,6 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
             postContent.innerHTML = post.content.replace(/\n/g, '<br>'); // Replace newlines with <br> tags
         }
 
+        // After populating the main content, if we have an author,
+        // fetch their other posts.
+        if (post.author?._id) {
+            fetchAndDisplayAuthorPosts(post.author._id);
+        }
+
         // --- Update the Right Sidebar ---
         const sidebarAuthorPic = document.querySelector('#card-1-sidebar img');
         const sidebarAuthorName = document.querySelector('#card-1-sidebar p'); // This is a bit generic, an ID would be better
@@ -182,8 +316,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebarMoreFrom.textContent = post.author.username;
         }
 
-        // NOTE: The "More from..." list would require another API call to get that user's other posts.
-        // This is a great next feature to add!
+        // Call updatedReactionCounts to set the initial state
+        // updateReactionCounts(post.reactions); // --- MAY HAVE TO DELETE THIS!!!!  --- 
     }
 
     // --- Main Function to Fetch and Render ---
@@ -204,6 +338,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Call our function to populate the page with the data
             populatePostData(post);
 
+            // Call the function to handle all reaction UI
+            updateReactionUI(post);
+
         } catch (error) {
             // Handle any errors from the fetch or from a non-ok response
             console.error('Falied to load post:', error);
@@ -213,6 +350,78 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    // This function will fetch and display the "More from..." posts
+    async function fetchAndDisplayAuthorPosts(authorId) {
+        // Select the container where the list items will go
+        const moreFromContainer = document.getElementById('card-2-sidebar');
+        if (!moreFromContainer) return; // Defensive check
+
+        try {
+            // Fetch the list of other posts by this author from our new API endpoint
+            const response = await fetch(`/api/users/${authorId}/posts`);
+            if (!response.ok) {
+                throw new Error('Could not fetch author\'s post.');
+            }
+            const authorPosts = await response.json();
+
+            // Select ALL static items that need to be removed.
+            const staticItems = moreFromContainer.querySelectorAll('.more-from-item');
+            
+            // Loop through the list of found items and remove each one from its parent.
+            staticItems.forEach(item => item.remove());
+
+            // Check if the API returned any posts.
+            if (authorPosts && authorPosts.length > 0) {
+                authorPosts.forEach(authorPost => {
+                    // Don't show the currently viewed post in the "More from" list
+                    if (authorPost._id !== postId) { // 'postId' is from the outer scope where we get it from the URL.
+
+                        const postItemDiv = document.createElement('div');
+                        postItemDiv.className = 'more-from-item mt-3'; // Use the same class as your static items
+
+                        // Hashtag logic
+                        // Start with an empty string for the hashtags HTML
+                        let hashtagsHtml = '';
+                        // Check if the post has any hashtags
+                        if (authorPost.hashtags && authorPost.hashtags.length > 0) {
+                            // Use .map() to create a string for each tag, then .join() to combine them
+                            const tagsString = authorPost.hashtags.map(tag => `<span>#${tag}</span>`).join('&nbsp;&nbsp;');
+                            // Wrap the tags string in the <p> element from your static HTML
+                            hashtagsHtml = `<p class="px-3 text-muted" style="font-size: 0.85rem;">${tagsString}</p>`;
+                        }
+
+                        // Populate the innerHTML with the correct structure and data.
+                        postItemDiv.innerHTML = `
+                            <a href="/view-post.html?id=${authorPost._id}" style="color: inherit; text-decoration: none;">
+                                <p class="mb-1 px-3">${authorPost.title}</p>
+                            </a>
+                            ${hashtagsHtml}
+                            `;
+                        
+                        // Append the new, complete item to the main container
+                        moreFromContainer.appendChild(postItemDiv);
+                    }
+                });
+            } else {
+                // If the author has no other posts, display a message.
+                const noPostsMessage = document.createElement('p');
+                noPostsMessage.className = 'px-3 text-muted mt-3';
+                noPostsMessage.textContent = 'No other posts from this author.';
+                moreFromContainer.appendChild(noPostsMessage);
+            }
+        } catch (error) {
+            console.error('Error fetching more posts by author:', error);
+            // Optionally display a small error message in that sidebar card
+            const moreFromContainer = document.getElementById('card-2-sidebar');
+            if (moreFromContainer) {
+                const staticItems = moreFromContainer.querySelectorAll('.more-from-item');
+                staticItems.forEach(item => item.remove());
+                moreFromContainer.innerHTML += '<p class="px-3 text-danger mt-3"><small>Could not load more posts.</small></p>'
+            }
+        }
+    }
+
 
     // --- 3. EVENT LISTENER ATTACHMENTS ---
     // Attach all the event listeners your page needs.
@@ -312,6 +521,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call our main fetch function to make the page dynamic
     fetchAndRenderPost();
+
+    // Add the call to set up the new listeners
+    setupReactionListeners();
 });
 
 

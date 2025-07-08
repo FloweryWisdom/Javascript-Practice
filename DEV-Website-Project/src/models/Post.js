@@ -36,9 +36,22 @@ const postSchema = new Schema(
             ref: 'User', // This tells Mongoose that the ObjectId references a document in the 'User' collection
             required: [true, 'Post must have an author.']
         },
-    // Optional: Fields for likes, comments, etc., can be added later
-    // likes: [{ Shema.Types.ObjectId, ref: 'User', }],
-    // commentCount: { type: Number, default: 0},
+        
+        // --- Reactions Schema ---
+        reactions: {
+            heart: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+            unicorn: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+            exploding: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+            fire: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+            eyes: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+        },
+        
+        // This will be an array of ObjectIDs, and each ID will reference a document
+        // in our new 'Comment' collection.
+        comments: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }]
     }, 
     // --- Second Argument: Schema Options Object ---
     {

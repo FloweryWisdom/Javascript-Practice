@@ -7,6 +7,7 @@ const createError = require('http-errors');
 //Add require statements for other route files as you create them
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 // API Route Mounting
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
 
 // -- Basic Root Route (Optional - often handled by static index.hmtl) ---
 // This provides a simple API check, seperate from your static frontend

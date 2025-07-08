@@ -139,6 +139,61 @@ router.patch('/:postId', authMiddleware, async (req, res, next) => {
     }
 });
 
+// --- NEW: REACT to a Post ---
+// Endpoint: PATCH /api/posts/:postId/react
+// Requires authentication to know who is reacting.
+router.patch('/:postId/react', authMiddleware, async (req, res, next) => {
+    try {
+        // The type of reaction (e.g. 'heart', 'unicorn') will be sent in the request body.
+        const { reactionType } = req.body;
+        const postId = req.params.postId;
+        const userId = req.userId; // From authMiddleware
+
+        // Validate the reaction type to ensure it's one we support.
+        const allowedReactions = ['heart', 'unicorn', 'exploding', 'fire', 'eyes'];
+        if (!reactionType || !allowedReactions.includes(reactionType)) {
+            return next(createError(400, 'Invalid reaction type.'));
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            return next(createError(400, 'Invalid post ID format.'));
+        }
+
+        const post = await Post.findById(postId);
+        if (!post) {
+            return next(createError(404, 'Post not found.'));
+        }
+
+        // Check if the user is clicking the same reaction they already have.
+        const hasReacted = post.reactions[reactionType].includes(userId);
+
+        // First, remove the user's ID from ALL reaction arrays to ensure they only have one. 
+        // If user had already selected a reaction type, it gets removed (untoggled)
+        allowedReactions.forEach(type => {
+            post.reactions[type].pull(userId);
+        });
+
+        // If they did NOT already select this emoji before, it means they are adding a new one
+        // or switching their reaction. So, we add their ID to the new reaction array.
+        if (!hasReacted) {
+            post.reactions[reactionType].push(userId);
+        }
+        // If they *did* already have this reaction, the .pull() above has removed it,
+        // effectively toggling it off.
+
+        const updatedPost = await post.save();
+        await updatedPost.populate('author', 'username name profilePictureUrl');
+
+        res.status(200).json({
+            message: 'Reaction toggled successfully!',
+            post: updatedPost
+        });
+
+    } catch (error) {
+        next(error)   
+    }
+})
+
 // --- 5. DELETE a Post by ID ---
 // Endpoint: DELETE /api/posts/:postId
 // Requires authentication AND user must be the author

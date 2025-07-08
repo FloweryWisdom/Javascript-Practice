@@ -45,23 +45,23 @@
 
     <main class="row d-flex" style="margin-top: 1rem; margin-right: 0; margin-left: 0;">
         <div id="add-reactions-container-dropdown">
-            <button class="reaction-button">
+            <button class="reaction-button" data-reaction="heart">
                 <img class="icon-reaction-option" src="./assets/images/global/icons/icon-heart.svg" alt="">
                 <p class="icon-reaction-count">7</p>
             </button>
-            <button class="reaction-button">
+            <button class="reaction-button" data-reaction="unicorn">
                 <img class="icon-reaction-option" src="./assets/images/global/icons/reaction-unicorn.svg" alt="">
                 <p class="icon-reaction-count">4</p>
             </button>
-            <button class="reaction-button">
+            <button class="reaction-button" data-reaction="exploding">
                 <img class="icon-reaction-option" src="./assets/images/global/icons/icon--surprise.svg" alt="">
                 <p class="icon-reaction-count">7</p>
             </button>
-            <button class="reaction-button">
+            <button class="reaction-button" data-reaction="fire">
                 <img class="icon-reaction-option" src="./assets/images/global/icons/reaction-fire.svg" alt="">
                 <p class="icon-reaction-count">3</p>
             </button>
-            <button class="reaction-button">
+            <button class="reaction-button" data-reaction="eyes">
                 <img class="icon-reaction-option" src="./assets/images/global/icons/icon--eyes-staring-emoji.svg" alt="">
                 <p class="icon-reaction-count">1</p>
             </button>
@@ -112,26 +112,26 @@
                         </div>
                             
                     </div>
-                    <div id="post-reactions" class="d-flex mb-2" style="justify-content: space-around">
+                    <div id="post-reactions" class="d-flex mb-2" style="justify-content: start;">
                         <div class="icon-container d-flex">
-                            <img class="icon-reaction" src="./assets/images/global/icons/icon-heart.svg" alt="">
-                            <p class="icon-reaction-count">7</p>
+                            <img class="icon-reaction" src="./assets/images/view-post/post-view/reaction-heart.svg" alt="">
+                            <p class="icon-reaction-count" data-reaction-count="heart">7</p>
                         </div>
                         <div class="icon-container d-flex">
-                            <img class="icon-reaction" src="./assets/images/global/icons/reaction-unicorn.svg" alt="">
-                            <p class="icon-reaction-count">4</p>
+                            <img class="icon-reaction" src="./assets/images/view-post/post-view/reaction-unicorn.svg" alt="">
+                            <p class="icon-reaction-count" data-reaction-count="unicorn">4</p>
                         </div>
                         <div class="icon-container d-flex">
-                            <img class="icon-reaction" src="./assets/images/global/icons/icon--surprise.svg" alt="">
-                            <p class="icon-reaction-count">7</p>
+                            <img class="icon-reaction" src="./assets/images/view-post/post-view/reaction-exploding.svg" alt="">
+                            <p class="icon-reaction-count" data-reaction-count="exploding">7</p>
                         </div>
                         <div class="icon-container d-flex">
-                            <img class="icon-reaction" src="./assets/images/global/icons/reaction-fire.svg" alt="">
-                            <p class="icon-reaction-count">3</p>
+                            <img class="icon-reaction" src="./assets/images/view-post/post-view/reaction-fire.svg" alt="">
+                            <p class="icon-reaction-count" data-reaction-count="fire">3</p>
                         </div>
                         <div class="icon-container d-flex">
-                            <img class="icon-reaction" src="./assets/images/global/icons/icon--eyes-staring-emoji.svg" alt="">
-                            <p class="icon-reaction-count">1</p>
+                            <img class="icon-reaction" src="./assets/images/view-post/post-view/reaction-eyes.svg" alt="">
+                            <p class="icon-reaction-count" data-reaction-count="eyes">1</p>
                         </div>
                     </div>
                     <div id="post-reactions"></div>
@@ -164,6 +164,53 @@
                         Quos corrupti fugiat quia iusto in. Inventore facilis nisi, culpa asperiores quae facere velit corporis itaque officia nostrum deleniti eius rem praesentium pariatur iste laboriosam, dolor quibusdam iure animi soluta?
                         Deserunt sequi fugiat dignissimos eligendi officiis, laudantium voluptatem nam explicabo corrupti, amet, odio ipsam dolorem sit tempore non! Sed consequatur voluptatibus deserunt delectus quo maiores repudiandae eligendi itaque obcaecati blanditiis!
                     </div>
+                    <div id="comments-section" class="mt-5 pt-4 border-top">
+                        <div class="comments-header d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="h4">Top comments (<span id="comment-count">1</span>)</h3>
+                            <button class="btn btn-outline-secondary">Subscribe</button>
+                        </div>
+
+                        <div class="create-comment-container d-flex align-items-start gap-3 mb-5">
+                            <img src="./assets/images/create-account/dev-logo.png" alt="Your avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+                            <form id="new-comment-form" class="w-100" action="">
+                                <textarea id="new-comment-textarea" class="form-control" placeholder="Add to the discussion" rows="3" required></textarea>
+                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                            </form>
+                        </div>
+
+                        <div id="comments-list-container">
+                            <div class="comment d-flex align-items-start gap-3 mb-4">
+                                <img src="./assets/images/home/main/profile-picture-4.webp" alt="Tim Clever's avatar" class="rounded-circle mt-1" style="width: 40px; height: 40px;">
+
+                                <div class="comment-main-content card w-100">
+                                    <div class="card-body">
+                                        <div class="comment-header d-flex align-items-center mb-2">
+                                            <span class="comment-author fw-bodl me-2">Tim Clever</span>
+                                            <span class="comment-date text-muted"> Jul 6</span>
+                                            <div class="ms-auto">
+                                                <button class="btn btn-sm border-0">...</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="comment-body">
+                                            <p> Wow 👏👏👏👏</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-footer bg-transparent border-top-0 d-flex gap-3">
+                                        <button class="btn btn-sm d-flex align-items-center gap-1">
+                                            <img src="./assets/images/global/icons/icon-heart.svg" alt="Like" style="height: 18px;">
+                                            <span>2 likes</span>
+                                        </button>
+                                        <button class="btn btn-sm d-flex align-items-center gap-1">
+                                            <img src="./assets/images/global/icons/reaction-comment.svg" alt="Reply" style="height: 18px;">
+                                            <span>Reply</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,16 +241,16 @@
                 <div>
                     <h4 class="mb-3 mt-3 px-3">More from <a href="" style="text-decoration: none;">Bap</a></h4>
                 </div>
-                <div id="card-2-list-item" class="mt-3">
+                <div class="more-from-item mt-3">
                     <a href="" class="" style="color: inherit; text-decoration: none;"><p class="mb-1 px-3" >&#x1F680; AI Native Dev Landscape Just Dropped (and it's open source!) </p></a>
                     <p class="px-3"><span>#ai&nbsp;&nbsp;</span><span>#productivity&nbsp;&nbsp;</span><span>#opensource&nbsp;&nbsp;</span><span>#discuss</span></p>
                 </div>
 
-                <div id="card-2-list-item" class="mt-3">
+                <div class="more-from-item mt-3">
                     <a class="" href="" style="color: inherit; text-decoration: none;"><p class="mb-1 px-3">5 Trends in OS development</p></a>
                     <p class="px-3"><span>#webdev&nbsp;&nbsp;</span><span>#programming&nbsp;&nbsp;</span><span>#opensource&nbsp;&nbsp;</span><span>#learning</span></p>
                 </div>
-                <div id="card-2-list-item" class="mt-3">
+                <div class="more-from-item mt-3">
                     <a href="" class="" style="color: inherit; text-decoration: none;"><p class="mb-1 px-3">&#x1F331; 8 seed stage OS projects you should pay attention to &#128064;</p></a>
                     <p class="px-3"><span>#opensource&nbsp;&nbsp;</span><span>#programming&nbsp;&nbsp;</span><span>#productivity&nbsp;&nbsp;</span><span>#discuss</span></p>
                 </div>

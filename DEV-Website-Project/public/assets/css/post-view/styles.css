@@ -132,6 +132,11 @@ body{
     background-color: rgb(246, 246, 246);
 }
 
+.reaction-button.selected-reaction {
+    background-color: #e0e6f7; 
+    border: 1px solid #3b49df;
+}
+
 .icon-reaction-option {
     height: 35px;
     width: 35px;
@@ -200,11 +205,11 @@ body{
 
 
 
-#card-2-list-item a p:hover {
+.more-from-item a p:hover {
     color: rgb(48, 58, 171);
 }
 
-#card-2-list-item span {
+.more-from-item span {
     color: rgb(114, 114, 114);
     font-weight: 300;
     font-size: 14px;
