@@ -8,6 +8,7 @@ const createError = require('http-errors');
 const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/posts/:postId/comments', commentRoutes);
 
 // -- Basic Root Route (Optional - often handled by static index.hmtl) ---
 // This provides a simple API check, seperate from your static frontend

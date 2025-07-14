@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('No post ID found.');
         return // Stop the rest of the script from executing
     }
-    // --------------------------------
+    
+
+    const token = localStorage.getItem('authToken');
 
     // --- 1. DOM ELEMENT SELECTIONS ---
     // Group all element selections here for clarity and easy reference.
@@ -50,10 +52,99 @@ document.addEventListener('DOMContentLoaded', () => {
     // Note: you have two elements with id="post-reactions". IDs should be unique.
     // We'll select the first one found for now.
     const postReactions = document.querySelector('#post-reactions');
-    // -------------------------------------------
+    
+    // --- Selectors for the Comment Section ---
+    const commentsListContainer = document.getElementById('comments-list-container');
+    const newCommentForm = document.getElementById('new-comment-form');
+    const newCommentTextarea = document.getElementById('new-comment-textarea');
+    const commentCountSpan = document.getElementById('comment-count');
 
     // --- 2. FUNCTION DEFINITIONS ---
     // Define all your helper functions in this section.
+
+    // --- Function to create the HTML for a single comment ---
+    function createCommentElement(comment) {
+        // Create the main wrapper div for the comment
+        const commentWrapper = document.createElement('div');
+        commentWrapper.className = 'comment d-flex align-items-start gap-3 mb-4';
+
+        // Format the date for display
+        const commentDate = new Date(comment.createdAt).toLocaleDateString('en-US', {
+            month: 'short', day: 'numeric'
+        });
+
+        // Use optional chaining (?.) for safety, in case author isn't populated
+        const authorUsername = comment.author?.username || 'Anonymous';
+        const authorAvatar = comment.author?.profilePictureUrl || '/assets/images/global/icons/default-avatar.png';
+
+        // Set the innerHTML of the comment wrapper
+        commentWrapper.innerHTML = `
+            <img src="${authorAvatar}" alt="${authorUsername}'s avatar" class="rounded-circle mt-1" style="width: 40px; height: 40px; object-fit: cover;">
+            <div class="comment-main-content card w-100">
+                <div class="card-body">
+                    <div class="comment-header d-flex align-items-center mb-2">
+                        <span class="comment-author fw-bodl me-2">${authorUsername}</span>
+                        <span class="comment-date text-muted">${commentDate}</span>
+                        <div class="ms-auto">
+                            <button class="btn btn-sm border-0">...</button>
+                        </div>
+                    </div>
+
+                    <div class="comment-body">
+                        <p class="mb-0">${comment.content}</p>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-transparent border-top-0 d-flex gap-3">
+                    <button class="btn btn-sm d-flex align-items-center gap-1">
+                        <img src="./assets/images/global/icons/icon-heart.svg" alt="Like" style="height: 18px;">
+                        <span>2 likes</span>
+                    </button>
+                    <button class="btn btn-sm d-flex align-items-center gap-1">
+                        <img src="./assets/images/global/icons/reaction-comment.svg" alt="Reply" style="height: 18px;">
+                        <span>Reply</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        return commentWrapper;
+    }
+
+    // --- Function to fetch and display all comments for the post ---
+    async function fetchAndDisplayComments(currentPostId) {
+        if (!commentsListContainer) return; 
+
+        try {
+            const response = await fetch(`/api/posts/${currentPostId}/comments`);
+            if (!response.ok) {
+                throw new Error('Failed to load comments.');
+            }
+            const comments = await response.json();
+
+            // Clear the static example comment(s)
+            commentsListContainer.innerHTML = '';
+
+            // Update the comment count in the header
+            if (commentCountSpan) {
+                commentCountSpan.textcontent = comments.length;
+            }
+
+            if (comments.length > 0) {
+                // Loop through the fetched comments and add them to the page
+                comments.forEach(comment => {
+                    const commentElement = createCommentElement(comment);
+                    commentsListContainer.appendChild(commentElement);
+                });
+            } else {
+                commentsListContainer.innerHTML = '<p class="text-center text-muted">Be the first to comment!</p>';
+            }
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            if (commentsListContainer) {
+                commentsListContainer.innerHTML = '<p class="text-center text-danger">Could not load comments.</p>';
+            }
+        }
+    }
 
     // Function to update the company name text based on window size
     function updatePromotedCompanyName() {
@@ -316,8 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebarMoreFrom.textContent = post.author.username;
         }
 
-        // Call updatedReactionCounts to set the initial state
-        // updateReactionCounts(post.reactions); // --- MAY HAVE TO DELETE THIS!!!!  --- 
     }
 
     // --- Main Function to Fetch and Render ---
@@ -337,6 +426,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Call our function to populate the page with the data
             populatePostData(post);
+
+            // Call the function to display the comments for this post
+            fetchAndDisplayComments(post._id);
 
             // Call the function to handle all reaction UI
             updateReactionUI(post);
@@ -507,6 +599,76 @@ document.addEventListener('DOMContentLoaded', () => {
     // D) --- Responsive Element Resizing ---
     // This listener calls your functions every time the browser window is resized.
     window.addEventListener('resize', updateClassBasedOnWidth);
+
+    // E) --- Event listener for submitting a new comment ---
+    if (newCommentForm) {
+        newCommentForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Stop the form from reloading the page
+
+            const content = newCommentTextarea.value.trim();
+
+            if (!content) {
+                alert('Comment cannot be empty.');
+                return;
+            }
+
+            // A quick auth check before submitting
+            if (!token) {
+                alert('You must be logged in to comment.');
+                return;
+            }
+
+            const submitButton = newCommentForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true; // Disable button to prevent double submission
+
+            try { 
+                // Send the new comment to the backend API 
+                const response = await fetch(`/api/posts/${postId}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ content: content })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || 'Failed to submit comment.');
+                }
+
+                // If successful, parse the new comment created returned by the server
+                const { comment: newComment } = await response.json();
+
+                // --- Real-time Update ---
+                // Create the HTML element for the new comment
+                const newCommentElement = createCommentElement(newComment);
+                // Prepend it to the top of the list for an instant update feel
+                commentsListContainer.prepend(newCommentElement);
+
+                // Clear the textarea for the next comment
+                newCommentTextarea.value = '';
+
+
+                // Update the comment count
+                if (commentCountSpan) {
+                    commentCountSpan.textContent = parseInt(commentCountSpan.textContent, 10) + 1;
+                }
+
+                // If the "Be the first to comment" message was there, remove it
+                const noCommentsMessage = commentsListContainer.querySelector('p');
+                if (noCommentsMessage && noCommentsMessage.textContent.includes('Be the first to comment!')) {
+                    noCommentsMessage.remove();
+                }
+
+            } catch (error) {
+                console.error('Error submitting comment:', error);
+                alert(`Error: ${error.message}`);
+            } finally {
+                submitButton.disabled = false; // Re-enable the button
+            }
+        });
+    }
 
 
 
