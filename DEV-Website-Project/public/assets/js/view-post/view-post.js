@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // UI Interactivity Elements
     const iconButtons = document.querySelectorAll('.post-options');
     const reactionsDropdown = document.getElementById('add-reactions-container-dropdown');
+    const sidebarCommentCount = document.getElementById('sidebar-comment-count');
     // Add any other selectors for displaying counts
 
     // Elements for the responsive company name and logic
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentsListContainer = document.getElementById('comments-list-container');
     const newCommentForm = document.getElementById('new-comment-form');
     const newCommentTextarea = document.getElementById('new-comment-textarea');
-    const commentCountSpan = document.getElementById('comment-count');
+    const commentCountSpan = document.getElementById('comment-count-span');
 
     // --- 2. FUNCTION DEFINITIONS ---
     // Define all your helper functions in this section.
@@ -126,7 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Update the comment count in the header
             if (commentCountSpan) {
-                commentCountSpan.textcontent = comments.length;
+                commentCountSpan.textContent = comments.length;
+            }
+
+            // Update the comment count in the left sidebar
+            if (sidebarCommentCount) {
+                sidebarCommentCount.textContent = comments.length;
             }
 
             if (comments.length > 0) {
@@ -650,9 +656,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 newCommentTextarea.value = '';
 
 
-                // Update the comment count
+                // Update the comment count in header
                 if (commentCountSpan) {
                     commentCountSpan.textContent = parseInt(commentCountSpan.textContent, 10) + 1;
+                }
+
+                // Update the comment count in left sidebar
+                if (sidebarCommentCount) {
+                    sidebarCommentCount.textContent = parseInt(sidebarCommentCount.textContent, 10) + 1;
                 }
 
                 // If the "Be the first to comment" message was there, remove it

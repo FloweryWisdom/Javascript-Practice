@@ -93,5 +93,50 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+//... other requires and routes ...
+
+// --- LIKE/UNLIKE a Comment ---
+// Endpoint: PATCH /api/posts/:postId/comments/:commentId/like
+// Using PATCH because we are modifying an existing resource
+router.patch('/:commentId/like', authMiddleware, async (req, res, next) => {
+    try {
+        // Pull out the commentId property from the req.params object and create a new variable alos named commentId with that value
+        const { commentId } = req.params; 
+
+        const userId = req.userId // From authMiddleware
+
+        if (!mongoose.Types.ObjectId.isValid(commentId)) {
+            return next(createError(400, 'Invalid comment ID.'));
+        }
+
+        const comment = await Comment.findById(commentId);
+        if (!comment) {
+            return next(createError(404, 'Comment not found.'));
+        }
+
+        // Toggle logic: Check if user has already liked the comment.
+        const userIndex = comment.likes.indexOf(userId)
+        if (userIndex > -1) {
+            // If user's ID is in the array, pull (remove) it.
+            comment.likes.pull(userId);
+        } else {
+            // If user's ID is not in the array, push (add) it.
+            comment.likes.push(userId);
+        }
+
+        // Save the updated comment
+        const updatedComment = await comment.save();
+
+        res.status(200).json({
+            message: 'Comment like toggled.',
+            comment: updatedComment
+        });
+
+    } catch (error) {
+        next(error);
+    }
+})
+
+
 
 module.exports = router;
