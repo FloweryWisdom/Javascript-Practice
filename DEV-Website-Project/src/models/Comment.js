@@ -19,8 +19,12 @@ const commentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Post', // Establishes a relationship with the Post model
         required: true
-    }
-    // You could add the 'likes' array here later.
+    },
+    // Add the 'likes' array here.
+    likes : [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, {
     // This option automatically adds 'createdAt' and 'updatedAt' fields.
     timestamps: true

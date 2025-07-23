@@ -1,0 +1,32 @@
+/*Navbar styling go here: */
+.search-results-container {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position is right below the search bar */
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #dee2e6; /* Bootstrap's default border color */
+    border-top: none; /* Remove the top border to merge with the search bar */
+    border-radius: 0 0 0.375rem 0.375rem; /* Match Bootstrap's bottom border radius */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    z-index: 1050; /* Ensure it appears above other content */
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.search-result-item {
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    color: #212529; /* Bootstrap's defualt text color */
+    display: block;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: #f8f9fa; /* Bootstrap's light gray hover color */
+}

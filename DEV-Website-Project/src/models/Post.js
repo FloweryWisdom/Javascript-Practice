@@ -61,6 +61,9 @@ const postSchema = new Schema(
 
 // Optional: Create indexes for fields you will query often 
 // postSchema.index({ title: 'text', content: 'text', hastags: 'text' }); // For text search later
+// Create a text index on the title, content and hashtags fields. 
+// This tells MongoDB to make these specific fields searchable with the $text operator.
+postSchema.index({ title: 'text', content: 'text', hashtags: 'text' });
 
 // Create mongoose model from the schema
 // Mongoose will create/use a MongoDB collection named 'posts' (pluralized, lowercase)

@@ -97,9 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="card-footer bg-transparent border-top-0 d-flex gap-3">
-                    <button class="btn btn-sm d-flex align-items-center gap-1">
-                        <img src="./assets/images/global/icons/icon-heart.svg" alt="Like" style="height: 18px;">
-                        <span>2 likes</span>
+                    <button class="like-button btn btn-sm d-flex align-items-center gap-1" data-comment-id="${comment._id}">
+                        <img src="./assets/images/global/icons/icon--like.svg" alt="Like" style="height: 18px;">
+                        <span data-like-count="${comment._id}">${comment.likes.length}</span>
                     </button>
                     <button class="btn btn-sm d-flex align-items-center gap-1">
                         <img src="./assets/images/global/icons/reaction-comment.svg" alt="Reply" style="height: 18px;">
@@ -109,6 +109,54 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         return commentWrapper;
+    }
+
+
+    // --- Function for handling like clicks ---
+    function setupLikeListeners() {
+        // Event Delegation: We add ONE listener to the parent container.
+        commentsListContainer.addEventListener('click', async (event) => {
+            // Check if the clicked element (or its parent) is a like button.
+            const likeButton = event.target.closest('.like-button');
+            if (!likeButton) return; // If not, do nothing.
+
+            if (!token) { // Use the token variable defined at the top
+                alert("You must be logged in to like comment.");
+                return;
+            }
+
+            // Get the comment ID from the data attribute we added. 
+            const commentId = likeButton.dataset.commentId;
+
+            try {
+                // Make the API call to our new 'like' endpoint
+                const response = await fetch(`/api/posts/${postId}/comments/${commentId}/like`, {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || 'Failed to like comment.');
+                }
+
+                const { comment: updatedComment } = await response.json();
+                
+                // --- Update the UI instantly ---
+                // Find the specific like count span for this comment and update it
+                const likeCountSpan = likeButton.querySelector(`[data-like-count="${commentId}"]`);
+                if (likeCountSpan) {
+                    likeCountSpan.textContent = `${updatedComment.likes.length} likes`;
+                }
+
+                // Optional: Change the button's style to show it's liked.
+                // You should add a 'liked' class and style it with CSS.
+
+            } catch (error) {
+                console.error('Error liking comment.', error);
+                alert(`Error: ${error.message}`)
+            }
+        });
     }
 
     // --- Function to fetch and display all comments for the post ---
@@ -685,6 +733,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 4. INITIAL CALLS ON PAGE LOAD ---
     // Run any functions that need to execute once as soon as the page is ready.
+
+    // 
+    setupLikeListeners();
 
     // Call this function once to set the correct initial text for the company name.
     updatePromotedCompanyName();

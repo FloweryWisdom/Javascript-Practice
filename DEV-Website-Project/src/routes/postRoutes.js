@@ -50,16 +50,19 @@ router.post('/', authMiddleware, async (req, res, next) => {
     }
 });
 
-// --- 2. READ ALL Posts ---
+// --- 2. READ ALL Posts (modified to accept a limit) ---
 // Endpoint: Get /api/posts/ (or just '/')
 // This route is public (no authMiddleware)
 router.get('/', async (req, res, next) => {
     try {
-        // Fetch all posts, sort by newest first
-        // .populate() will replace the 'author' ObjectId with actual user documents fields
+        // Check for a 'limit' query parameter, default to a larger number if not provided.
+        const limit = parseInt(req.query.limit) || 20; // Default to 20 posts
+        
+        // Fetch posts
         const posts = await Post.find()
         .sort({ createdAt: -1 }) // Sort by creation date, newest first
-        .populate('author', 'username name profilePictureUrl'); // Specify fields from user model
+        .limit(limit) // Apply the limit
+        .populate('author', 'username name profilePictureUrl'); // .populate() will replace the 'author' ObjectId with actual the user documents fields specified
 
         res.status(200).json(posts);
     } catch (error) {
@@ -67,7 +70,31 @@ router.get('/', async (req, res, next) => {
     };
 });
 
-// --- 3. READ a Single Post by ID ---
+// --- 3. SEARCH POSTS ---
+// Endpoint: GET /api/posts/search?q=yourSearchTerm
+router.get('/search', async (req, res, next) => {
+    try {
+        // The search term will be passed as URL query parameter (e.g., ?q=hell)
+        const searchTerm = req.query.q;
+        if (!searchTerm) {
+            // If no search term is provided, return an empty array
+            return res.status(200).json([]);
+        }
+
+        // Use the $text operator to perform a text search on the indexed fields.
+        // Mongoose will use the text index we created on the Post model. 
+        // We also pupulate the author details, just like on the homepage.
+        const searchResults = await Post.find({
+            $text: { $search: searchTerm }
+        }).populate('author', 'username name profilePictureUrl');
+
+        res.status(200).json(searchResults);
+    } catch (error) {
+        next(error)
+    }
+});
+
+// --- 4. READ a Single Post by ID ---
 // Endpoint: GET /api/posts/:postId
 // Public
 router.get('/:postId', async (req, res, next) => {
@@ -93,7 +120,9 @@ router.get('/:postId', async (req, res, next) => {
     }
 });
 
-// --- 4. UPDATE a Post by ID --- 
+
+
+// --- 5. UPDATE a Post by ID --- 
 // Endpoint: PATCH /api/posts/:postId (or PUT)
 // Requires authentication and user must be the author of the post
 router.patch('/:postId', authMiddleware, async (req, res, next) => {
@@ -139,7 +168,7 @@ router.patch('/:postId', authMiddleware, async (req, res, next) => {
     }
 });
 
-// --- NEW: REACT to a Post ---
+// --- 6. REACT to a Post ---
 // Endpoint: PATCH /api/posts/:postId/react
 // Requires authentication to know who is reacting.
 router.patch('/:postId/react', authMiddleware, async (req, res, next) => {
@@ -194,7 +223,7 @@ router.patch('/:postId/react', authMiddleware, async (req, res, next) => {
     }
 })
 
-// --- 5. DELETE a Post by ID ---
+// --- 7. DELETE a Post by ID ---
 // Endpoint: DELETE /api/posts/:postId
 // Requires authentication AND user must be the author
 router.delete('/:postId', authMiddleware, async (req, res, next) => {
