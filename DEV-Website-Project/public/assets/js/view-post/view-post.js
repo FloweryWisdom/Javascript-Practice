@@ -36,10 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elements to change classname based on screen size
     const postContainer = document.getElementById('post-content-section');
     const websiteLogoIcon = document.getElementById('website-logo');
-    const profileDropdownButton = document.getElementById('profileDropdown');
+    const profileDropdownButton = document.getElementById('profileDropdown'); 
     const searchContainer = document.getElementById('search-container');
-    const createPostButton = document.getElementById('create-post-button');
+    const createPostButton = document.getElementById('create-post-button'); 
     const postAuthorContainer = document.getElementById('post-author-info');
+    const loginButton = document.getElementById('login-button');
+    const createAccountButton = document.getElementById('create-account-button');
 
     // --- Selectors for Dynamic Post Content ---
     const postImage = document.querySelector('.post-test--image');
@@ -222,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to resize width of elements based on screen size
     function updateClassBasedOnWidth() {
         // Defensive check
-        if (!postContainer || !websiteLogoIcon || !profileDropdownButton || !searchContainer || !createPostButton || !postAuthorContainer ) return;
+        if (!postContainer || !websiteLogoIcon || !profileDropdownButton || !searchContainer || !createPostButton || !postAuthorContainer || !loginButton || !createAccountButton ) return;
 
         const width = window.innerWidth;
         
@@ -234,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchContainer.classList.add('d-none');
             searchContainer.classList.remove('d-flex');
             createPostButton.classList.add('ms-auto');
+            loginButton.classList.add('ms-auto');
             postAuthorContainer.classList.add('mb-4');
             postAuthorContainer.classList.remove('mb-5');
         } else if (width < 1023) {
@@ -241,16 +244,20 @@ document.addEventListener('DOMContentLoaded', () => {
             searchContainer.classList.add('d-flex');
             searchContainer.classList.remove('d-none');
             createPostButton.classList.remove('ms-auto');
+            loginButton.classList.remove('ms-auto');
             postAuthorContainer.classList.add('mb-5');
             postAuthorContainer.classLlist.remove('mb-4');
             websiteLogoIcon.classList.add('ms-2');
             websiteLogoIcon.classList.remove('ms-5');
             profileDropdownButton.classList.add('me-2');
             profileDropdownButton.classList.remove('me-5');
+            createAccountButton.classList.add('me-2');
+            createAccountButton.classList.remove('me-5');
         } else {
             postContainer.classList.add('col-8');
             searchContainer.classList.add('d-flex');
             searchContainer.classList.remove('d-none');
+            createPostButton.classList.remove('ms-auto');
             createPostButton.classList.remove('ms-auto');
             postAuthorContainer.classList.add('mb-5');
             postAuthorContainer.classList.remove('mb-4');
@@ -258,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
             websiteLogoIcon.classList.remove('ms-2');
             profileDropdownButton.classList.add('me-5');
             profileDropdownButton.classList.remove('me-2');
+            createAccountButton.classList.add('me-5');
+            createAccountButton.classList.remove('me-2');
         }
         
     }

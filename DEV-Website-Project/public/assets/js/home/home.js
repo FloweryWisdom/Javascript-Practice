@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2 class="mb-0"><strong> <a class="post-link" href="./view-post.html?id=${post._id}">${post.title}</a> </strong></h2>
                 </div>
 
-                <div style="padding-left: 50px;">
+                <div>
                     ${hashtagsHtml}
                     <div class="post-reactions d-flex flex-wrap">
                         <a href="#" class="reactions-hover-container d-flex justify-content-between align-items-center text-decoration-none ps-2">
