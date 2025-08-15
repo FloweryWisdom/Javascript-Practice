@@ -98,7 +98,7 @@
 
         <div id="account-settings" class="col-6" style="background-color: rgb(246, 246, 246);">
             <h1 class="text-primary">@flowerywisdom</h1>
-            <form action="">
+            <form id="settingsForm" action="">
 
                 <div class="card mb-4">
                     
@@ -133,8 +133,8 @@
                         <div>
                             <label for="userProfileImage" class="form-label">Profile image</label>
                             <div class="d-flex align-items-center">
-                                <img src="./assets/images/home/main/profile-picture-2.webp" alt="Current profile image" class="rounded-circle me-3" style="width: 48px; height: 48px;">
-                                <input class="form-control" type="file" id="userProfileImage">
+                                <img id="displayedProfileImage" src="./assets/images/home/main/profile-picture-2.webp" alt="Current profile image" class="rounded-circle me-3" style="width: 48px; height: 48px;">
+                                <input class="form-control" type="url" id="userProfileImage">
                             </div>
                         </div>
 
@@ -160,6 +160,37 @@
                             <label for="userBio" class="form-label">Bio</label>
                             <textarea class="form-control" id="userBio" rows="4">Hello</textarea>
                             <div class="form-text text-end">5/100</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">Coding</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="userSkills" class="form-label">Skills/Languages</label>
+                            <textarea class="form-control" id="userSkills" rows="2">JavaScript</textarea>
+                            <div class="form-text text-end">10/200</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">Work</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="userWork" class="form-label">Work</label>
+                            <input type="text" class="form-control" id="userWork" placeholder="What do you do? Example: CEO at ACME Inc.">
+                            <div class="form-text text-end">0/100</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEducation" class="form-label">Education</label>
+                            <input type="text" class="form-control" id="userEducation" placeholder="Where did you study?">
+                            <div class="form-text text-end">0/100</div>
                         </div>
                     </div>
                 </div>
@@ -273,5 +304,6 @@
     <!--JS Scripts Go Here: -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <script type="module" src="./assets/js/auth/state.js"></script>
+    <script type="module" src="./assets/js/account-settings/account-settings.js"></script>
 </body>
 </html>

@@ -1,0 +1,305 @@
+/*Body CSS Rules start here: */
+body{
+  background-color: rgb(246, 246, 246);
+  box-sizing: border-box;
+  padding-top: 66px;
+}
+
+/*Body CSS Rules end here.*/
+
+/* Navbar CSS rules start here: */
+/* Add a white background behind the search icon: */
+#search-icon {
+  border: none;
+  background-color: white;
+}
+/* Add hover effect to the search icon in navbar: */
+#search-icon:hover {
+  background-color: rgb(235, 236, 251);
+}
+/* Removed border effect when clicking on button: */
+#search-icon:active {
+  border-color: transparent;
+}
+/* Increased border width of 'search-box': */
+#search-box {
+  border-width: 2px;
+}
+/* Added border styling changes to 'search-box' when hovering: */
+#search-box:hover {
+  border-color: rgb(180, 180, 180);
+  border-width: 2px !important;
+}
+/* Switch styling of 'search-box' when in focus mode: */
+#search-box:focus {
+  border-color: rgb(49, 108, 244) !important;
+  border-width: 2px !important;
+  box-shadow: 0.2px 0.2px 0.2px 1px rgb(49, 108, 244);
+}
+
+/* Add hover styling effects on hover to 'login-button': */
+#login-button:hover {
+  background-color: rgb(235, 236, 251);
+  text-decoration: underline;
+  color: rgb(49, 108, 245);
+  border-color: transparent;
+}
+/* Add hover styling effects on hover to 'create-account-button': */
+#create-account-button:hover {
+  color: white !important;
+  background-color: rgb(49, 108, 244);
+  text-decoration: underline;
+}
+
+#create-post-button:hover {
+  color: white !important;
+  background-color: rgb(49, 108, 244);
+  text-decoration: underline;
+}
+
+#profileDropdown:hover {
+  box-shadow: 0px 0px 6px grey;
+}
+/* Navbar CSS rules ends here.  */
+
+/* Post Styling rules start here: */
+
+.post-card {
+    margin-bottom: 10px;
+    background-color: #ffffff;
+} 
+
+
+.user-profile-picture{
+    height: 32px;
+    width: 32px;
+}
+
+.post-user-info {
+    line-height: 100%;
+}
+
+/*Hmmmmmmmmmm */
+.dropdown { 
+    position: relative;
+    display: inline-block;
+}
+
+.user-info-username {
+    margin: 0;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 310px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 7;
+}
+
+.dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    margin-left: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-user-data {
+    position: relative;
+    bottom: 20px;
+    left: 18px;
+}
+
+.user-data-profile-pic img {
+    background-color: rgb(108, 108, 108);
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+}
+
+.user-data-profile-name-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.user-data--profile-name {
+    font-size: x-large;
+    margin-bottom: 5px;
+}
+
+.user-data--profile-name:hover {
+    color: blue;
+}
+
+.user-data-button {
+    margin-left: 18px;
+    width: 300px;
+    margin-right: 18px;
+}
+
+.user-data-tagline-container {
+    width: 300px;
+    margin-left: 18px;
+}
+
+.user-data-tagline-container p {
+    margin-left: 0px;
+    margin-top: 10px;
+    color: grey;
+}
+
+.user-data-info {
+    margin-left: 18px;
+}
+
+.user-data-info b {
+    color: rgb(99, 99, 99);
+    font-size: small;
+}
+
+.post-title {
+    margin-left: 37px;
+}
+
+.post-link {
+    text-decoration: none;
+    color: black;
+}
+
+.hashtags-list {
+    margin-left: 31px;
+    font-weight: 350;
+    font-size: 15px;
+    color: rgb(80, 80, 80);
+}
+
+.hashtags-list li {
+    font-size: 13px;
+    font-weight: 300;
+    height: 28px;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+.hashtags-list span {
+    color: rgb(44, 212, 44);
+}
+
+.hashtags-list :nth-child(-n+2):hover:not(span) {
+    background-color: rgb(209, 255, 190);
+    border: 1px solid rgb(180, 248, 150);
+    border-radius: 6px;
+}
+
+.hashtags-list :nth-child(n+3):hover:not(span) {
+    background-color: rgb(200, 200, 200);
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 6px;
+}
+
+.post-reactions {
+    margin-left: 29px;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: 350;
+    font-size: 16px;
+    color: rgb(80, 80, 80);
+}
+
+.reactions-hover-container {
+    border-radius: 6px;
+    color: rgb(80, 80, 80);
+    height: 35px;
+    width: 230px;
+}
+
+.reactions-hover-container:hover {
+    background-color: #e4e4e4;
+}
+
+ 
+.icon-number-1 {
+    position: relative;
+    z-index: 5;
+}
+
+.icon-number-2 {
+    position: relative;
+    z-index: 4;
+    right: 7px;
+}
+
+.icon-number-3 {
+    position: relative;
+    z-index: 3;
+    right: 14px;
+}
+
+.icon-number-4 {
+    position: relative;
+    z-index: 2;
+    right: 21px;
+}
+
+.icon-number-5 {
+    position: relative;
+    z-index: 1;
+    right: 28px;
+}
+
+.reaction-emojis img {
+    height: 24px;
+    background-color: rgb(232, 232, 232);
+    border-radius: 50%;
+    border: 1px solid rgb(220, 220, 220);
+}
+
+.reaction-emojis:hover {
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.emoji {
+    transition: transform 0.3s;
+}
+
+.emoji:hover {
+    transform: scale(1.2);
+}
+
+.reactions-number {
+    position: relative;
+    right: 30px;
+    transition: transform 0.3s;
+}
+
+.comment-number {
+    position: relative;
+    right: 0px;
+    height: 35px;
+    width: 140px;
+    margin-right: 8px;
+}
+
+.comment-number img {
+    margin-left: 8px;
+}
+
+.comment-number:hover {
+    background-color: #e4e4e4;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.post-read-duration {
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+
+/* Post Styling rules end here: */

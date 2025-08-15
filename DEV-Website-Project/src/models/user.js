@@ -33,12 +33,16 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Profile picture URL is required']
     },
-    createdAt: {
-        type: Date,
-        default: Date.now // Sets the creation date automatically
-    }
-    // Add other fields as needed
-});
+    // ADD OTHER FIELDS AS NECESSARY
+    // These are all optional strings that the user can fill out in their settings.
+    bio: { type: String, default: '', maxLength: 200 },
+    location: { type: String, default: '', maxLength: 100 },
+    websiteUrl: { type: String, default: '', maxLength: 100 },
+    work: { type: String, default: '', maxLength: 100 },
+    education: { type: String, default: '', maxLength: 100 },
+    skills: { type: String, default: '', maxLength: 200 }, // Storing as a single string
+    displayEmail: { type: Boolean, default: false } // To control email visibility 
+}, { timestamps: true }); // 'timestamps: true' automatically adds createdAt & updatedAt
 
 // --- Mongoose Middleware (Pre-save Hook) ---
 // This function runs automatically *before* a 'save' operation happens on a User document
