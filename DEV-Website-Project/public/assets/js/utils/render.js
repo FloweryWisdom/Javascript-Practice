@@ -8,8 +8,7 @@
         // If posts.author exists, use post.author.username; otherwise 'Unknown Author'. 
         const authorUsername = post.author?.username || 'Unknown Author';
         // Provide a default avatar if the user doesn't have one specified.
-        const authorProfilePic = post.author?.profilePictureUrl || '/assets/images/global/icons/default-avatar.png'; // Make sure you have a default avatar image
-
+        const authorProfilePic = post.author?.profilePictureUrl || '/assets/images/home/main/profile-picture-3.webp'; // Make sure you have a default avatar image
         // --- Conditional Image for the First Post ---
         // We create an HTML string for the image. It will be empty unless it's the first post.
         let imageHtml = '';
@@ -40,6 +39,41 @@
             `;
         }
         
+        // --- Calculate Reaction and Comment Counts ---
+
+        // Calculate the total number of reactions by summing the lengths of all reaction arrays.
+        // The 'Object.values()' gets all the arrays (e.g., [[userId1], [userId2, userId3], []])
+        // The '.reduce()' method then sums up the length of each array.
+        const totalReactions = post.reactions ? Object.values(post.reactions).reduce((sum, arr) => sum + arr.length, 0) : 0;
+
+        // Get the comment count. The 'post.comments' field holds an array of comment IDs.
+        // We check if it exists and get its length, otherwise we default to 0.
+        const commentCount = post.comments?.length || 0;
+
+        // Create a readable text for the counts, handling pluralization.
+        const reactionsText = totalReactions === 1 ? '1 Reaction' : `${totalReactions} Reactions`;
+        const commentsText = commentCount === 1 ? '1 Comment' : `${commentCount} Comments`;
+
+        // --- Dynamic Reaction Icons ---
+        // This block will build the HTML string for only the icons that have reactions.
+        let reactionIconsHtml = '';
+        // 1. Define the exact order you want the icons to appear in.
+        const reactionOrder = ['heart', 'unicorn', 'exploding', 'fire', 'eyes'];
+        // 2. We use a seperate counter to apply the .icon-number-* classes sequentially ONLY to visible icons.
+        let visibleIconCount = 1;
+        // 3. Loop through your defined order.
+        reactionOrder.forEach(type => {
+            // 4. Check if this reaction type exists in the data and has a count > 0.
+            if (post.reactions && post.reactions[type] && post.reactions[type].length > 0) {
+                // 5. If it does, create the img tag with the correct sequential class for stacking.
+                reactionIconsHtml += `<img class="emoji icon-number-${visibleIconCount}" src="/assets/images/global/icons/reaction-${type}.svg" alt="${type}">`;
+                // 6. Increment the counter for the next visible icon.
+                visibleIconCount++;
+            }
+        })
+
+
+
         // --- Create the main wrapper element for the card --- 
         // Creating elements with JavaScript is more robust than just using innerHTML on the container.
         const cardWrapper = document.createElement('div');
@@ -104,16 +138,12 @@
                     <div class="post-reactions d-flex flex-wrap">
                         <a href="#" class="reactions-hover-container d-flex justify-content-between align-items-center text-decoration-none ps-2">
                             <div class="reaction-emojis d-flex align-items-center">
-                                <img class="emoji icon-number-1" src="./assets/images/global/icons/reaction-love.svg" alt="">
-                                <img class="emoji icon-number-2" src="./assets/images/global/icons/reaction-unicorn.svg" alt="">
-                                <img class="emoji icon-number-3" src="./assets/images/global/icons/reaction-exploding.svg" alt="">
-                                <img class="emoji icon-number-4" src="./assets/images/global/icons/reaction-raised-hands.svg" alt="">
-                                <img class="emoji icon-number-5" src="./assets/images/global/icons/reaction-fire.svg" alt="">
+                                ${reactionIconsHtml}
                             </div>
-                            <p class="reactions-number mb-0">16 Reactions</p>
+                            <p class="reactions-number mb-0">${reactionsText}</p>
                         </a>
-                        <p class="comment-number mb-0 d-flex align-items-center"> <img src="./assets/images/global/icons/reaction-comment.svg" alt="">&nbsp&nbsp2 Comments</p>
-                        <small class="post-read-duration">3 min</small>
+                        <p class="comment-number mb-0 d-flex align-items-center"> <img src="./assets/images/global/icons/reaction-comment.svg" alt="">&nbsp&nbsp${commentsText}</p>
+                        <small class="post-read-duration"></small>
                         <div class="post-bookmark-container d-flex align-items-center">
                             <img class="post-bookmark-icon m-0" src="./assets/images/global/icons/reaction-save.svg" alt="">
                         </div>

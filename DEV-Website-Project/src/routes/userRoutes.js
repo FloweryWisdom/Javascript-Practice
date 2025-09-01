@@ -102,17 +102,25 @@ router.get('/:userId/posts', async (req, res, next) => {
         // Get the user's ID from the URL parameters
         const userId = req.params.userId;
 
-        // Find all posts where the 'author' field matches the userId
-        // We can also limit the number of posts and select only certain fields
-        const posts = await Post.find({ author: userId })
-            .sort( { createdAt: -1 }) // Sort by newest first
-            .limit(3) // Get the 3 most recent posts
-            .select('title hashtags'); // Only select the 'title' field for this list
+        // --- NEW: Check for an optional 'limit' query parameter ---
+        // 'req.query' holds the URL query parameters (e.g., ?limit=3)
+        // We parse it to a number. If it's not provided, 'limit' will be null.
+        const limit = req.query.limit ? parseInt(req.query.limit) : null;
+
         
-        if (!posts) {
-            // This case is rare, it would just return and empty array if no posts found
-            return next(createError(404, 'No posts found for this user.'));
+        // Add the Mongoose query 
+        // Find all posts where the 'author' field matches the userId
+        let query = Post.find({ author: userId })
+            .sort( { createdAt: -1 }) // Sort by newest first
+            .populate('author', 'username name profilePictureUrl');
+        
+        // If a valid limit was provided in the URL, apply it to the query
+        if (limit > 0) {
+            query = query.limit(limit)
         }
+
+        // Now execute the final query
+        const posts = await query.exec();
 
         res.status(200).json(posts);
 

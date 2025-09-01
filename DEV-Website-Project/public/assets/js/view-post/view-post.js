@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Fetch the list of other posts by this author from our new API endpoint
-            const response = await fetch(`/api/users/${authorId}/posts`);
+            const response = await fetch(`/api/users/${authorId}/posts?limit=4`);
             if (!response.ok) {
                 throw new Error('Could not fetch author\'s post.');
             }
