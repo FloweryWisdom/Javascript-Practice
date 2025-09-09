@@ -14,7 +14,7 @@
         let imageHtml = '';
         if (isFirstPost && post.imageUrl) {
             // Template Literal: A modern way to create multi-line strings with embedded variables.
-            imageHtml = `<img src="${post.imageUrl}" alt="${post.title || 'Post Image'}" class="post-card-image card-img-top rounded-top">`;
+            imageHtml = `<img src="${post.imageUrl}" alt="${post.title || 'Post Image'}" class="post-card-image card-img-top rounded-top ratio ratio-16x9">`;
         }
         // For all other posts, 'imageHtml' will remain an empty string, so no <img> tag is rendered.
 
@@ -77,7 +77,7 @@
         // --- Create the main wrapper element for the card --- 
         // Creating elements with JavaScript is more robust than just using innerHTML on the container.
         const cardWrapper = document.createElement('div');
-        cardWrapper.className = 'post-card shadow-sm rounded bg-light mb-3'; // We uses classes defined in our template
+        cardWrapper.className = 'post-card shadow-sm rounded mb-3'; // We uses classes defined in our template
         
         // --- Populate the card wrapper with the full card structure using innerHTML ---
         // This combines all our prepared data into the final HTML structure.
@@ -86,7 +86,7 @@
             <div class="post-card-body p-3">
                 <div class="post-card-user-info d-flex gap-2 align-items-center">
                     <div class="post-user-profile-picture-container">
-                        <a href="#"><img src="${authorProfilePic}" alt="${authorUsername}'s avatar" class="user-profile-picture rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                        <a href="/profile-page.html?id=${post.author?._id}"><img src="${authorProfilePic}" alt="${authorUsername}'s avatar" class="user-profile-picture rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                         </a>
                     </div>
                     <div class="post-user-info">
@@ -100,7 +100,7 @@
                                 </div>
                                 <button class="user-data-button btn btn-primary">Follow</button>
                                 <div class="user-data-tagline-container">
-                                    <p>A bit of content creation here and there 👀 Ex-TikTok and Uber Analytics</p>
+                                    <p></p>
                                 </div>
                                 <div class="user-data-info">
                                     <b>EMAIL</b>
@@ -108,19 +108,19 @@
                                 </div>
                                 <div class="user-data-info">
                                     <b>WORK</b>
-                                    <p>DevRel Lead @Quine</p>
+                                    <p></p>
                                 </div>
                                 <div class="user-data-info">
                                     <b>LOCATION</b>
-                                    <p>city, country</p>
+                                    <p></p>
                                 </div>
                                 <div class="user-data-info">
                                     <b>EDUCATION</b>
-                                    <p>Imperial College Education</p>
+                                    <p></p>
                                 </div>
                                 <div class="user-data-info">
                                     <b>JOINED</b>
-                                    <p>May 3, 2023</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>

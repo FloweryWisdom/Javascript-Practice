@@ -3,6 +3,7 @@ const router = express.Router();
 const createError = require('http-errors');
 const Post = require('../models/Post'); // We need the Post model
 const User = require('../models/User'); // We need the User model too
+const Comment = require('../models/Comment');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 // --- GET User's Own Profile (for settings page) ---
@@ -72,9 +73,18 @@ router.get('/:userId', async (req, res, next) => {
     try {
         const { userId } = req.params;
 
-        // Find the user and select only the fields we want to be public.
-        // Crucially, we exclude the email unless the user has opted to display it.
-        const user = await User.findById(userId).select('-password');
+        // We will fetch all the required data concurrently for better performance
+        const [user, postCount, commentCount ] = await Promise.all([
+            // 1. Find the user and select only the fields we want to be public.
+            // Crucially, we exclude the email unless the user has opted to display it.
+            User.findById(userId).select('-password'),
+
+            // 2. Count the number of documents in the 'Post' collection where the author matches
+            Post.countDocuments({ author: userId }),
+
+            // 3. Count the number of documents in the 'Comment' collection where the author matches
+            Comment.countDocuments({ author: userId })
+        ]);
 
         if (!user) {
             return next(createError(404, 'User not found.'));
@@ -82,6 +92,10 @@ router.get('/:userId', async (req, res, next) => {
 
         // Convert to a plain object to modify it
         const userObject = user.toObject();
+
+        // Attach the counts to the user object before sending 
+        userObject.postCount = postCount;
+        userObject.commentCount = commentCount;
 
         // If the user has chosen not to dislpay their email, remove it from the object
         if (!userObject.displayEmail) {

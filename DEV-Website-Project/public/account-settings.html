@@ -12,7 +12,7 @@
     <header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
         <nav class="navbar navbar-expand-lg bg-body-tertiary p-0" style="box-sizing: border-box;">
             <div class="container-fluid d-flex align-items-center" style="height: 66px !important; flex-wrap: nowrap; background-color: white;">
-                <a id="website-logo" href="" class="navbar-brand p-0 d-flex align-items-center ms-5">
+                <a id="website-logo" href="./index.html" class="navbar-brand p-0 d-flex align-items-center ms-5">
                     <img src="./assets/images/create-account/dev-logo.png" alt="" width="50px" height="40px"  class="d-inline-block align-text-top">
                 </a>
                 <form id="search-container"  class="d-flex me-auto align-items-center" role="search" action="" style="position: relative; max-width: 680px; width: 100%;">
@@ -25,12 +25,14 @@
                 <a id="create-post-button" href="./create-post.html" class="btn ms-3" style="display: none; color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create post</a>
                 <div id="profile-dropdown-container" class="dropdown" style="display: none;">
                     <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-3 btn dropdown-toggle p-0 me-5" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
-                        <img src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img id="navbar-profile-picture" src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="profileDropdown" style="width: 220px;">
-                        <li class="px-3 pt-2">
-                            <strong>Gerardo Arce</strong><br>
-                            <small class="text-muted">@flowerywisdom</small>
+                        <li>
+                        <a id="profile-navbar-link" href="#" class="text-decoration-none text-dark px-3 pt-2 d-block">
+                            <strong id="profile-navbar-name">Gerardo Arce</strong><br>
+                            <small id="profile-navbar-username" class="text-muted">@radnpx</small>
+                        </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Dashboard</a></li>
@@ -97,7 +99,7 @@
 
 
         <div id="account-settings" class="col-6" style="background-color: rgb(246, 246, 246);">
-            <h1 class="text-primary">@flowerywisdom</h1>
+            <h1 id="settings-username-heading" class="text-primary">@flowerywisdom</h1>
             <form id="settingsForm" action="">
 
                 <div class="card mb-4">

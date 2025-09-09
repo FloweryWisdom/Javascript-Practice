@@ -34,18 +34,20 @@
             <a id="create-post-button" href="./create-post.html" class="btn" style="display: none; color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create post</a>
             <div id="profile-dropdown-container" class="dropdown" style="display: none;">
                 <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-2 btn dropdown-toggle p-0 me-3" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
-                    <img src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    <img id="navbar-profile-picture" src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="profileDropdown" style="width: 220px;">
-                    <li class="px-3 pt-2">
-                        <strong>Gerardo Arce</strong><br>
-                        <small class="text-muted">@flowerywisdom</small>
+                    <li>
+                        <a id="profile-navbar-link" href="#" class="text-decoration-none text-dark px-3 pt-2 d-block">
+                            <strong id="profile-navbar-name">Gerardo Arce</strong><br>
+                            <small id="profile-navbar-username" class="text-muted">@radnpx</small>
+                        </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Dashboard</a></li>
                     <li><a id="create-post-link" class="dropdown-item" href="./create-post.html">Create Post</a></li>
                     <li><a class="dropdown-item" href="#">Reading List</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="./account-settings.html">Settings</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a id="logout-link" class="dropdown-item text-danger" href="#">Sign Out</a></li>
                 </ul>    

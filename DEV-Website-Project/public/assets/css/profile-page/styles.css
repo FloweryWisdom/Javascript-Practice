@@ -66,7 +66,7 @@ body{
 
 .post-card {
     margin-bottom: 10px;
-    background-color: #ffffff;
+    background-color: white;
 } 
 
 
@@ -215,7 +215,9 @@ body{
     border-radius: 6px;
     color: rgb(80, 80, 80);
     height: 35px;
-    max-width: 230px;
+    padding-right: 1rem;
+    gap: 0.6rem;
+    justify-content: flex-start;
 }
 
 .reactions-hover-container:hover {
@@ -223,33 +225,9 @@ body{
 }
 
  
-.icon-number-1 {
-    position: relative;
-    z-index: 5;
-}
-
-.icon-number-2 {
-    position: relative;
-    z-index: 4;
-    right: 7px;
-}
-
-.icon-number-3 {
-    position: relative;
-    z-index: 3;
-    right: 14px;
-}
-
-.icon-number-4 {
-    position: relative;
-    z-index: 2;
-    right: 21px;
-}
-
-.icon-number-5 {
-    position: relative;
-    z-index: 1;
-    right: 28px;
+.reaction-emojis {
+    display: flex;
+    align-items: center;
 }
 
 .reaction-emojis img {
@@ -257,6 +235,8 @@ body{
     background-color: rgb(232, 232, 232);
     border-radius: 50%;
     border: 1px solid rgb(220, 220, 220);
+
+    margin-left: -7px;
 }
 
 .reaction-emojis:hover {
@@ -273,8 +253,6 @@ body{
 }
 
 .reactions-number {
-    position: relative;
-    right: 30px;
     transition: transform 0.3s;
 }
 

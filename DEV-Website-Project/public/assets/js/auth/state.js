@@ -1,10 +1,7 @@
-
-// This event listener ensures all our scripts run only after the html document
-// has been loaded and parsed. This is the main container for all global UI logic.
-document.addEventListener('DOMContentLoaded', () => {
-    // -- 1. DOM ELEMENT SELECTIONS (for all features in this file) ---
-
-    // Auth State Elements:
+// Handles all logic related to authentication status and the navbar UI.
+// Selects elements, checks for a token, shows/hides buttons, and add logout listener. 
+async function initializeAuthState() {
+    // -- Select ONLY the elements neededs for auth IU ---
 
     // Guest Buttons
     const loginButton = document.getElementById('login-button');
@@ -13,19 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const createPostButton = document.getElementById('create-post-button');
     const profileDropdownContainer = document.getElementById('profile-dropdown-container'); // The whole dropdown div
     const logoutLink = document.getElementById('logout-link'); // The "Sign Out" link inside the dropdown
+    const navbarAvatar = document.getElementById('navbar-profile-picture');
+    const navbarName = document.getElementById('profile-navbar-name');
+    const navbarUsername = document.getElementById('profile-navbar-username');
+    const navbarProfileLink = document.getElementById('profile-navbar-link');
 
-
-    // Live Search Elements:
-    const searchForm = document.getElementById('search-container');
-    const searchInput = document.getElementById('search-box');
-    const searchResultsDropdown = document.getElementById('search-results-dropdown');
-
-
-    // --- 2. AUTHENTICATION STATE & UI UPDATES ---
-
-    // localStorage is browser storage that persists even after the browser is closed.
-    // We stored our JWT here after a successful login/signup.
-    
     const token = localStorage.getItem('authToken');
 
     if (token) {
@@ -39,6 +28,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (createPostButton) createPostButton.style.display = 'block';
         if (profileDropdownContainer) profileDropdownContainer.style.display = 'block';
 
+        // Fetch the user data to populate the navbar
+        try {
+            const response = await fetch('/api/users/me', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (!response.ok) {
+                console.error('Token is invalid or expired. Logging out.');
+                localStorage.removeItem('authToken');
+                return initializeAuthState(); // Re-run to update UI to looged-out state
+            }
+
+            const { user } = await response.json();
+
+            // Populate the navbar elements
+            if (navbarAvatar && user.profilePictureUrl) navbarAvatar.src = user.profilePictureUrl;
+            if (navbarName) navbarName.textContent = user.name;
+            if (navbarUsername) navbarUsername.textContent = `@${user.username}`;
+            // Construct the URL using the user's unique ID (_id)
+            if (navbarProfileLink) {
+                navbarProfileLink.href = `/profile-page.html?id=${user._id}`;
+            }
+
+        } catch (error) {
+            console.error('Failed to fetch user data for navbar:', error);
+        }
     } else {
         // --- USER IS NOT LOGGED IN (GUEST) ---
 
@@ -66,10 +81,19 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/index.html';
         });
     }
+}
 
 
-    // --- 3. LIVE SEARCH DROPDOWN LOGIC ---
-    // This is the new logic for the search bar functionality.
+// Handles all logic related to the live search bar in the header.
+// Selects elements, defines helpers, and attaches listeners.
+function initializeSearch() {
+    // -- Select ONLY the elements needed for search ---
+    const searchForm = document.getElementById('search-container');
+    const searchInput = document.getElementById('search-box');
+    const searchResultsDropdown = document.getElementById('search-results-dropdown');
+
+    // If any search element is missing, don't proceed.
+    if (!searchForm || !searchInput || !searchResultsDropdown) return;
 
     // A) Debounce Helper Function (to prevent API spam)
     function debounce(func, delay = 300) {
@@ -141,6 +165,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+}
+
+// --- Main Entry Point --- 
+// This event listener ensures all our scripts run only after the HTML document is ready.
+document.addEventListener('DOMContentLoaded', () => {
+    // Call the functions to initialize the feature.
+    initializeAuthState();
+    initializeSearch();
 });
 
-// --------------------------------------------------------------------------------------
+    

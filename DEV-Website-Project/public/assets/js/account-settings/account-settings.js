@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userSkillsInput = document.getElementById('userSkills')
     const userWorkInput = document.getElementById('userWork');
     const userEducationInput = document.getElementById('userEducation');
+    const usernameHeading = document.getElementById('settings-username-heading');
 
     // --- Function to pre-fill the form with existing user data ---
     async function populateForm() {
@@ -36,6 +37,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const { user } = await response.json();
+
+            // Update the heading to display the logged-in user's username
+            if (usernameHeading) {
+                usernameHeading.textContent = `@${user.username}`;
+            }
 
             // Populate the profile image display
             if (userDisplayedProfileImage && user.profilePictureUrl) {
