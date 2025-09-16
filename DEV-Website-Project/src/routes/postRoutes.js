@@ -62,7 +62,7 @@ router.get('/', async (req, res, next) => {
         const posts = await Post.find()
         .sort({ createdAt: -1 }) // Sort by creation date, newest first
         .limit(limit) // Apply the limit
-        .populate('author', 'username name profilePictureUrl'); // .populate() will replace the 'author' ObjectId with actual the user documents fields specified
+        .populate('author', 'username name profilePictureUrl bio location education work createdAt'); // .populate() will replace the 'author' ObjectId with actual the user documents fields specified
 
         res.status(200).json(posts);
     } catch (error) {

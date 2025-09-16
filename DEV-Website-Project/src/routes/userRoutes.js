@@ -126,7 +126,7 @@ router.get('/:userId/posts', async (req, res, next) => {
         // Find all posts where the 'author' field matches the userId
         let query = Post.find({ author: userId })
             .sort( { createdAt: -1 }) // Sort by newest first
-            .populate('author', 'username name profilePictureUrl');
+            .populate('author', 'username name profilePictureUrl bio location education work createdAt');
         
         // If a valid limit was provided in the URL, apply it to the query
         if (limit > 0) {
