@@ -36,11 +36,7 @@ body{
     border-width: 2px !important;
     box-shadow: 0.2px 0.2px 0.2px 1px rgb(49, 108, 244);
   }
-  /* Adjust the length of the search bar: */
-  #search-container {
-   
-  }
-  
+
   /* Add hover styling effects on hover to 'login-button': */
   #login-button:hover {
     background-color: rgb(235, 236, 251);
@@ -295,9 +291,6 @@ body{
 @media only screen and (max-width: 1023px) {
     #right-sidebar {
         display: none;
-    }
-    #search-container {
-        margin-right: 2rem !important;
     }
     .post-test--title h1 {
         font-size: 40px !important;

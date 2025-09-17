@@ -1,12 +1,15 @@
-// Handles all logic related to authentication status and the navbar UI.
-// Selects elements, checks for a token, shows/hides buttons, and add logout listener. 
-async function initializeAuthState() {
-    // -- Select ONLY the elements neededs for auth IU ---
 
-    // Guest Buttons
+// --- Main Entry Point ---
+// This event listener ensures all our scripts run only after the HTML document is ready.
+// All our logic will be contained inside this block.
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- 1. DOM ELEMENT SELECTIONS ---
+    // All element selections are grouped together at the top for clarity and efficiency.
+
+    // Auth State Elements
     const loginButton = document.getElementById('login-button');
     const createAccountButton = document.getElementById('create-account-button');
-    // Logged-in User Buttons/Elements
     const createPostButton = document.getElementById('create-post-button');
     const profileDropdownContainer = document.getElementById('profile-dropdown-container'); // The whole dropdown div
     const logoutLink = document.getElementById('logout-link'); // The "Sign Out" link inside the dropdown
@@ -15,87 +18,18 @@ async function initializeAuthState() {
     const navbarUsername = document.getElementById('profile-navbar-username');
     const navbarProfileLink = document.getElementById('profile-navbar-link');
 
-    const token = localStorage.getItem('authToken');
-
-    if (token) {
-        // --- USER IS LOGGED IN ---
-        
-        // Hide the buttons for guests
-        if (loginButton) loginButton.style.display = 'none';
-        if (createAccountButton) createAccountButton.style.display = 'none';
-
-        // Show the buttons and elements for logged-in users
-        if (createPostButton) createPostButton.style.display = 'block';
-        if (profileDropdownContainer) profileDropdownContainer.style.display = 'block';
-
-        // Fetch the user data to populate the navbar
-        try {
-            const response = await fetch('/api/users/me', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (!response.ok) {
-                console.error('Token is invalid or expired. Logging out.');
-                localStorage.removeItem('authToken');
-                return initializeAuthState(); // Re-run to update UI to looged-out state
-            }
-
-            const { user } = await response.json();
-
-            // Populate the navbar elements
-            if (navbarAvatar && user.profilePictureUrl) navbarAvatar.src = user.profilePictureUrl;
-            if (navbarName) navbarName.textContent = user.name;
-            if (navbarUsername) navbarUsername.textContent = `@${user.username}`;
-            // Construct the URL using the user's unique ID (_id)
-            if (navbarProfileLink) {
-                navbarProfileLink.href = `/profile-page.html?id=${user._id}`;
-            }
-
-        } catch (error) {
-            console.error('Failed to fetch user data for navbar:', error);
-        }
-    } else {
-        // --- USER IS NOT LOGGED IN (GUEST) ---
-
-        // Show the buttons for guests
-        if (loginButton) loginButton.style.display = 'block';
-        if (createAccountButton) createAccountButton.style.display = 'block';
-
-        // Hide the buttons and elements for logged-in users
-        if (createPostButton) createPostButton.style.display = 'none';
-        if (profileDropdownContainer) profileDropdownContainer.style.display = 'none';
-    }
-
-    // Add Logout Functionality
-    // We only need to add this listener if the logout link is actually on the page
-    // (which it will be if the user is logged in)
-    if (logoutLink) {
-        logoutLink.addEventListener('click', (event) => {
-            // Prevent the link's default behavior of trying to navigate to '#'
-            event.preventDefault();
-            // Clear the token from localStorage - this effectively logs the user out
-            localStorage.removeItem('authToken');
-            // Give user feedback
-            alert('You have been logged out.');
-            // Redirect the user to the homepage
-            window.location.href = '/index.html';
-        });
-    }
-}
-
-
-// Handles all logic related to the live search bar in the header.
-// Selects elements, defines helpers, and attaches listeners.
-function initializeSearch() {
-    // -- Select ONLY the elements needed for search ---
-    const searchForm = document.getElementById('search-container');
+    // Live Search Elements
+    const searchContainer = document.getElementById('search-container');
     const searchInput = document.getElementById('search-box');
     const searchResultsDropdown = document.getElementById('search-results-dropdown');
 
-    // If any search element is missing, don't proceed.
-    if (!searchForm || !searchInput || !searchResultsDropdown) return;
+    // Responsive Navbar Elements
+    const websiteLogoIcon = document.getElementById('website-logo');
+    const profileDropdownButton = document.getElementById('profileDropdown');
 
-    // A) Debounce Helper Function (to prevent API spam)
+
+    // --- 2. HELPER FUNCTION DEFINITIONS (for search logic) ---
+    // Debounce Helper Function (to prevent API spam)
     function debounce(func, delay = 300) {
         let timeout;
         return (...args) => {
@@ -105,8 +39,7 @@ function initializeSearch() {
             }, delay);
         };
     }
-
-    // B) Function to render search results in the dropdown
+    // Function to render search results in the dropdown
     function renderResults(posts, container) {
         if (!container) return; // Defensive check
         container.innerHTML = '';
@@ -125,8 +58,7 @@ function initializeSearch() {
             container.appendChild(resultItem);
         });
     }
-
-    // C) Main Function to perform the search fetch
+    // Main Function to perform the search fetch
     async function performSearch(query) {
         if (!searchResultsDropdown) return;
 
@@ -146,8 +78,86 @@ function initializeSearch() {
         }
     }
 
-    // D) Attach Event Listeners for Search
-    if (searchInput && searchResultsDropdown) {
+    // --- 3. MAIN INITIALIZATION LOGIC ---
+
+    // A) Handles all logic related to authentication status and the navbar UI.
+    async function initializeAuthState() {
+
+
+        const token = localStorage.getItem('authToken');
+
+        if (token) {
+            // --- USER IS LOGGED IN ---
+            
+            // Hide the buttons for guests
+            if (loginButton) loginButton.style.display = 'none';
+            if (createAccountButton) createAccountButton.style.display = 'none';
+
+            // Show the buttons and elements for logged-in users
+            if (createPostButton) createPostButton.style.display = 'block';
+            if (profileDropdownContainer) profileDropdownContainer.style.display = 'block';
+
+            // Fetch the user data to populate the navbar
+            try {
+                const response = await fetch('/api/users/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) {
+                    console.error('Token is invalid or expired. Logging out.');
+                    localStorage.removeItem('authToken');
+                    return initializeAuthState(); // Re-run to update UI to looged-out state
+                }
+
+                const { user } = await response.json();
+
+                // Populate the navbar elements
+                if (navbarAvatar && user.profilePictureUrl) navbarAvatar.src = user.profilePictureUrl;
+                if (navbarName) navbarName.textContent = user.name;
+                if (navbarUsername) navbarUsername.textContent = `@${user.username}`;
+                // Construct the URL using the user's unique ID (_id)
+                if (navbarProfileLink) {
+                    navbarProfileLink.href = `/profile-page.html?id=${user._id}`;
+                }
+
+            } catch (error) {
+                console.error('Failed to fetch user data for navbar:', error);
+            }
+        } else {
+            // --- USER IS NOT LOGGED IN (GUEST) ---
+
+            // Show the buttons for guests
+            if (loginButton) loginButton.style.display = 'block';
+            if (createAccountButton) createAccountButton.style.display = 'block';
+
+            // Hide the buttons and elements for logged-in users
+            if (createPostButton) createPostButton.style.display = 'none';
+            if (profileDropdownContainer) profileDropdownContainer.style.display = 'none';
+        }
+
+        // Add Logout Functionality
+        // We only need to add this listener if the logout link is actually on the page
+        // (which it will be if the user is logged in)
+        if (logoutLink) {
+            logoutLink.addEventListener('click', (event) => {
+                // Prevent the link's default behavior of trying to navigate to '#'
+                event.preventDefault();
+                // Clear the token from localStorage - this effectively logs the user out
+                localStorage.removeItem('authToken');
+                // Give user feedback
+                alert('You have been logged out.');
+                // Redirect the user to the homepage
+                window.location.href = '/index.html';
+            });
+        }
+    }
+
+
+    // B) Handles all logic related to the live search bar in the header.
+    function initializeSearch() {
+
+        // If any search element is missing, don't proceed.
+        if (!searchContainer || !searchInput || !searchResultsDropdown) return;
         const debouncedSearch = debounce(performSearch);
 
         searchInput.addEventListener('input', () => debouncedSearch(searchInput.value.trim()));
@@ -160,19 +170,61 @@ function initializeSearch() {
 
         // Hide dropdown when clicking outside
         document.addEventListener('click', (event) => {
-            if (!searchForm.contains(event.target)) {
+            if (!searchContainer.contains(event.target)) {
                 searchResultsDropdown.style.display = 'none';
             }
         });
+        
     }
-}
 
-// --- Main Entry Point --- 
-// This event listener ensures all our scripts run only after the HTML document is ready.
-document.addEventListener('DOMContentLoaded', () => {
-    // Call the functions to initialize the feature.
+    // C) Handles all logic related to the responsive navbar layout.
+    function updateNavbarLayout() {
+        // Defensive check to ensure elements exist
+        if (!websiteLogoIcon || !profileDropdownButton || !searchContainer || !createPostButton || !createAccountButton) return;
+        
+        const width = window.innerWidth; 
+        
+        if (width < 768) {
+            // On small screens, hide the search bar
+            searchContainer.classList.add('d-none');
+            searchContainer.classList.remove('d-flex');
+            // Move the ceate post/login buttons to make up remaining space
+            createPostButton.classList.add('ms-auto');
+            if (loginButton) loginButton.classList.add('ms-auto');
+        } else if (width < 1023) {
+            // On medium screens, show search and adjust margins
+            searchContainer.classList.add('d-flex');
+            searchContainer.classList.remove('d-none');
+            createPostButton.classList.remove('ms-auto');
+            if (loginButton) loginButton.classList.remove('ms-auto');
+            websiteLogoIcon.classList.add('ms-2');
+            websiteLogoIcon.classList.remove('ms-5');
+            profileDropdownButton.classList.add('me-2');
+            profileDropdownButton.classList.remove('me-5');
+            createAccountButton.classList.add('me-2');
+            createAccountButton.classList.remove('me-5');
+        } else {
+            // On large screens, revert to original wider magins
+            searchContainer.classList.add('d-flex');
+            searchContainer.classList.remove('d-none');
+            createPostButton.classList.remove('ms-auto');
+            if (loginButton) loginButton.classList.remove('ms-auto'); // Fix a redundant line from your original code
+            websiteLogoIcon.clasList.add('ms-5');
+            websiteLogoIcon.classList.remove('ms-2');
+            profileDropdownButton.classList.add('me-5');
+            profileDropdownButton.classList.remove('me-2');
+            createAccountButton.classList.add('me-5');
+            createAccountButton.classList.remove('me-2');
+        }
+    }
+    
+    // --- 4. INITIAL EXECUTION ---
+    // Call the functions to initialize each feature.
     initializeAuthState();
     initializeSearch();
+    updateNavbarLayout(); // Call once on page load to set initial state
+    window.addEventListener('resize', updateNavbarLayout); // Call again on window resize
 });
+
 
     

@@ -222,9 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to resize width of elements based on screen size
-    function updateClassBasedOnWidth() {
+    function updatePostContainerLayout() {
         // Defensive check
-        if (!postContainer || !websiteLogoIcon || !profileDropdownButton || !searchContainer || !createPostButton || !postAuthorContainer || !loginButton || !createAccountButton ) return;
+        if (!postContainer || !postAuthorContainer) return;
 
         const width = window.innerWidth;
         
@@ -233,40 +233,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(width < 768) {
             postContainer.classList.add('col-12');
-            searchContainer.classList.add('d-none');
-            searchContainer.classList.remove('d-flex');
-            createPostButton.classList.add('ms-auto');
-            loginButton.classList.add('ms-auto');
             postAuthorContainer.classList.add('mb-4');
             postAuthorContainer.classList.remove('mb-5');
         } else if (width < 1023) {
             postContainer.classList.add('col-11');
-            searchContainer.classList.add('d-flex');
-            searchContainer.classList.remove('d-none');
-            createPostButton.classList.remove('ms-auto');
-            loginButton.classList.remove('ms-auto');
-            postAuthorContainer.classList.add('mb-5');
-            postAuthorContainer.classLlist.remove('mb-4');
-            websiteLogoIcon.classList.add('ms-2');
-            websiteLogoIcon.classList.remove('ms-5');
-            profileDropdownButton.classList.add('me-2');
-            profileDropdownButton.classList.remove('me-5');
-            createAccountButton.classList.add('me-2');
-            createAccountButton.classList.remove('me-5');
-        } else {
-            postContainer.classList.add('col-8');
-            searchContainer.classList.add('d-flex');
-            searchContainer.classList.remove('d-none');
-            createPostButton.classList.remove('ms-auto');
-            createPostButton.classList.remove('ms-auto');
             postAuthorContainer.classList.add('mb-5');
             postAuthorContainer.classList.remove('mb-4');
-            websiteLogoIcon.classList.add('ms-5');
-            websiteLogoIcon.classList.remove('ms-2');
-            profileDropdownButton.classList.add('me-5');
-            profileDropdownButton.classList.remove('me-2');
-            createAccountButton.classList.add('me-5');
-            createAccountButton.classList.remove('me-2');
+        } else {
+            postContainer.classList.add('col-8');
+            postAuthorContainer.classList.add('mb-5');
+            postAuthorContainer.classList.remove('mb-4');
         }
         
     }
@@ -661,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // D) --- Responsive Element Resizing ---
     // This listener calls your functions every time the browser window is resized.
-    window.addEventListener('resize', updateClassBasedOnWidth);
+    window.addEventListener('resize', updatePostContainerLayout);
 
     // E) --- Event listener for submitting a new comment ---
     if (newCommentForm) {
@@ -750,7 +726,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePromotedCompanyName();
 
     // Call this function once to set the correct element sized based on screen size.
-    updateClassBasedOnWidth();
+    updatePostContainerLayout();
 
     // Call our main fetch function to make the page dynamic
     fetchAndRenderPost();
