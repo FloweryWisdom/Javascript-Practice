@@ -1,5 +1,5 @@
 
-// --- Main Entry Point ---
+// --- Main Entry Point ----
 // This event listener ensures all our scripts run only after the HTML document is ready.
 // All our logic will be contained inside this block.
 document.addEventListener('DOMContentLoaded', () => {
