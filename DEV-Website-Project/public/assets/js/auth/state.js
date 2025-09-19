@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchContainer.classList.remove('d-none');
             createPostButton.classList.remove('ms-auto');
             if (loginButton) loginButton.classList.remove('ms-auto'); // Fix a redundant line from your original code
-            websiteLogoIcon.clasList.add('ms-5');
+            websiteLogoIcon.classList.add('ms-5');
             websiteLogoIcon.classList.remove('ms-2');
             profileDropdownButton.classList.add('me-5');
             profileDropdownButton.classList.remove('me-2');
