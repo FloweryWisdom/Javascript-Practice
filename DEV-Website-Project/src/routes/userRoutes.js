@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
+const sanitizeHtml = require('sanitize-html');
 const Post = require('../models/Post'); // We need the Post model
 const User = require('../models/User'); // We need the User model too
 const Comment = require('../models/Comment');
@@ -44,7 +45,16 @@ router.patch('/me', authMiddleware, async (req, res, next) => {
         const updateData = {};
         for (const key in updates) {
             if (allowedUpdates.includes(key)) {
-                updateData[key] = updates[key]
+                // Sanitize string inputs, but leave non-strings (like booleans) alone
+                if (typeof updates[key] === 'string') {
+                    // This strips all HTML tags, preventing XSS
+                    updateData[key] = sanitizeHtml(updates[key], {
+                        allowedTags: [],
+                        allowedAttributes: {}
+                    });
+                } else {
+                    updateData[key] = updates[key];
+                }
             }
         }
 

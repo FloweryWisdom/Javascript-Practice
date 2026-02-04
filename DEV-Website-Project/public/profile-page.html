@@ -12,7 +12,7 @@
     <header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;">
         <nav class="navbar navbar-expand-lg bg-body-tertiary p-0" style="box-sizing: border-box;">
             <div class="container-fluid d-flex align-items-center" style="height: 66px !important; flex-wrap: nowrap; background-color: white;">
-                <a id="website-logo" href="./index.html" class="navbar-brand p-0 d-flex align-items-center ms-5">
+                <a id="website-logo" href="./index.html" class="navbar-brand p-0 d-flex align-items-center">
                     <img src="./assets/images/create-account/dev-logo.png" alt="" width="50px" height="40px"  class="d-inline-block align-text-top">
                 </a>
                 <form id="search-container"  class="d-flex me-auto align-items-center" role="search" action="" style="position: relative; max-width: 680px; width: 100%;">
@@ -24,7 +24,7 @@
                 <a id="create-account-button" href="./create-account.html" class="btn" style="color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create account</a>
                 <a id="create-post-button" href="./create-post.html" class="btn ms-3" style="display: none; color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create post</a>
                 <div id="profile-dropdown-container" class="dropdown" style="display: none;">
-                    <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-3 btn dropdown-toggle p-0 me-5" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
+                    <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-3 btn dropdown-toggle p-0" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
                         <img id="navbar-profile-picture" src="#" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="profileDropdown" style="width: 220px;">
@@ -52,10 +52,10 @@
             <div class="row gx-4">
 
 
-                <div class="col-md-1"></div>
+                <div class="d-none d-md-block col-md-1"></div>
 
-                <div class="col-md-10">
-                    <div class="card user-profile-card";">
+                <div class="col-12 col-md-10">
+                    <div class="card user-profile-card">
                         <div class="profile-banner bg-dark rounded-top" style="height: 100px;"></div>
                         <div class="card-body pt-0 text-center">
                             <div class="profile-avatar-wrapper" style="margin-top: -50px; margin-bottom: 1rem;">
@@ -93,8 +93,8 @@
                             </div>
                         </div>
                     </div>
-                    <div id="user-data-container" class="d-flex gap-3">
-                        <div id="profile-information-container" class="mt-3" style="width: 30%;">
+                    <div id="user-data-container" class="row gx-4">
+                        <div id="profile-information-container" class="col-12 col-md-4 mt-3 d-none d-md-block">
                             <div class="card p-3">
                                 <h5 class="card-title">Skills/Languages</h5>
                                 <p id="profile-skills"></p>
@@ -114,7 +114,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div id="profile-posts-container" class="mt-3" style="width: 70%;">
+                        <div id="profile-posts-container" class="col-12 col-md-8 mt-3">
                             <div class="post-card card rounded">
                                 <div class="post-card-body p-3">
                                     <div class="post-card-user-info d-flex gap-2">
@@ -182,7 +182,7 @@
                     <!-- #user-data-container ends here-->
                 </div>
 
-                <div class="col-md-1"></div>
+                <div class="d-none d-md-block col-md-1"></div>
             </div>
         </div>
     </main>

@@ -2,13 +2,11 @@
 body {
     background-color: rgb(245, 245, 245);
     font-size: 16px;
-    margin-left: 1rem;  
     box-sizing: border-box;
 }
 
 html, body {
     min-height: 100vh;
-    min-width: 99vw;
     margin: 0;
     box-sizing: border-box;
 }
@@ -96,6 +94,7 @@ input:focus, textarea:focus {
 
     #post-title {
         margin-bottom: 0rem !important;
+        font-size: 30px !important;
     }
 
     #post-image-url,  #post-title, #post-tags, #post-content {

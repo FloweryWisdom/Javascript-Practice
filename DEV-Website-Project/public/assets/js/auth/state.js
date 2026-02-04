@@ -184,37 +184,39 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const width = window.innerWidth; 
         
+        // RESET all responsive maring/display classes first
+        // This is the most robust way to prevent class conflicts
+        websiteLogoIcon.classList.remove('ms-2', 'ms-5');
+        profileDropdownButton.classList.remove('ms-0', 'me-2', 'me-5');
+        createAccountButton.classList.remove('me-2', 'me-5');
+        loginButton.classList.remove('ms-auto', 'ms-2', 'ms-5');
+        createPostButton.classList.remove('ms-auto');
+        searchContainer.classList.remove('d-none', 'd-flex');
+
+
         if (width < 768) {
             // On small screens, hide the search bar
             searchContainer.classList.add('d-none');
-            searchContainer.classList.remove('d-flex');
-            // Move the ceate post/login buttons to make up remaining space
             createPostButton.classList.add('ms-auto');
-            if (loginButton) loginButton.classList.add('ms-auto');
+            loginButton.classList.add('ms-auto');
+            // Explicitly set the small screen margins
+            websiteLogoIcon.classList.add('ms-2');
+            profileDropdownButton.classList.add('me-2');
+            createAccountButton.classList.add('me-2');
         } else if (width < 1023) {
             // On medium screens, show search and adjust margins
             searchContainer.classList.add('d-flex');
-            searchContainer.classList.remove('d-none');
-            createPostButton.classList.remove('ms-auto');
-            if (loginButton) loginButton.classList.remove('ms-auto');
             websiteLogoIcon.classList.add('ms-2');
-            websiteLogoIcon.classList.remove('ms-5');
             profileDropdownButton.classList.add('me-2');
-            profileDropdownButton.classList.remove('me-5');
             createAccountButton.classList.add('me-2');
-            createAccountButton.classList.remove('me-5');
+            loginButton.classList.add('ms-2');
         } else {
             // On large screens, revert to original wider magins
             searchContainer.classList.add('d-flex');
-            searchContainer.classList.remove('d-none');
-            createPostButton.classList.remove('ms-auto');
-            if (loginButton) loginButton.classList.remove('ms-auto'); // Fix a redundant line from your original code
             websiteLogoIcon.classList.add('ms-5');
-            websiteLogoIcon.classList.remove('ms-2');
             profileDropdownButton.classList.add('me-5');
-            profileDropdownButton.classList.remove('me-2');
             createAccountButton.classList.add('me-5');
-            createAccountButton.classList.remove('me-2');
+            loginButton.classList.add('ms-5');
         }
     }
     

@@ -24,7 +24,7 @@
                 <a id="create-account-button" href="./create-account.html" class="btn" style="color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create account</a>
                 <a id="create-post-button" href="./create-post.html" class="btn ms-3" style="display: none; color: rgb(49, 108, 244); border-width: 1px; border-color: rgb(49, 108, 244); min-width: 140px;">Create post</a>
                 <div id="profile-dropdown-container" class="dropdown" style="display: none;">
-                    <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-3 btn dropdown-toggle p-0 me-5" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
+                    <button type="button" id="profileDropdown" data-bs-toggle="dropdown" class="rounded-circle ms-3 btn dropdown-toggle p-0" style="border-radius: 50%; border: 1px solid grey; overflow: hidden; height: 40px; width: 40px; aspect-ratio: 1 / 1; flex-shrink: 0;">
                         <img id="navbar-profile-picture" src="./assets/images/home/main/profile-picture-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow rounded" aria-labelledby="profileDropdown" style="width: 220px;">
@@ -47,166 +47,171 @@
         </nav>
     </header>
 
-    <main class="row d-flex" style="height: auto;">
-
-        <div id="left-sidebar" class="col-4 py-4" style="background-color: rgb(246, 246, 246)">
-            <div class="list-group list-group-flush">
-
-                <a href="#" class="list-group-item list-group-item-action active rounded" aria-current="true">
-                    <div class="d-flex w-100 align-items-center">
-                        <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/happy-face.svg" alt=""></span>
-                        <span class="fw-bold">Profile</span>
-                    </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action rounded">
-                    <div class="d-flex w-100 align-items-center">
-                        <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/customization.svg" alt=""></span>
-                        <span class="fw-bold">Customization</span>
-                    </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action rounded">
-                    <div class="d-flex w-100 align-items-center">
-                        <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/mailbox.svg" alt=""></span>
-                        <span class="fw-bold">Notifications</span>
-                    </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action rounded">
-                    <div class="d-flex w-100 align-items-center">
-                        <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/leaf.svg" alt=""></span>
-                        <span class="fw-bold">Account</span>
-                    </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action rounded">
-                    <div class="d-flex w-100 align-items-center">
-                        <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/organization.svg" alt=""></span>
-                        <span class="fw-bold">Orgainization</span>
-                    </div>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action rounded">
-                    <div class="d-flex w-100 align-items-center">
-                        <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/lightning.svg" alt=""></span>
-                        <span class="fw-bold">Extension</span>
-                    </div>
-                </a>   
-
-            </div>            
-        </div>
+    <main style="height: auto;">
 
 
-        <div id="account-settings" class="col-6" style="background-color: rgb(246, 246, 246);">
-            <h1 id="settings-username-heading" class="text-primary">@flowerywisdom</h1>
-            <form id="settingsForm" action="">
+        <div class="container py-4">
+            <div class="row d-flex" >
+                <div id="left-sidebar" class="col-md-5 col-lg-4 py-4 d-none d-md-block" style="background-color: rgb(246, 246, 246)">
+                    <div class="list-group list-group-flush">
 
-                <div class="card mb-4">
-                    
-                    <div class="card-header">
-                        <h3 class="h5 mb-0">User</h3>
-                    </div>
+                        <a href="#" class="list-group-item list-group-item-action active rounded" aria-current="true">
+                            <div class="d-flex w-100 align-items-center">
+                                <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/happy-face.svg" alt=""></span>
+                                <span class="fw-bold">Profile</span>
+                            </div>
+                        </a>
 
-                    <div class="card-body">
+                        <a href="#" class="list-group-item list-group-item-action rounded">
+                            <div class="d-flex w-100 align-items-center">
+                                <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/customization.svg" alt=""></span>
+                                <span class="fw-bold">Customization</span>
+                            </div>
+                        </a>
 
-                        <div class="mb-3">
-                            <label for="userName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="userName" value="Gerardo Arce">
-                        </div>
+                        <a href="#" class="list-group-item list-group-item-action rounded">
+                            <div class="d-flex w-100 align-items-center">
+                                <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/mailbox.svg" alt=""></span>
+                                <span class="fw-bold">Notifications</span>
+                            </div>
+                        </a>
 
-                        <div class="mb-3">
-                            <label for="userEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="userEmail" value="gerardo@mail.com">
-                        </div>
+                        <a href="#" class="list-group-item list-group-item-action rounded">
+                            <div class="d-flex w-100 align-items-center">
+                                <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/leaf.svg" alt=""></span>
+                                <span class="fw-bold">Account</span>
+                            </div>
+                        </a>
 
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="" id="displayEmailCheck">
-                            <label for="form-check-label" for="displayEmailCheck">
-                                Display email on profile
-                            </label>
-                        </div>
+                        <a href="#" class="list-group-item list-group-item-action rounded">
+                            <div class="d-flex w-100 align-items-center">
+                                <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/organization.svg" alt=""></span>
+                                <span class="fw-bold">Orgainization</span>
+                            </div>
+                        </a>
 
-                        <div class="mb-3">
-                            <label for="userUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="userUsername" value="flowerywisdom">
-                        </div>
+                        <a href="#" class="list-group-item list-group-item-action rounded">
+                            <div class="d-flex w-100 align-items-center">
+                                <span style="font-size: 1.5rem; margin-right: 1rem;"><img src="./assets/images/account-settings/lightning.svg" alt=""></span>
+                                <span class="fw-bold">Extension</span>
+                            </div>
+                        </a>   
 
-                        <div>
-                            <label for="userProfileImage" class="form-label">Profile image</label>
-                            <div class="d-flex align-items-center">
-                                <img id="displayedProfileImage" src="./assets/images/home/main/profile-picture-2.webp" alt="Current profile image" class="rounded-circle me-3" style="width: 48px; height: 48px;">
-                                <input class="form-control" type="url" id="userProfileImage">
+                    </div>            
+                </div>
+
+
+
+               <div id="account-settings" class="col-12 col-md-7 col-lg-6" style="background-color: rgb(246, 246, 246);">
+                    <h1 id="settings-username-heading" class="text-primary">@flowerywisdom</h1>
+                    <form id="settingsForm" action="">
+
+                        <div class="card mb-4">
+                            
+                            <div class="card-header">
+                                <h3 class="h5 mb-0">User</h3>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="mb-3">
+                                    <label for="userName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="userName" value="Gerardo Arce">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="userEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="userEmail" value="gerardo@mail.com">
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="displayEmailCheck">
+                                    <label for="form-check-label" for="displayEmailCheck">
+                                        Display email on profile
+                                    </label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="userUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="userUsername" value="flowerywisdom">
+                                </div>
+
+                                <div>
+                                    <label for="userProfileImage" class="form-label">Profile image</label>
+                                    <div class="d-flex align-items-center">
+                                        <img id="displayedProfileImage" src="./assets/images/home/main/profile-picture-2.webp" alt="Current profile image" class="rounded-circle me-3" style="width: 48px; height: 48px;">
+                                        <input class="form-control" type="url" id="userProfileImage">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
-                    </div>
-                </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="h5 mb-0">Basic</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="userWebsite" class="form-label">Website URL</label>
+                                    <input type="url" class="form-control" id="userWebsite" placeholder="https://yoursite.com">
+                                    <div class="form-text text-end">0/100</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userLocation" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="userLocation" value="your mom, USA">
+                                    <div class="form-text text-end">0/100</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userBio" class="form-label">Bio</label>
+                                    <textarea class="form-control" id="userBio" rows="4">Hello</textarea>
+                                    <div class="form-text text-end">5/100</div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3 class="h5 mb-0">Basic</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="userWebsite" class="form-label">Website URL</label>
-                            <input type="url" class="form-control" id="userWebsite" placeholder="https://yoursite.com">
-                            <div class="form-text text-end">0/100</div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="h5 mb-0">Coding</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="userSkills" class="form-label">Skills/Languages</label>
+                                    <textarea class="form-control" id="userSkills" rows="2">JavaScript</textarea>
+                                    <div class="form-text text-end">10/200</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="userLocation" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="userLocation" value="your mom, USA">
-                            <div class="form-text text-end">0/100</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="userBio" class="form-label">Bio</label>
-                            <textarea class="form-control" id="userBio" rows="4">Hello</textarea>
-                            <div class="form-text text-end">5/100</div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3 class="h5 mb-0">Coding</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="userSkills" class="form-label">Skills/Languages</label>
-                            <textarea class="form-control" id="userSkills" rows="2">JavaScript</textarea>
-                            <div class="form-text text-end">10/200</div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h3 class="h5 mb-0">Work</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="userWork" class="form-label">Work</label>
+                                    <input type="text" class="form-control" id="userWork" placeholder="What do you do? Example: CEO at ACME Inc.">
+                                    <div class="form-text text-end">0/100</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userEducation" class="form-label">Education</label>
+                                    <input type="text" class="form-control" id="userEducation" placeholder="Where did you study?">
+                                    <div class="form-text text-end">0/100</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3 class="h5 mb-0">Work</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="userWork" class="form-label">Work</label>
-                            <input type="text" class="form-control" id="userWork" placeholder="What do you do? Example: CEO at ACME Inc.">
-                            <div class="form-text text-end">0/100</div>
+                        <div class="card card-body mb-5">
+                            <button type="submit" class="btn btn-primary">Save profile infomrmation</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="userEducation" class="form-label">Education</label>
-                            <input type="text" class="form-control" id="userEducation" placeholder="Where did you study?">
-                            <div class="form-text text-end">0/100</div>
-                        </div>
-                    </div>
-                </div>
+                    </form>
 
-                <div class="card card-body mb-5">
-                    <button type="submit" class="btn btn-primary">Save profile infomrmation</button>
+                </div> 
+                <div id="right-sidebar" class="col-lg-2 d-none d-lg-block" style="background-color: rgb(246, 246, 246);">
                 </div>
-
-               
-            </form>
+            </div>
         </div>
 
-
-        <div id="right-sidebar" class="col-2" style="background-color: rgb(246, 246, 246);"></div>
     </main>
 
     <footer>
