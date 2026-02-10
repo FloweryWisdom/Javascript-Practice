@@ -1,5 +1,6 @@
 const express = require('express');
 const createError = require('http-errors');
+const sanitizeHtml = require('sanitize-html');
 const mongoose = require('mongoose');
 
 // Import our models and middleware
@@ -20,6 +21,8 @@ router.post('/', authMiddleware, async (req, res, next) => {
         const userId = req.userId; // From authMiddleware
         const { content } = req.body;
 
+        const cleanContent = sanitizeHtml(content); 
+
         // Validation 
         if (!content) {
             return next(createError(400, 'Comment content cannot be empty.'));
@@ -30,7 +33,7 @@ router.post('/', authMiddleware, async (req, res, next) => {
 
         // --- Step 1. Create and save the new comment document first ---
         const newComment = new Comment({
-            content,
+            content: cleanContent,
             author: userId,
             post: postId
         });

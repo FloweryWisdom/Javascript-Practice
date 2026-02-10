@@ -7,7 +7,8 @@ const PORT =  process.env.PORT || 3001; //Use environment variable or default
 
 
 // --- Database Connection --- 
-mongoose.connect(process.env.MONGODB_URI)
+console.log("My URI is:", process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, { family: 4 })
     .then(() => {
         console.log('MongoDB connected succesfully!');
         // --- Start Server ONLY after DB connection is successful ---

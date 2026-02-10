@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
+const sanitizeHtml = require('sanitize-html');
 const mongoose = require("mongoose");
 
 // Import your post model
@@ -16,6 +17,10 @@ router.post('/', authMiddleware, async (req, res, next) => {
         // Data for the new posts will come from the request body
         const { title, content, imageUrl, hashtags } = req.body;
 
+        // Sanitize title and content to remove malicious HTML 
+        const cleanTitle = sanitizeHtml(title);
+        const cleanContent = sanitizeHtml(content); // Add options here if you want to allow bold/italics
+
         // Basic Validation (you can add more with libraries like express-validator)
         if (!title || !content || !imageUrl) {
             return next(createError(400, 'Title, content and image URL are required.'));
@@ -23,8 +28,8 @@ router.post('/', authMiddleware, async (req, res, next) => {
 
         // Create new post instance 
         const newPost = new Post({
-            title,
-            content,
+            title: cleanTitle,
+            content: cleanContent,
             imageUrl,
             hashtags: hashtags || [], // Ensure hashtags is an array, even if not provided
             author: req.userId // req.userId is added by your authMiddleware 
@@ -148,7 +153,12 @@ router.patch('/:postId', authMiddleware, async (req, res, next) => {
         const allowedUpdates = ['title', 'content', 'imageUrl', 'hashtags'];
         for (const key in updates) {
             if (allowedUpdates.includes(key)) {
-                post[key] = updates[key];
+                // If the field is title or content, sanitize it first!
+                if (key === 'title' || key === 'content') {
+                    post[key] = sanitizeHtml(updates[key]);
+                } else {
+                    post[key] = updates[key];
+                }
             }
         }
 

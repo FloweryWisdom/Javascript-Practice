@@ -1,4 +1,6 @@
 // src/server.js
+const helmet = require('helmet'); // For security headers
+const rateLimit = require('express-rate-limit'); // For rate limiting
 const express = require('express');
 const path = require('path'); // Needed for serving static files
 const createError = require('http-errors');
@@ -11,6 +13,21 @@ const userRoutes = require('./routes/userRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
+
+// --- Security Middleware ---
+// 1. Helmet: Sets various HTTP headers for security
+app.use(helmet());
+// 2. Rate Limiting: Limits requests to 100 per 15 minutes per IP
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 Minutes
+    max: 100, // Limit each IP to 100 requests per 'window'
+    message: 'Too many requests from this IP, please try again after 15 minutes',
+    standardHeaders: true, // Return rate limit info in the 'RateLimit-*' headers
+    legacyHeaders: false, // Disable the 'X-RateLimit/*' headers
+});
+
+// Apply the rate limiter to all requests
+app.use(limiter);
 
 // --- Core Middleware ---
 // app.use(cors()); // Apply CORS if needed, usually early
