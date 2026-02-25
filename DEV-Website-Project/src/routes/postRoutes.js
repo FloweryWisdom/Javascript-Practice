@@ -26,6 +26,11 @@ router.post('/', authMiddleware, async (req, res, next) => {
             return next(createError(400, 'Title, content and image URL are required.'));
         }
 
+        // NEW: specific URL check
+        if (!imageUrl.match(/^(http|https):\/\/[^ "]+$/)) {
+            return next(createError(400, 'Image URL must be a valid URL starting with http or https.'));
+        }
+
         // Create new post instance 
         const newPost = new Post({
             title: cleanTitle,

@@ -16,7 +16,14 @@ const app = express();
 
 // --- Security Middleware ---
 // 1. Helmet: Sets various HTTP headers for security
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "img-src": ["'self'", "data:", "https:"],
+        },
+    },
+}));
 // 2. Rate Limiting: Limits requests to 100 per 15 minutes per IP
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 Minutes
@@ -25,9 +32,15 @@ const limiter = rateLimit({
     standardHeaders: true, // Return rate limit info in the 'RateLimit-*' headers
     legacyHeaders: false, // Disable the 'X-RateLimit/*' headers
 });
+// 3. Auth Rate Limiting: Stricter limits for login/signup
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 Minutes
+    max: 10, // Limit each IP to 10 login/signup attempts per window
+    message: 'Too many login attempts, please try again after 15 minutes',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
-// Apply the rate limiter to all requests
-app.use(limiter);
 
 // --- Core Middleware ---
 // app.use(cors()); // Apply CORS if needed, usually early
@@ -36,10 +49,13 @@ app.use(express.json()); // Middleware to parse JSON bodies
 // Serve static files fromt the 'public' directory (located one level up from src)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Apply the rate limiter AFTER static files, but BEFORE your API routes
+app.use(limiter);
+
 // --- API Routes ---
 // Mount other routes here (e.g., app.use('/api/posts', postRoutes);)
 // API Route Mounting
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts/:postId/comments', commentRoutes);

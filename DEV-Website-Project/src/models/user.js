@@ -31,7 +31,8 @@ const userSchema = new Schema({
     // Store the URL
     profilePictureUrl: {
         type: String,
-        required: [true, 'Profile picture URL is required']
+        required: [true, 'Profile picture URL is required'],
+        match: [/^(http|https):\/\/[^ "]+$/, 'Please enter a valid URL starting with http:// or https://']
     },
     // ADD OTHER FIELDS AS NECESSARY
     // These are all optional strings that the user can fill out in their settings.

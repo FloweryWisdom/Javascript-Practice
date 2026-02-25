@@ -24,6 +24,12 @@ router.post('/signup', async(req, res, next) => {
         }
         // Consider adding more validation later (e.g., email format, password length)
 
+        // NEW: specific URL check 
+        if (!profilePictureUrl.match(/^(http|https):\/\/[^ "]+$/)) {
+            return next(createError(400, 'Profile picture must be a valid URL starting wiht http or https.', { field:
+                'profilePictureUrl'}));
+        }
+
         // --- Check for Existing User --- 
         // Check if email already exists
         const existingEmail = await User.findOne({ email });
