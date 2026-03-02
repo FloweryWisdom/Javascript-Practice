@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
         // Even if the bus takes 500ms to arrive, we now have the Ticket recorded.
         cached.promise = mongoose.connect(process.env.MONGODB_URI, opts).then((mongoose) => {
             console.log("The Bus has arrived at the terminal!");
-            return mongoose;
+            return mongoose; 
         });
     }
 
