@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
 
     // If the Bus is already parked at the station (cached.conn), use it immediately!
     if (cached.conn) {
-        return cached.conn; // Skip the waiting and let the user into the Express Station
+        //return cached.conn; // Skip the waiting and let the user into the Express Station
     }
 
     // 2. THE TICKET CHECK (The Promise)
