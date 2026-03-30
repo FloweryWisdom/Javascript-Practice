@@ -14,6 +14,9 @@ const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
+// Trust proxy for Vercel deployment so express-rate-limit gets the correct IP
+app.set('trust proxy', 1);
+
 // --- Security Middleware ---
 // 1. Helmet: Sets various HTTP headers for security
 app.use(helmet({
