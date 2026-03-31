@@ -2,15 +2,18 @@
 const searchIcon = document.getElementById('search-icon');
 const searchIconFile = document.getElementById('search-icon-file');
 
-// Change the image on hover: 
-searchIcon.addEventListener('mouseenter', () => {
-    searchIconFile.src = '../assets/images/create-account/search-icon-blue.svg';
-})
+if (searchIcon && searchIconFile) {
+    // Change the image on hover: 
+    searchIcon.addEventListener('mouseenter', () => {
+        searchIconFile.src = '../assets/images/create-account/search-icon-blue.svg';
+    })
 
-// Change the image back when mouse leaves: 
-searchIcon.addEventListener('mouseleave', () => {
-    searchIconFile.src = '../assets/images/create-account/search-icon.svg';
-})
+    // Change the image back when mouse leaves: 
+    searchIcon.addEventListener('mouseleave', () => {
+        searchIconFile.src = '../assets/images/create-account/search-icon.svg';
+    })
+}
+
 
 // ---1. Select necessary DOM elements ---
 // Make sure IDs match your create-account.html file
